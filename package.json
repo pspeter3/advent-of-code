@@ -1,7 +1,8 @@
 {
   "name": "advent-of-code",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "ts-node src/utils/main.ts",
+    "test": "tsc"
   },
   "repository": {
     "type": "git",
