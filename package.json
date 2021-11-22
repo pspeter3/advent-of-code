@@ -1,0 +1,11 @@
+{
+  "name": "advent-of-code",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pspeter3/advent-of-code.git"
+  },
+  "homepage": "https://github.com/pspeter3/advent-of-code#readme"
+}
