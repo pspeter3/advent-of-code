@@ -2,7 +2,7 @@
   "name": "advent-of-code",
   "scripts": {
     "fix": "prettier --write '*.md' 'src/**/*.ts'",
-    "start": "ts-node src/utils/main.ts",
+    "start": "ts-node",
     "test": "tsc"
   },
   "repository": {
