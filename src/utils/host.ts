@@ -23,7 +23,7 @@ async function solve<I, O>(
     { setup, part1, part2 }: Solution<I, O>
 ): Promise<void> {
     const contents = await fs.readFile(path.join(dirname, "input.txt"), "utf8");
-    const input = time("Setup", setup, contents);
+    const input = time("Setup", setup, contents.trimEnd());
     console.log(time("Part 1", part1, input));
     if (part2) {
         console.log(time("Part 2", part2, input));

@@ -1,13 +1,10 @@
+import { z } from "zod";
 import { main } from "../../utils/host";
 
+const schema = z.preprocess((value) => parseInt(value as string), z.number());
+
 const setup = (input: string): Uint16Array =>
-    Uint16Array.from(input.trim().split("\n"), (line, index) => {
-        const value = parseInt(line);
-        if (Number.isNaN(value)) {
-            throw new Error(`Invalid line ${index + 1}: ${line}`);
-        }
-        return value;
-    });
+    Uint16Array.from(input.split("\n"), (line) => schema.parse(line));
 
 const increasing = (values: Uint16Array): number =>
     values.reduce((sum, value, index) => {

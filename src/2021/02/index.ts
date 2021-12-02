@@ -1,3 +1,4 @@
+import { z } from "zod";
 import { main } from "../../utils/host";
 
 enum SubmarineCommand {
@@ -11,27 +12,16 @@ interface SubmarineAction {
     readonly amount: number;
 }
 
-const isSubmarineCommand = (value: string): value is SubmarineCommand =>
-    value === SubmarineCommand.Forward ||
-    value === SubmarineCommand.Down ||
-    value === SubmarineCommand.Up;
+const schema = z.tuple([
+    z.nativeEnum(SubmarineCommand),
+    z.preprocess((value) => parseInt(value as string), z.number()),
+]);
 
 const setup = (input: string): ReadonlyArray<SubmarineAction> =>
-    input
-        .trim()
-        .split("\n")
-        .map((line) => {
-            const tokens = line.split(" ");
-            const command = tokens[0];
-            if (!isSubmarineCommand(command)) {
-                throw new Error(`Invalid command ${command}`);
-            }
-            const amount = parseInt(tokens[1]);
-            if (Number.isNaN(amount)) {
-                throw new Error(`Invalid amount ${amount}`);
-            }
-            return { command, amount };
-        });
+    input.split("\n").map((line) => {
+        const [command, amount] = schema.parse(line.split(" "));
+        return { command, amount };
+    });
 
 const part1 = (actions: ReadonlyArray<SubmarineAction>): number => {
     const { position, depth } = actions.reduce(
