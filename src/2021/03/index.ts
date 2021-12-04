@@ -1,5 +1,6 @@
-import { output, z } from "zod";
+import { z } from "zod";
 import { main } from "../../utils/host";
+import { LinesSchema, StringSchema } from "../../utils/schemas";
 
 enum Bit {
     Zero = 0,
@@ -9,24 +10,21 @@ enum Bit {
 type BitString = ReadonlyArray<Bit>;
 type Counter = [zero: number, one: number];
 
-type Input = ReadonlyArray<BitString>;
-type Output = number;
-
-const schema = z.preprocess(
-    (value) => (value as string).split("").map((char) => parseInt(char)),
-    z.array(z.nativeEnum(Bit))
+const schema = LinesSchema(
+    z.preprocess(
+        (line) => StringSchema.parse(line).split(""),
+        z.array(
+            z.preprocess(
+                (char) => parseInt(StringSchema.parse(char)),
+                z.nativeEnum(Bit)
+            )
+        )
+    )
 );
 
-const decimal = (bits: BitString): number =>
-    bits.reduce(
-        (sum, bit, index) => sum + bit * Math.pow(2, bits.length - index - 1),
-        0
-    );
+const decimal = (bits: BitString): number => parseInt(bits.join(""), 2);
 
-const setup = (input: string): Input =>
-    input.split("\n").map((line) => schema.parse(line));
-
-const part1 = (input: Input): Output => {
+const part1 = (input: ReadonlyArray<BitString>): number => {
     const counters: ReadonlyArray<Counter> = Array.from(
         { length: input[0].length },
         () => [0, 0]
@@ -46,7 +44,7 @@ const part1 = (input: Input): Output => {
 };
 
 const seek = (
-    input: Input,
+    input: ReadonlyArray<BitString>,
     callback: (...values: number[]) => number,
     fallback: Bit
 ): number => {
@@ -69,10 +67,10 @@ const seek = (
     throw new Error("Could not find valid option");
 };
 
-const part2 = (input: Input): Output => {
+const part2 = (input: ReadonlyArray<BitString>): number => {
     const oxygen = seek(input, Math.max, Bit.One);
     const scrubber = seek(input, Math.min, Bit.Zero);
     return oxygen * scrubber;
 };
 
-main(module, { setup, part1, part2 });
+main(module, schema, part1, part2);

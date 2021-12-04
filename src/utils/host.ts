@@ -1,42 +1,36 @@
-import fs from "fs/promises";
+import fs from "fs";
 import path from "path";
+import { ZodType, ZodTypeDef } from "zod";
 
-export interface Solution<I, O> {
-    setup(input: string): I;
-    part1(input: I): O;
-    part2?(input: I): O;
-}
+export type Solution<T> = (data: T) => unknown;
 
 /**
- * Executes the solution if the module is main.
- * @param mod The module.
- * @param solution The solution.
+ * Times solutions
+ * @param mod The host module
+ * @param schema The Zod schema for parsing
+ * @param solutions The solutions
  */
-export function main<I, O>(mod: NodeModule, solution: Solution<I, O>): void {
+export function main<T>(
+    mod: NodeModule,
+    schema: ZodType<T, ZodTypeDef, T>,
+    ...solutions: Solution<T>[]
+): void {
     if (require.main === mod) {
-        solve(path.dirname(mod.filename), solution).catch(exit);
+        console.time("Load");
+        const input = fs.readFileSync(
+            path.join(path.dirname(mod.filename), "input.txt"),
+            "utf8"
+        );
+        console.timeEnd("Load");
+        console.time("Parse");
+        const data = schema.parse(input);
+        console.timeEnd("Parse");
+        for (const [index, solution] of solutions.entries()) {
+            const label = `Part ${index + 1}`;
+            console.time(label);
+            const result = solution(data);
+            console.timeEnd(label);
+            console.log(result);
+        }
     }
-}
-
-async function solve<I, O>(
-    dirname: string,
-    { setup, part1, part2 }: Solution<I, O>
-): Promise<void> {
-    const contents = await fs.readFile(path.join(dirname, "input.txt"), "utf8");
-    const input = time("Setup", setup, contents.trimEnd());
-    console.log(time("Part 1", part1, input));
-    if (part2) {
-        console.log(time("Part 2", part2, input));
-    }
-}
-
-function time<A, R>(label: string, callback: (args: A) => R, args: A): R {
-    console.time(label);
-    const result = callback(args);
-    console.timeEnd(label);
-    return result;
-}
-function exit(err: Error): void {
-    console.error(err);
-    process.exitCode = 1;
 }

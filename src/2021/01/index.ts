@@ -1,12 +1,10 @@
 import { z } from "zod";
 import { main } from "../../utils/host";
+import { IntSchema, LinesSchema } from "../../utils/schemas";
 
-const schema = z.preprocess((value) => parseInt(value as string), z.number());
+const schema = LinesSchema(IntSchema);
 
-const setup = (input: string): Uint16Array =>
-    Uint16Array.from(input.split("\n"), (line) => schema.parse(line));
-
-const increasing = (values: Uint16Array): number =>
+const increasing = (values: ReadonlyArray<number>): number =>
     values.reduce((sum, value, index) => {
         if (index > 0 && value > values[index - 1]) {
             sum += 1;
@@ -14,11 +12,11 @@ const increasing = (values: Uint16Array): number =>
         return sum;
     }, 0);
 
-const part1 = (depths: Uint16Array): number => increasing(depths);
+const part1 = (depths: ReadonlyArray<number>): number => increasing(depths);
 
-const part2 = (depths: Uint16Array): number =>
+const part2 = (depths: ReadonlyArray<number>): number =>
     increasing(
-        Uint16Array.from(
+        Array.from(
             {
                 length: depths.length - 2,
             },
@@ -32,4 +30,4 @@ const part2 = (depths: Uint16Array): number =>
         )
     );
 
-main<Uint16Array, number>(module, { setup, part1, part2 });
+main(module, schema, part1, part2);
