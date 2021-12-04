@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { main } from "../../utils/host";
+import { LinesSchema, StringSchema } from "../../utils/schemas";
 
 enum SubmarineCommand {
     Forward = "forward",
@@ -9,17 +10,13 @@ enum SubmarineCommand {
 
 type SubmarineAction = readonly [command: SubmarineCommand, amount: number];
 
-const str = z.string();
-const schema = z.preprocess(
-    (input) => str.parse(input).trim().split("\n"),
-    z.array(
-        z.preprocess(
-            (line) => str.parse(line).split(" "),
-            z.tuple([
-                z.nativeEnum(SubmarineCommand),
-                z.preprocess((value) => parseInt(value as string), z.number()),
-            ])
-        )
+const schema = LinesSchema(
+    z.preprocess(
+        (line) => StringSchema.parse(line).split(" "),
+        z.tuple([
+            z.nativeEnum(SubmarineCommand),
+            z.preprocess((value) => parseInt(value as string), z.number()),
+        ])
     )
 );
 

@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { main } from "../../utils/host";
+import { LinesSchema, StringSchema } from "../../utils/schemas";
 
 enum Bit {
     Zero = 0,
@@ -9,17 +10,13 @@ enum Bit {
 type BitString = ReadonlyArray<Bit>;
 type Counter = [zero: number, one: number];
 
-const str = z.string();
-const schema = z.preprocess(
-    (input) => str.parse(input).trim().split("\n"),
-    z.array(
-        z.preprocess(
-            (line) => str.parse(line).split(""),
-            z.array(
-                z.preprocess(
-                    (char) => parseInt(str.parse(char)),
-                    z.nativeEnum(Bit)
-                )
+const schema = LinesSchema(
+    z.preprocess(
+        (line) => StringSchema.parse(line).split(""),
+        z.array(
+            z.preprocess(
+                (char) => parseInt(StringSchema.parse(char)),
+                z.nativeEnum(Bit)
             )
         )
     )

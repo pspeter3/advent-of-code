@@ -1,11 +1,8 @@
 import { z } from "zod";
 import { main } from "../../utils/host";
+import { IntSchema, LinesSchema } from "../../utils/schemas";
 
-const str = z.string();
-const schema = z.preprocess(
-    (input) => str.parse(input).trim().split("\n"),
-    z.array(z.preprocess((line) => parseInt(str.parse(line)), z.number()))
-);
+const schema = LinesSchema(IntSchema);
 
 const increasing = (values: ReadonlyArray<number>): number =>
     values.reduce((sum, value, index) => {
