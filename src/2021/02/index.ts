@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { main } from "../../utils/host";
+import { LinesSchema, StringSchema } from "../../utils/schemas";
 
 enum SubmarineCommand {
     Forward = "forward",
@@ -7,25 +8,21 @@ enum SubmarineCommand {
     Up = "up",
 }
 
-interface SubmarineAction {
-    readonly command: SubmarineCommand;
-    readonly amount: number;
-}
+type SubmarineAction = readonly [command: SubmarineCommand, amount: number];
 
-const schema = z.tuple([
-    z.nativeEnum(SubmarineCommand),
-    z.preprocess((value) => parseInt(value as string), z.number()),
-]);
-
-const setup = (input: string): ReadonlyArray<SubmarineAction> =>
-    input.split("\n").map((line) => {
-        const [command, amount] = schema.parse(line.split(" "));
-        return { command, amount };
-    });
+const schema = LinesSchema(
+    z.preprocess(
+        (line) => StringSchema.parse(line).split(" "),
+        z.tuple([
+            z.nativeEnum(SubmarineCommand),
+            z.preprocess((value) => parseInt(value as string), z.number()),
+        ])
+    )
+);
 
 const part1 = (actions: ReadonlyArray<SubmarineAction>): number => {
     const { position, depth } = actions.reduce(
-        (state, { command, amount }) => {
+        (state, [command, amount]) => {
             switch (command) {
                 case SubmarineCommand.Forward: {
                     state.position += amount;
@@ -48,7 +45,7 @@ const part1 = (actions: ReadonlyArray<SubmarineAction>): number => {
 
 const part2 = (actions: ReadonlyArray<SubmarineAction>): number => {
     const { position, depth } = actions.reduce(
-        (state, { command, amount }) => {
+        (state, [command, amount]) => {
             switch (command) {
                 case SubmarineCommand.Forward: {
                     state.position += amount;
@@ -70,4 +67,4 @@ const part2 = (actions: ReadonlyArray<SubmarineAction>): number => {
     return position * depth;
 };
 
-main(module, { setup, part1, part2 });
+main(module, schema, part1, part2);
