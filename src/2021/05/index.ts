@@ -18,11 +18,6 @@ const schema = LinesSchema(
     )
 );
 
-const max = ([x1, y1]: Vector, [x2, y2]: Vector): Vector => [
-    Math.max(x1, x2),
-    Math.max(y1, y2),
-];
-
 const isGridLine = ([[x1, y1], [x2, y2]]: Segment): boolean =>
     x1 === x2 || y1 === y2;
 
@@ -37,28 +32,21 @@ const interpolate = ([[x1, y1], [x2, y2]]: Segment): ReadonlyArray<Vector> => {
     return vectors;
 };
 
-const toCanvas = (segments: ReadonlyArray<Segment>): number[][] => {
-    let bounds: Vector = [0, 0];
-    for (const segment of segments) {
-        bounds = max(bounds, max(...segment));
-    }
-    const [cols, rows] = bounds.map((value) => value + 1);
-    return Array.from({ length: rows }, () =>
-        Array.from({ length: cols }, () => 0)
-    );
-};
-
 const intersections = (segments: ReadonlyArray<Segment>): number => {
-    const canvas = toCanvas(segments);
+    const vents = new Map<string, number>();
     for (const segment of segments) {
-        for (const [col, row] of interpolate(segment)) {
-            canvas[row][col]++;
+        for (const vector of interpolate(segment)) {
+            const key = vector.join(",");
+            vents.set(key, (vents.get(key) ?? 0) + 1);
         }
     }
-    return canvas.reduce(
-        (sum, row) => sum + row.filter((cell) => cell >= 2).length,
-        0
-    );
+    let count = 0;
+    for (const value of vents.values()) {
+        if (value >= 2) {
+            count++;
+        }
+    }
+    return count;
 };
 
 const part1 = (segments: ReadonlyArray<Segment>): number =>
