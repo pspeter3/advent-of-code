@@ -7,32 +7,26 @@ const schema = z.preprocess(
     z.array(IntSchema)
 );
 
-const GESTATION = 2;
-const LIFECYCLE = 7;
+const LIFECYCLE = 6;
+const GESTATION = 8;
 
-const spawn = (
-    cache: Map<number, number>,
-    timer: number,
-    days: number
-): number => {
-    if (!cache.has(timer)) {
-        let total = 1;
-        const children = Math.ceil(Math.max(days - timer, 0) / LIFECYCLE);
-        for (let i = 1; i <= children; i++) {
-            const birth = GESTATION + timer + LIFECYCLE * i;
-            total += spawn(cache, birth, days);
-        }
-        cache.set(timer, total);
+const forecast = (fish: ReadonlyArray<number>, days: number): BigInt => {
+    const cache = new BigUint64Array(GESTATION + 1);
+    for (const timer of fish) {
+        cache[timer]++;
     }
-    return cache.get(timer)!;
+    for (let day = 0; day < days; day++) {
+        const parents = cache[0];
+        for (let i = 0; i < GESTATION; i++) {
+            cache[i] = cache[i + 1];
+        }
+        cache[GESTATION] = parents;
+        cache[LIFECYCLE] += parents;
+    }
+    return cache.reduce((a, e) => a + e);
 };
 
-const forecast = (fish: ReadonlyArray<number>, days: number): number => {
-    const cache = new Map<number, number>();
-    return fish.reduce((sum, timer) => sum + spawn(cache, timer, days), 0);
-};
-
-const part1 = (fish: ReadonlyArray<number>): number => forecast(fish, 80);
-const part2 = (fish: ReadonlyArray<number>): number => forecast(fish, 256);
+const part1 = (fish: ReadonlyArray<number>): BigInt => forecast(fish, 80);
+const part2 = (fish: ReadonlyArray<number>): BigInt => forecast(fish, 256);
 
 main(module, schema, part1, part2);
