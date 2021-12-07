@@ -7,8 +7,8 @@ const schema = z.preprocess(
     z.array(IntSchema)
 );
 
-const identity = (distance: number) => distance;
-const triangle = (distance: number) => 0.5 * distance * (distance + 1);
+const identity = (distance: number): number => distance;
+const triangle = (distance: number): number => 0.5 * distance * (distance + 1);
 
 const fuel = (
     crabs: ReadonlyArray<number>,
