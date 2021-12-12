@@ -25,7 +25,7 @@ const neighbors = (
             if (r === row && c === col) {
                 continue;
             }
-                nearby.push([r, c]);
+            nearby.push([r, c]);
         }
     }
     return nearby;
@@ -74,7 +74,8 @@ const part1 = (grid: Grid): number => {
     return total;
 };
 
-const isFlash = (grid: Grid): boolean => grid.every((row) => row.every((cell) => cell === 0));
+const isFlash = (grid: Grid): boolean =>
+    grid.every((row) => row.every((cell) => cell === 0));
 
 const part2 = (grid: Grid): number => {
     let current = grid;
