@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { ZodType, ZodTypeDef } from "zod";
+import type { ZodType, ZodTypeDef } from "zod";
 
 export type Solution<T> = (data: T) => unknown;
 
