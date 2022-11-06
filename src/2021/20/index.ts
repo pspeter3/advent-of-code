@@ -116,4 +116,4 @@ const part1 = ([enhancement, grid]: Input): number =>
 const part2 = ([enhancement, grid]: Input): number =>
     iterate(enhancement, { none: Pixel.Dark, grid }, 50);
 
-main(module, schema, part1, part2);
+main(module, (input) => schema.parse(input), part1, part2);

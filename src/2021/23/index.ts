@@ -253,4 +253,4 @@ const part2 = (grid: Grid): number => {
     return seek(input, createFinal(4));
 };
 
-main(module, schema, part1, part2);
+main(module, (input) => schema.parse(input), part1, part2);

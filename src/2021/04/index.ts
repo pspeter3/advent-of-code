@@ -93,4 +93,4 @@ const part2 = ({ draws, boards }: Bingo): number | null => {
     return null;
 };
 
-main(module, schema, part1, part2);
+main(module, (input) => schema.parse(input), part1, part2);

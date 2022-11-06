@@ -30,4 +30,4 @@ const part2 = (depths: ReadonlyArray<number>): number =>
         )
     );
 
-main(module, schema, part1, part2);
+main(module, (input) => schema.parse(input), part1, part2);

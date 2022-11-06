@@ -1,30 +1,30 @@
 import fs from "fs";
 import path from "path";
-import type { ZodType, ZodTypeDef } from "zod";
 
+export type Parser<T> = (input: string) => T;
 export type Solution<T> = (data: T) => unknown;
 
 /**
  * Times solutions
  * @param mod The host module
- * @param schema The Zod schema for parsing
+ * @param parse The input parser
  * @param solutions The solutions
  */
 export function main<T>(
     mod: NodeModule,
-    schema: ZodType<T, ZodTypeDef, T>,
+    parse: Parser<T>,
     ...solutions: Solution<T>[]
 ): void {
     if (require.main === mod) {
-        exec("Example", mod, schema, solutions);
-        exec("Input", mod, schema, solutions);
+        exec("Example", mod, parse, solutions);
+        exec("Input", mod, parse, solutions);
     }
 }
 
 function exec<T>(
     group: string,
     mod: NodeModule,
-    schema: ZodType<T, ZodTypeDef, T>,
+    parse: Parser<T>,
     solutions: Solution<T>[]
 ): void {
     const filename = path.join(
@@ -39,7 +39,7 @@ function exec<T>(
     const input = fs.readFileSync(filename, "utf8");
     console.timeEnd("Load");
     console.time("Parse");
-    const data = schema.parse(input);
+    const data = parse(input);
     console.timeEnd("Parse");
     for (const [index, solution] of solutions.entries()) {
         const label = `Part ${index + 1}`;

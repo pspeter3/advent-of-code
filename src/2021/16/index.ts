@@ -180,4 +180,4 @@ const part1 = (data: string): number =>
 
 const part2 = (data: string): number => evaluate(decode(toBits(data))[0]);
 
-main(module, schema, part1, part2);
+main(module, (input) => schema.parse(input), part1, part2);

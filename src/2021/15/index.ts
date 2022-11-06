@@ -101,4 +101,4 @@ const part2 = (grid: Grid): number => {
     return seek(scaled, Origin, max(scaled));
 };
 
-main(module, schema, part1, part2);
+main(module, (input) => schema.parse(input), part1, part2);

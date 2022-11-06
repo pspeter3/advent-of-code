@@ -86,4 +86,4 @@ const part2 = ([vectors, folds]: Input): string => {
     ).join("\n");
 };
 
-main(module, schema, part1, part2);
+main(module, (input) => schema.parse(input), part1, part2);

@@ -93,4 +93,4 @@ const part1 = (commands: ReadonlyArray<Command>): number =>
 const part2 = (commands: ReadonlyArray<Command>): number =>
     scan(commands, 1, 9);
 
-main(module, schema, part1, part2);
+main(module, (input) => schema.parse(input), part1, part2);

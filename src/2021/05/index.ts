@@ -54,4 +54,4 @@ const part1 = (segments: ReadonlyArray<Segment>): number =>
 
 const part2 = intersections;
 
-main(module, schema, part1, part2);
+main(module, (input) => schema.parse(input), part1, part2);
