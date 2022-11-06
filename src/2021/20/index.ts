@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { main } from "../../utils/host";
-import { IntSchema, LinesSchema, StringSchema } from "../../utils/schemas";
+import { LinesSchema, StringSchema } from "../../utils/schemas";
 
 enum Pixel {
     Dark = ".",
@@ -11,11 +11,6 @@ const Bits: Readonly<Record<Pixel, 0 | 1>> = {
     [Pixel.Dark]: 0,
     [Pixel.Light]: 1,
 };
-
-const CellSchema = z.preprocess(
-    (input) => StringSchema.parse(input),
-    z.tuple([IntSchema, IntSchema])
-);
 
 const PixelListSchema = z.preprocess(
     (line) => StringSchema.parse(line).trim().split(""),

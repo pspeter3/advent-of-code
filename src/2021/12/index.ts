@@ -12,7 +12,6 @@ const schema = LinesSchema(
 type Node = string;
 type Edge = readonly [src: Node, dest: Node];
 type Graph = Map<Node, Set<Node>>;
-type GraphFilter = (node: Node, path: ReadonlyArray<Node>) => boolean;
 
 const START = "start";
 const END = "end";

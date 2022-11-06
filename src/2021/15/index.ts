@@ -78,8 +78,6 @@ const seek = (grid: Grid, start: Cell, target: Cell): number => {
     throw new Error("Did not find target");
 };
 
-const risks: ReadonlyArray<number> = Array.from({ length: 9 }, (_, i) => i + 1);
-
 const scale = (grid: Grid, factor: number): Grid => {
     const [rows, cols] = toBounds(grid);
     return Array.from({ length: rows * factor }, (_, row) =>

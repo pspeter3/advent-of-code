@@ -9,7 +9,6 @@ enum Cell {
 }
 
 type Grid = ReadonlyArray<ReadonlyArray<Cell>>;
-type Pair = readonly [row: number, col: number];
 
 const schema = LinesSchema(
     z.preprocess(
