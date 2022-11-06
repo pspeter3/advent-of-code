@@ -101,9 +101,9 @@ const part1 = (data: ReadonlyArray<Entry>): number => {
 };
 
 const part2 = (data: ReadonlyArray<Entry>): number =>
-    data.reduce((sum, [input, output], index) => {
+    data.reduce((sum, [input, output]) => {
         const key = analyze(input);
         return sum + fromDigits(output.map((value) => key.get(sorted(value))!));
     }, 0);
 
-main(module, schema, part1, part2);
+main(module, (input) => schema.parse(input), part1, part2);

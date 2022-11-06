@@ -12,7 +12,6 @@ const schema = LinesSchema(
 type Node = string;
 type Edge = readonly [src: Node, dest: Node];
 type Graph = Map<Node, Set<Node>>;
-type GraphFilter = (node: Node, path: ReadonlyArray<Node>) => boolean;
 
 const START = "start";
 const END = "end";
@@ -87,4 +86,4 @@ const part2 = (edges: ReadonlyArray<Edge>): number =>
         return false;
     });
 
-main(module, schema, part1, part2);
+main(module, (input) => schema.parse(input), part1, part2);

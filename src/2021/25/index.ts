@@ -9,7 +9,6 @@ enum Cell {
 }
 
 type Grid = ReadonlyArray<ReadonlyArray<Cell>>;
-type Pair = readonly [row: number, col: number];
 
 const schema = LinesSchema(
     z.preprocess(
@@ -82,4 +81,4 @@ const part1 = (grid: Grid): number => {
     return count;
 };
 
-main(module, schema, part1);
+main(module, (input) => schema.parse(input), part1);

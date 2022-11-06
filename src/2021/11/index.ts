@@ -88,4 +88,4 @@ const part2 = (grid: Grid): number => {
     return step;
 };
 
-main(module, schema, part1, part2);
+main(module, (input) => schema.parse(input), part1, part2);

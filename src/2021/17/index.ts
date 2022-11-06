@@ -1,4 +1,4 @@
-import { boolean, z } from "zod";
+import { z } from "zod";
 import { main } from "../../utils/host";
 import { IntSchema, StringSchema } from "../../utils/schemas";
 
@@ -62,4 +62,4 @@ const part2 = (target: Target): number => {
     return count;
 };
 
-main(module, schema, part1, part2);
+main(module, (input) => schema.parse(input), part1, part2);
