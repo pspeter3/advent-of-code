@@ -89,4 +89,4 @@ const part2 = (positions: Pair): number => {
     return Math.max(...wins);
 };
 
-main(module, schema, part1, part2);
+main(module, (input) => schema.parse(input), part1, part2);

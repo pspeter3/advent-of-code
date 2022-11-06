@@ -137,4 +137,4 @@ const part2 = (sensors: ReadonlyArray<Sensor>): number => {
     return max;
 };
 
-main(module, schema, part1, part2);
+main(module, (input) => schema.parse(input), part1, part2);

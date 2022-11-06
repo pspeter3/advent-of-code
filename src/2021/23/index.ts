@@ -114,21 +114,6 @@ const findOptions = (
     return [moves, slots];
 };
 
-const findMoves = (rooms: ReadonlyArray<Line>): ReadonlyArray<Cell | null> =>
-    rooms.map((room, line) => {
-        const node = room.findIndex(
-            (value) => value !== null && value !== AMPHIPODS[line]
-        );
-        return node !== -1 ? [line, node] : null;
-    });
-
-const findSlots = (rooms: ReadonlyArray<Line>): ReadonlyArray<Cell | null> =>
-    rooms.map((room, line) =>
-        room.every((value) => value === null || value === AMPHIPODS[line])
-            ? [line, room.lastIndexOf(null)]
-            : null
-    );
-
 type Entry = readonly [key: string, cost: number];
 const toEntry = (grid: Grid, a: Cell, b: Cell, cost: number): Entry => [
     toKey(swap(grid, a, b)),
@@ -253,4 +238,4 @@ const part2 = (grid: Grid): number => {
     return seek(input, createFinal(4));
 };
 
-main(module, schema, part1, part2);
+main(module, (input) => schema.parse(input), part1, part2);

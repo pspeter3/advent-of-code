@@ -1,4 +1,3 @@
-import { z } from "zod";
 import { main } from "../../utils/host";
 import { IntSchema, LinesSchema } from "../../utils/schemas";
 
@@ -30,4 +29,4 @@ const part2 = (depths: ReadonlyArray<number>): number =>
         )
     );
 
-main(module, schema, part1, part2);
+main(module, (input) => schema.parse(input), part1, part2);

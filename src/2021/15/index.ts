@@ -78,8 +78,6 @@ const seek = (grid: Grid, start: Cell, target: Cell): number => {
     throw new Error("Did not find target");
 };
 
-const risks: ReadonlyArray<number> = Array.from({ length: 9 }, (_, i) => i + 1);
-
 const scale = (grid: Grid, factor: number): Grid => {
     const [rows, cols] = toBounds(grid);
     return Array.from({ length: rows * factor }, (_, row) =>
@@ -101,4 +99,4 @@ const part2 = (grid: Grid): number => {
     return seek(scaled, Origin, max(scaled));
 };
 
-main(module, schema, part1, part2);
+main(module, (input) => schema.parse(input), part1, part2);
