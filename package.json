@@ -1,7 +1,7 @@
 {
   "name": "advent-of-code",
   "scripts": {
-    "fix": "prettier --write '*.md' 'src/**/*.ts'",
+    "fix": "prettier --cache --write '*.md' 'src/**/*.ts'",
     "start": "node --require esbuild-register",
     "test": "tsc"
   },
