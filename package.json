@@ -1,9 +1,9 @@
 {
   "name": "advent-of-code",
   "scripts": {
-    "fix": "prettier --write '*.md' 'src/**/*.ts'",
+    "fix": "prettier --cache --write '*.md' 'src/**/*.ts'",
     "start": "node --require esbuild-register",
-    "test": "tsc"
+    "test": "tsc --build --pretty"
   },
   "repository": {
     "type": "git",
@@ -11,14 +11,14 @@
   },
   "homepage": "https://github.com/pspeter3/advent-of-code#readme",
   "dependencies": {
-    "esbuild-register": "^3.3.3",
+    "esbuild-register": "^3.4.1",
     "zod": "^3.19.1"
   },
   "devDependencies": {
     "@tsconfig/node18-strictest": "^1.0.0",
-    "@types/node": "^18.11.0",
-    "prettier": "^2.7.1",
-    "typescript": "^4.8.4"
+    "@types/node": "^18.11.9",
+    "prettier": "^2.8.0",
+    "typescript": "^4.9.3"
   },
   "prettier": {
     "tabWidth": 4
