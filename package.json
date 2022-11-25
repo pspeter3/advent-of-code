@@ -3,7 +3,7 @@
   "scripts": {
     "fix": "prettier --cache --write '*.md' 'src/**/*.ts'",
     "start": "node --require esbuild-register",
-    "test": "tsc"
+    "test": "tsc --build --pretty"
   },
   "repository": {
     "type": "git",
