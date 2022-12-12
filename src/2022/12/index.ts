@@ -104,7 +104,7 @@ const seek = (grid: Grid, source: GridTile): number | null => {
         }
     }
     return costs.get(grid.end) ?? null;
-}
+};
 
 const part1 = (grid: Grid): number => seek(grid, grid.start)!;
 
@@ -120,6 +120,6 @@ const part2 = (grid: Grid): number => {
         }
     }
     return result;
-}
+};
 
 main(module, parse, part1, part2);
