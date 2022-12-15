@@ -44,9 +44,7 @@ class Segment {
     }
 
     [Symbol.iterator](): IterableIterator<Tile> {
-        return this.isVertical()
-            ? this.vertical()
-            : this.horizontal();
+        return this.isVertical() ? this.vertical() : this.horizontal();
     }
 
     private *horizontal(): IterableIterator<Tile> {
@@ -110,7 +108,7 @@ const part1 = (walls: WallList): number => {
             }
         }
         return null;
-    }
+    };
     while (true) {
         let sand = new Tile(500, 0);
         let next = nextMove(sand);
@@ -146,7 +144,7 @@ const part2 = (walls: WallList): number => {
             }
         }
         return null;
-    }
+    };
     const origin = new Tile(500, 0).id;
     while (!tiles.has(origin)) {
         let sand = new Tile(500, 0);
