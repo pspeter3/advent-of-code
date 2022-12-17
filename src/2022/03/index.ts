@@ -1,12 +1,12 @@
 import { z } from "zod";
 import { main } from "../../utils/host";
-import { LinesSchema, StringSchema } from "../../utils/schemas";
+import { LinesSchema } from "../../utils/schemas";
 
 const schema = LinesSchema(
-    z.preprocess(
-        (line) => StringSchema.parse(line).split(""),
-        z.array(z.string())
-    )
+    z
+        .string()
+        .transform((line) => line.split(""))
+        .pipe(z.array(z.string()))
 );
 
 const intersection = (
