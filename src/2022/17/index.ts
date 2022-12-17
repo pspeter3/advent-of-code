@@ -1,4 +1,4 @@
-import { number, z } from "zod";
+import { z } from "zod";
 import { main } from "../../utils/host";
 
 enum Direction {
@@ -219,7 +219,6 @@ const part2 = (directions: ReadonlyArray<Direction>): number => {
     const states = new Map<string, CachedTower>();
     let tower: CyclicTower | null = null;
     for (let i = 0; i < total; i++) {
-        const tmp = jets.current();
         const start = Shape.create(grid, i, Math.max(...columns) + 3);
         const shape = drop(rocks, jets, start);
         for (const rock of shape.rocks) {
