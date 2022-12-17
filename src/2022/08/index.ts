@@ -1,15 +1,15 @@
 import { z } from "zod";
 import { main } from "../../utils/host";
-import { IntSchema, LinesSchema, StringSchema } from "../../utils/schemas";
+import { IntSchema, LinesSchema } from "../../utils/schemas";
 
 type Grid = ReadonlyArray<ReadonlyArray<number>>;
 
 const parse = (input: string): Grid =>
     LinesSchema(
-        z.preprocess(
-            (line) => StringSchema.parse(line).split(""),
-            z.array(IntSchema)
-        )
+        z
+            .string()
+            .transform((line) => line.split(""))
+            .pipe(z.array(IntSchema))
     ).parse(input);
 
 function pair(a: number, b: number): bigint {

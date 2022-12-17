@@ -14,10 +14,10 @@ type Round = readonly [opponent: Opponent, player: Player];
 type Strategy = ReadonlyArray<Round>;
 
 const schema = LinesSchema(
-    z.preprocess(
-        (line) => StringSchema.parse(line).split(" "),
-        z.tuple([Opponent, Player])
-    )
+    z
+        .string()
+        .transform((line) => line.split(" "))
+        .pipe(z.tuple([Opponent, Player]))
 );
 
 const Shape = {

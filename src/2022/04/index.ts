@@ -1,15 +1,17 @@
 import { z } from "zod";
 import { main } from "../../utils/host";
-import { IntSchema, LinesSchema, StringSchema } from "../../utils/schemas";
+import { IntSchema, LinesSchema } from "../../utils/schemas";
 
-const RangeSchema = z.preprocess(
-    (section) => StringSchema.parse(section).split("-"),
-    z.tuple([IntSchema, IntSchema])
-);
-const PairSchema = z.preprocess(
-    (line) => StringSchema.parse(line).split(","),
-    z.tuple([RangeSchema, RangeSchema])
-);
+const RangeSchema = z
+    .string()
+    .transform((section) => section.split("-"))
+    .pipe(z.tuple([IntSchema, IntSchema]));
+
+const PairSchema = z
+    .string()
+    .transform((line) => line.split(" "))
+    .pipe(z.tuple([RangeSchema, RangeSchema]));
+
 const schema = LinesSchema(PairSchema);
 
 type Range = readonly [min: number, max: number];

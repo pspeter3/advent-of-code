@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { main } from "../../utils/host";
-import { IntSchema, LinesSchema, StringSchema } from "../../utils/schemas";
+import { IntSchema, LinesSchema } from "../../utils/schemas";
 
 type NoOpCommand = "noop";
 type AddXCommand = readonly [command: "addx", amount: number];
@@ -11,10 +11,10 @@ type CommandList = ReadonlyArray<Command>;
 const schema = LinesSchema(
     z.union([
         z.literal("noop"),
-        z.preprocess(
-            (line) => StringSchema.parse(line).split(" "),
-            z.tuple([z.literal("addx"), IntSchema])
-        ),
+        z
+            .string()
+            .transform((line) => line.split(" "))
+            .pipe(z.tuple([z.literal("addx"), IntSchema])),
     ])
 );
 
