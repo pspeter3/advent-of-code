@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { main } from "../../utils/host";
-import { IntSchema, LinesSchema, StringSchema } from "../../utils/schemas";
+import { IntSchema, LinesSchema } from "../../utils/schemas";
 
 enum Direction {
     Up = "U",
@@ -10,10 +10,10 @@ enum Direction {
 }
 
 const schema = LinesSchema(
-    z.preprocess(
-        (line) => StringSchema.parse(line).split(" "),
-        z.tuple([z.nativeEnum(Direction), IntSchema])
-    )
+    z
+        .string()
+        .transform((line) => line.split(" "))
+        .pipe(z.tuple([z.nativeEnum(Direction), IntSchema]))
 );
 
 type Move = readonly [direction: Direction, amount: number];
