@@ -209,7 +209,7 @@ const part1 = (elves: ReadonlyArray<GridTile>): number => {
     let maxQ = -Infinity;
     let minR = Infinity;
     let maxR = -Infinity;
-    for (const {q,r,id} of current) {
+    for (const { q, r, id } of current) {
         ids.add(id);
         minQ = Math.min(minQ, q);
         maxQ = Math.max(maxQ, q);
