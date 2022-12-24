@@ -121,9 +121,6 @@ class State {
                 )
             );
         }
-        if (source.equals(this.elf) || !nextBlizzards.has(board.toId(this.elf))) {
-            yield new State(nextMinute, this.elf);
-        }
         for (const direction of [
             Direction.Up,
             Direction.Right,
@@ -141,6 +138,12 @@ class State {
                 continue;
             }
             yield new State(nextMinute, nextElf);
+        }
+        if (
+            source.equals(this.elf) ||
+            !nextBlizzards.has(board.toId(this.elf))
+        ) {
+            yield new State(nextMinute, this.elf);
         }
     }
 }
@@ -192,11 +195,12 @@ const part1 = ({ board, blizzards, state }: Input): number => {
         const state = closest(queue, target);
         visited.add(state.key);
         for (const n of state.evolve(board, blizzards, source, target)) {
+            if (visited.has(n.key)) {
+                continue;
+            }
+            queue.push(n);
             if (n.elf.equals(target)) {
                 return n.minute;
-            }
-            if (!visited.has(n.key)) {
-                queue.push(n);
             }
         }
     }
