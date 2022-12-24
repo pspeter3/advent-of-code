@@ -97,6 +97,13 @@ class Tile {
         const { q, r } = this;
         return new Tile(scale - r - 1, q);
     }
+
+    flip(scale: number, axis: "q" | "r"): Tile {
+        const { q, r } = this;
+        return axis === "q"
+            ? new Tile(scale - q - 1, r)
+            : new Tile(q, scale - r - 1);
+    }
 }
 
 const score = ({ q, r }: Tile, facing: Facing): number =>
@@ -222,6 +229,7 @@ type SideId = 0 | 1 | 2 | 3 | 4 | 5;
 interface Connection {
     readonly sideId: SideId;
     readonly tileRotations: number;
+    readonly flip?: "q" | "r";
     readonly facingRotations: number;
 }
 
@@ -256,14 +264,18 @@ class CubeGrid implements Cursor {
         const scaledSize = CubeGrid.scale(size, scale);
         const sides: Tile[] = [];
         const tiles: TileKind[][][] = [];
+        const map: string[] = [];
         for (let r = 0; r < scaledSize.r; r++) {
+            const chars: string[] = [];
             const row = r * scale;
             const line = lines[row];
             for (let q = 0; q < scaledSize.q; q++) {
                 const col = q * scale;
                 if (col >= line.length || line[col] === " ") {
+                    chars.push(" ");
                     continue;
                 }
+                chars.push(sides.length.toString());
                 sides.push(new Tile(q, r));
                 tiles.push(
                     lines
@@ -276,7 +288,9 @@ class CubeGrid implements Cursor {
                         )
                 );
             }
+            map.push(chars.join(""));
         }
+        console.log(map.join("\n"));
         const sideId = 0;
         const r = 0;
         const q = tiles[sideId][r].indexOf(TileKind.Open);
@@ -297,8 +311,6 @@ class CubeGrid implements Cursor {
     }
 
     move(count: number): void {
-        console.group("Move", count);
-        this.#log();
         for (let i = 0; i < count; i++) {
             let nextFacing = this.#facing;
             let nextSideId = this.#sideId;
@@ -332,6 +344,9 @@ class CubeGrid implements Cursor {
                     for (let i = 0; i < connection.tileRotations; i++) {
                         nextTile = nextTile.rotate(this.scale);
                     }
+                    if (connection.flip !== undefined) {
+                        nextTile = nextTile.flip(this.scale, connection.flip);
+                    }
                     nextFacing = rotate(
                         this.#facing,
                         connection.facingRotations
@@ -344,15 +359,13 @@ class CubeGrid implements Cursor {
             this.#facing = nextFacing;
             this.#sideId = nextSideId;
             this.#tile = nextTile;
-            this.#log();
         }
-        console.groupEnd();
     }
 
     score(): number {
-        const { q, r } = CubeGrid.scale(this.#sides[this.#sideId], this.scale);
+        const { q, r } = this.#sides[this.#sideId]
         return score(
-            new Tile(q + this.#tile.q, r + this.#tile.r),
+            new Tile((q * this.scale) + this.#tile.q, (r * this.scale) + this.#tile.r),
             this.#facing
         );
     }
@@ -363,10 +376,6 @@ class CubeGrid implements Cursor {
             ...connection,
             sideId: source,
         });
-    }
-
-    #log(): void {
-        console.log(this.#sideId, this.#tile, Facing[this.#facing]);
     }
 
     #align(source: SideId, facing: Facing, connection: Connection): void {
@@ -435,8 +444,22 @@ const part2 = ({ section, instructions }: ForceField): number => {
         grid.connect(3, Facing.Right, {
             sideId: 5,
             tileRotations: 3,
+            flip: "q",
             facingRotations: 1,
         });
+        grid.connect(4, Facing.Down, {
+            sideId: 1,
+            tileRotations: 0,
+            flip: "q",
+            facingRotations: 2,
+        });
+        grid.connect(2, Facing.Up, {
+            sideId: 0,
+            tileRotations: 3,
+            flip: "r",
+            facingRotations: 1,
+        })
+    } else {
     }
     return traverse(grid, instructions);
 };
