@@ -51,8 +51,20 @@ class Tile {
         this.r = r;
     }
 
-    contains({ q, r }: Tile): boolean {
+    contains(tile: Tile): boolean {
+        if (tile.equals(this.source()) || tile.equals(this.target())) {
+            return true;
+        }
+        const { q, r } = tile;
         return q >= 0 && q < this.q && r >= 0 && r < this.r;
+    }
+
+    source(): Tile {
+        return new Tile(0, -1);
+    }
+
+    target(): Tile {
+        return new Tile(this.q - 1, this.r);
     }
 
     toId(tile: Tile): number {
@@ -95,6 +107,33 @@ class Tile {
     }
 }
 
+class Forecast {
+    readonly blizzards: Readonly<
+        Record<Blizzard, ReadonlyArray<ReadonlySet<number>>>
+    >;
+
+    constructor(
+        blizzards: Readonly<
+            Record<Blizzard, ReadonlyArray<ReadonlySet<number>>>
+        >
+    ) {
+        this.blizzards = blizzards;
+    }
+
+    hasBlizzard(board: Tile, time: number, tile: Tile): boolean {
+        if (board.source().equals(tile) || board.target().equals(tile)) {
+            return false;
+        }
+        const { q, r } = tile;
+        return (
+            this.blizzards[Blizzard.Right][r].has(modulo(q - time, board.q)) ||
+            this.blizzards[Blizzard.Left][r].has(modulo(q + time, board.q)) ||
+            this.blizzards[Blizzard.Down][q].has(modulo(r - time, board.r)) ||
+            this.blizzards[Blizzard.Up][q].has(modulo(r + time, board.r))
+        );
+    }
+}
+
 class State {
     readonly minute: number;
     readonly elf: Tile;
@@ -106,21 +145,8 @@ class State {
         this.key = [this.minute, this.elf.q, this.elf.r].join(",");
     }
 
-    *evolve(
-        board: Tile,
-        blizzards: ReadonlyMap<Tile, Blizzard>,
-        source: Tile,
-        target: Tile
-    ): IterableIterator<State> {
+    *evolve(board: Tile, forecast: Forecast): IterableIterator<State> {
         const nextMinute = this.minute + 1;
-        const nextBlizzards = new Set<number>();
-        for (const [tile, blizzard] of blizzards) {
-            nextBlizzards.add(
-                board.toId(
-                    board.normalize(tile.move(MOVES[blizzard], nextMinute))
-                )
-            );
-        }
         for (const direction of [
             Direction.Up,
             Direction.Right,
@@ -128,21 +154,15 @@ class State {
             Direction.Left,
         ]) {
             const nextElf = this.elf.move(direction);
-            if (nextElf.equals(target)) {
-                yield new State(nextMinute, nextElf);
-            }
             if (!board.contains(nextElf)) {
                 continue;
             }
-            if (nextBlizzards.has(board.toId(nextElf))) {
+            if (forecast.hasBlizzard(board, nextMinute, nextElf)) {
                 continue;
             }
             yield new State(nextMinute, nextElf);
         }
-        if (
-            source.equals(this.elf) ||
-            !nextBlizzards.has(board.toId(this.elf))
-        ) {
+        if (!forecast.hasBlizzard(board, nextMinute, this.elf)) {
             yield new State(nextMinute, this.elf);
         }
     }
@@ -150,7 +170,7 @@ class State {
 
 interface Input {
     readonly board: Tile;
-    readonly blizzards: ReadonlyMap<Tile, Blizzard>;
+    readonly forecast: Forecast;
     readonly state: State;
 }
 
@@ -159,54 +179,63 @@ const parse = (input: string): Input => {
     const q = lines[0].length;
     const r = lines.length;
     const board = new Tile(q - 2, r - 2);
-    const elf = new Tile(0, -1);
-    const blizzards = new Map<Tile, Blizzard>();
+    const elf = board.source();
+    const blizzards: Record<Blizzard, Array<Set<number>>> = {
+        [Blizzard.Up]: Array.from({ length: board.q }, () => new Set()),
+        [Blizzard.Down]: Array.from({ length: board.q }, () => new Set()),
+        [Blizzard.Right]: Array.from({ length: board.r }, () => new Set()),
+        [Blizzard.Left]: Array.from({ length: board.r }, () => new Set()),
+    };
     for (const [r, line] of lines.entries()) {
         for (const [q, char] of Array.from(line).entries()) {
             if (isBlizzard(char)) {
-                const tile = new Tile(q - 1, r - 1);
-                blizzards.set(tile, char);
+                const x = q - 1;
+                const y = r - 1;
+                const isVertical =
+                    char === Blizzard.Up || char === Blizzard.Down;
+                const index = isVertical ? x : y;
+                const value = isVertical ? y : x;
+                blizzards[char][index].add(value);
             }
         }
     }
+    const forecast = new Forecast(blizzards);
     const state = new State(0, elf);
-    return { board, blizzards, state };
+    return { board, forecast, state };
 };
 
-const closest = (queue: State[], target: Tile): State => {
-    let index = -1;
-    let min = Infinity;
-    for (const [i, { elf }] of queue.entries()) {
-        const distance = elf.distance(target);
-        if (distance < min) {
-            min = distance;
-            index = i;
-        }
-    }
-    return queue.splice(index, 1)[0];
-};
-
-const part1 = ({ board, blizzards, state }: Input): number => {
-    const source = state.elf;
-    const target = new Tile(board.q - 1, board.r);
-    const queue = [state];
-    const visited = new Set<string>();
-    while (queue.length > 0) {
-        const state = closest(queue, target);
-        visited.add(state.key);
-        for (const n of state.evolve(board, blizzards, source, target)) {
-            if (visited.has(n.key)) {
-                continue;
-            }
-            queue.push(n);
-            if (n.elf.equals(target)) {
-                return n.minute;
+const traverse = (
+    board: Tile,
+    forecast: Forecast,
+    state: State,
+    target: Tile
+): State => {
+    let queue = new Map<string, State>([[state.key, state]]);
+    while (queue.size > 0) {
+        const next = new Map<string, State>();
+        for (const state of queue.values()) {
+            for (const n of state.evolve(board, forecast)) {
+                if (!next.has(n.key)) {
+                    next.set(n.key, n);
+                }
+                if (n.elf.equals(target)) {
+                    return n;
+                }
             }
         }
+        queue = next;
     }
     throw new Error("Did not find end");
 };
 
-const part2 = (input: unknown): number => 0;
+const part1 = ({ board, forecast, state }: Input): number =>
+    traverse(board, forecast, state, board.target()).minute;
 
-main(module, parse, part1);
+const part2 = ({board, forecast, state}: Input): number => {
+    const first = traverse(board, forecast, state, board.target());
+    const second = traverse(board, forecast, first, board.source());
+    const final = traverse(board, forecast, second, board.target());
+    return final.minute;
+};
+
+main(module, parse, part1, part2);
