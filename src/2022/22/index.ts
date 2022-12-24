@@ -272,7 +272,7 @@ class CubeGrid implements Cursor {
             for (let q = 0; q < scaledSize.q; q++) {
                 const col = q * scale;
                 if (col >= line.length || line[col] === " ") {
-                    chars.push(" ");
+                    chars.push(".");
                     continue;
                 }
                 chars.push(sides.length.toString());
