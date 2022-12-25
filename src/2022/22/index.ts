@@ -92,18 +92,6 @@ class Tile {
     equals({ q, r }: Tile): boolean {
         return this.q === q && this.r === r;
     }
-
-    rotate(scale: number): Tile {
-        const { q, r } = this;
-        return new Tile(scale - r - 1, q);
-    }
-
-    flip(scale: number, axis: "q" | "r"): Tile {
-        const { q, r } = this;
-        return axis === "q"
-            ? new Tile(scale - q - 1, r)
-            : new Tile(q, scale - r - 1);
-    }
 }
 
 const score = ({ q, r }: Tile, facing: Facing): number =>
@@ -228,9 +216,8 @@ type SideId = 0 | 1 | 2 | 3 | 4 | 5;
 
 interface Connection {
     readonly sideId: SideId;
-    readonly tileRotations: number;
-    readonly flip?: "q" | "r";
-    readonly facingRotations: number;
+    readonly facing: Facing;
+    readonly op: Operation;
 }
 
 const modulo = (value: number, base: number): number => {
@@ -264,7 +251,6 @@ class CubeGrid implements Cursor {
         const scaledSize = CubeGrid.scale(size, scale);
         const sides: Tile[] = [];
         const tiles: TileKind[][][] = [];
-        const map: string[] = [];
         for (let r = 0; r < scaledSize.r; r++) {
             const chars: string[] = [];
             const row = r * scale;
@@ -288,9 +274,7 @@ class CubeGrid implements Cursor {
                         )
                 );
             }
-            map.push(chars.join(""));
         }
-        console.log(map.join("\n"));
         const sideId = 0;
         const r = 0;
         const q = tiles[sideId][r].indexOf(TileKind.Open);
@@ -339,18 +323,9 @@ class CubeGrid implements Cursor {
                             }`
                         );
                     }
+                    nextFacing = connection.facing;
                     nextSideId = connection.sideId;
-                    nextTile = this.#tile;
-                    for (let i = 0; i < connection.tileRotations; i++) {
-                        nextTile = nextTile.rotate(this.scale);
-                    }
-                    if (connection.flip !== undefined) {
-                        nextTile = nextTile.flip(this.scale, connection.flip);
-                    }
-                    nextFacing = rotate(
-                        this.#facing,
-                        connection.facingRotations
-                    );
+                    nextTile = connection.op(this.#tile);
                 }
             }
             if (this.#isWall(nextSideId, nextTile)) {
@@ -363,22 +338,17 @@ class CubeGrid implements Cursor {
     }
 
     score(): number {
-        const { q, r } = this.#sides[this.#sideId]
+        const { q, r } = this.#sides[this.#sideId];
         return score(
-            new Tile((q * this.scale) + this.#tile.q, (r * this.scale) + this.#tile.r),
+            new Tile(
+                q * this.scale + this.#tile.q,
+                r * this.scale + this.#tile.r
+            ),
             this.#facing
         );
     }
 
     connect(source: SideId, facing: Facing, connection: Connection): void {
-        this.#align(source, facing, connection);
-        this.#align(connection.sideId, rotate(facing, 2), {
-            ...connection,
-            sideId: source,
-        });
-    }
-
-    #align(source: SideId, facing: Facing, connection: Connection): void {
         if (!this.#connections.has(source)) {
             this.#connections.set(source, new Map());
         }
@@ -400,7 +370,7 @@ interface ForceField {
 }
 
 const traverse = (cursor: Cursor, instructions: InstructionList): number => {
-    for (const instruction of instructions) {
+    for (const [index, instruction] of instructions.entries()) {
         if (typeof instruction === "number") {
             cursor.move(instruction);
         } else {
@@ -438,28 +408,72 @@ const parse = (input: string): ForceField => {
 const part1 = ({ section, instructions }: ForceField): number =>
     traverse(new Grid(section), instructions);
 
+type Operation = (tile: Tile) => Tile;
+
+type ConnectionParams = readonly [
+    source: SideId,
+    direction: Facing,
+    target: SideId,
+    facing: Facing,
+    op: Operation
+];
+
+const configure = (grid: CubeGrid): void => {
+    const max = grid.scale - 1;
+    const R = Facing.Right;
+    const D = Facing.Down;
+    const L = Facing.Left;
+    const U = Facing.Up;
+    const a: Operation = ({ q }) => new Tile(0, q);
+    const b: Operation = ({ r }) => new Tile(0, max - r);
+    const c: Operation = ({ q }) => new Tile(q, max);
+    const d: Operation = ({ r }) => new Tile(max, max - r);
+    const e: Operation = ({ q }) => new Tile(max, q);
+    const f: Operation = ({ r }) => new Tile(r, max);
+    const g: Operation = ({ q }) => new Tile(q, 0);
+    const h: Operation = ({ r }) => new Tile(r, 0);
+    const params: ReadonlyArray<ConnectionParams> = [
+        [0, U, 5, R, a],
+        [0, L, 3, R, b],
+        [1, U, 5, U, c],
+        [1, R, 4, L, d],
+        [1, D, 2, L, e],
+        [2, L, 3, D, h],
+        [2, R, 1, U, f],
+        [4, R, 1, L, d],
+        [4, D, 5, L, e],
+        [3, U, 2, R, a],
+        [3, L, 0, R, b],
+        [5, R, 4, U, f],
+        [5, D, 1, D, g],
+        [5, L, 0, D, h],
+    ];
+    for (const [source, direction, sideId, facing, op] of params) {
+        grid.connect(source, direction, { sideId, facing, op });
+    }
+};
+
 const part2 = ({ section, instructions }: ForceField): number => {
     const grid = new CubeGrid(section);
+    const max = grid.scale - 1;
     if (grid.scale === 4) {
         grid.connect(3, Facing.Right, {
             sideId: 5,
-            tileRotations: 3,
-            flip: "q",
-            facingRotations: 1,
+            facing: Facing.Down,
+            op: ({ r }) => new Tile(max - r, 0),
         });
         grid.connect(4, Facing.Down, {
             sideId: 1,
-            tileRotations: 0,
-            flip: "q",
-            facingRotations: 2,
+            facing: Facing.Up,
+            op: ({ q }) => new Tile(max - q, max),
         });
         grid.connect(2, Facing.Up, {
             sideId: 0,
-            tileRotations: 3,
-            flip: "r",
-            facingRotations: 1,
-        })
+            facing: Facing.Right,
+            op: ({ q }) => new Tile(0, q),
+        });
     } else {
+        configure(grid);
     }
     return traverse(grid, instructions);
 };

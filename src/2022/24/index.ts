@@ -231,7 +231,7 @@ const traverse = (
 const part1 = ({ board, forecast, state }: Input): number =>
     traverse(board, forecast, state, board.target()).minute;
 
-const part2 = ({board, forecast, state}: Input): number => {
+const part2 = ({ board, forecast, state }: Input): number => {
     const first = traverse(board, forecast, state, board.target());
     const second = traverse(board, forecast, first, board.source());
     const final = traverse(board, forecast, second, board.target());
