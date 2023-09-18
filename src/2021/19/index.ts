@@ -4,7 +4,7 @@ import { IntSchema, StringSchema } from "../../utils/schemas";
 
 const VectorSchema = z.preprocess(
     (line) => StringSchema.parse(line).trim().split(","),
-    z.tuple([IntSchema, IntSchema, IntSchema])
+    z.tuple([IntSchema, IntSchema, IntSchema]),
 );
 
 const schema = z.preprocess(
@@ -12,9 +12,9 @@ const schema = z.preprocess(
     z.array(
         z.preprocess(
             (group) => StringSchema.parse(group).trim().split("\n").slice(1),
-            z.array(VectorSchema)
-        )
-    )
+            z.array(VectorSchema),
+        ),
+    ),
 );
 
 type Vector = readonly [x: number, y: number, z: number];
@@ -37,11 +37,11 @@ const SIGNS: ReadonlyArray<Vector> = Array.from(
             .toString(2)
             .padStart(3, "0")
             .split("")
-            .map((value) => [1, -1][parseInt(value)]) as unknown as Vector
+            .map((value) => [1, -1][parseInt(value)]) as unknown as Vector,
 );
 
 const ROTATIONS: ReadonlyArray<Rotation> = FACINGS.map((facing) =>
-    SIGNS.map((sign) => [facing, sign] as Rotation)
+    SIGNS.map((sign) => [facing, sign] as Rotation),
 ).flat();
 
 const serialize = (vector: Vector): string => vector.join(",");
@@ -63,7 +63,7 @@ type Match = readonly [position: Vector, beacons: ReadonlySet<string>];
 const align = (
     sensor: Sensor,
     rotations: ReadonlyArray<Sensor>,
-    beacons: ReadonlySet<string>
+    beacons: ReadonlySet<string>,
 ): Match | null => {
     for (const [r, rotated] of rotations.entries()) {
         const offsets = new Map<string, number>();
@@ -79,9 +79,12 @@ const align = (
                         new Set(
                             sensor.map((vector) =>
                                 serialize(
-                                    delta(apply(vector, ROTATIONS[r]), position)
-                                )
-                            )
+                                    delta(
+                                        apply(vector, ROTATIONS[r]),
+                                        position,
+                                    ),
+                                ),
+                            ),
                         ),
                     ];
                 }
@@ -92,13 +95,13 @@ const align = (
 };
 
 const absolute = (
-    sensors: ReadonlyArray<Sensor>
+    sensors: ReadonlyArray<Sensor>,
 ): readonly [positions: ReadonlyMap<number, Vector>, beacons: number] => {
     const rotations: ReadonlyArray<ReadonlyArray<Sensor>> = sensors.map(
         (sensor) =>
             ROTATIONS.map((rotation) =>
-                sensor.map((vector) => apply(vector, rotation))
-            )
+                sensor.map((vector) => apply(vector, rotation)),
+            ),
     );
     const positions = new Map<number, Vector>([[0, [0, 0, 0]]]);
     const beacons = new Set(sensors[0].map(serialize));
@@ -130,7 +133,7 @@ const part2 = (sensors: ReadonlyArray<Sensor>): number => {
         for (const b of positions.values()) {
             max = Math.max(
                 max,
-                delta(a, b).reduce((sum, value) => sum + Math.abs(value), 0)
+                delta(a, b).reduce((sum, value) => sum + Math.abs(value), 0),
             );
         }
     }

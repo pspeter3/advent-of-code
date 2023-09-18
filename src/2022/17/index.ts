@@ -89,7 +89,7 @@ class Shape {
                     throw new Error("Invalid template");
                 }
                 return id;
-            })
+            }),
         );
     }
 
@@ -104,7 +104,7 @@ class Shape {
     get top(): number {
         return this.rocks.reduce(
             (max, rock) => Math.max(max, this.grid.y(rock)),
-            -Infinity
+            -Infinity,
         );
     }
 
@@ -146,7 +146,7 @@ const parse = (input: string): ReadonlyArray<Direction> =>
 const drop = (
     rocks: ReadonlySet<number>,
     jets: Iterator<Direction>,
-    shape: Shape
+    shape: Shape,
 ): Shape => {
     while (true) {
         const direction = (jets.next() as IteratorYieldResult<Direction>).value;

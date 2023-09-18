@@ -34,7 +34,7 @@ const parse = (input: string): ReadonlyMap<Tile, number> =>
             .split("\n")
             .map((line) => {
                 const match = line.match(
-                    /^Sensor at x=(-?\d+), y=(-?\d+): closest beacon is at x=(-?\d+), y=(-?\d+)$/
+                    /^Sensor at x=(-?\d+), y=(-?\d+): closest beacon is at x=(-?\d+), y=(-?\d+)$/,
                 );
                 if (match === null) {
                     throw new Error(`Invalid line: ${line}`);
@@ -44,7 +44,7 @@ const parse = (input: string): ReadonlyMap<Tile, number> =>
                     .map((value) => toInt(value));
                 const sensor = new Tile(sx, sy);
                 return [sensor, sensor.distance(new Tile(bx, by))];
-            })
+            }),
     );
 
 const part1 = (sensors: ReadonlyMap<Tile, number>): number => {
@@ -85,7 +85,7 @@ const part2 = (sensors: ReadonlyMap<Tile, number>): number => {
                     const dy = border - dx;
                     const tile = new Tile(
                         sensor.x + sx * dx,
-                        sensor.y + sy * dy
+                        sensor.y + sy * dy,
                     );
                     if (!inBounds(tile)) {
                         continue;

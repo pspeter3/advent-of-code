@@ -24,7 +24,7 @@ const part2 = (inventory: Inventory): number =>
         inventory
             .map((elf) => calories(elf))
             .sort((a, b) => b - a)
-            .slice(0, 3)
+            .slice(0, 3),
     );
 
 main(module, parse, part1, part2);

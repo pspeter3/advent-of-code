@@ -31,7 +31,7 @@ const AMPHIPODS: ReadonlyArray<Amphipod> = ["A", "B", "C", "D"];
 const DOORS: ReadonlyArray<number> = [2, 4, 6, 8];
 const WAITING: ReadonlyArray<number> = Array.from(
     { length: 11 },
-    (_, i) => i
+    (_, i) => i,
 ).filter((i) => !DOORS.includes(i));
 
 const toKey = (grid: Grid): string => JSON.stringify(grid);
@@ -47,7 +47,7 @@ const swap = (grid: Grid, [al, an]: Cell, [bl, bn]: Cell): Grid =>
                 return grid[al][an];
             }
             return node;
-        })
+        }),
     );
 
 const toNode = (grid: Grid, [line, node]: Cell): Node => grid[line][node];
@@ -87,10 +87,10 @@ const isValid = (room: Line): boolean => {
 };
 
 const findOptions = (
-    rooms: ReadonlyArray<Line>
+    rooms: ReadonlyArray<Line>,
 ): readonly [
     moves: ReadonlyArray<Cell | null>,
-    slots: ReadonlyArray<Cell | null>
+    slots: ReadonlyArray<Cell | null>,
 ] => {
     const moves: Array<Cell | null> = [];
     const slots: Array<Cell | null> = [];
@@ -99,7 +99,7 @@ const findOptions = (
             throw new Error("Invalid room");
         }
         const isOpen = room.every(
-            (node) => node === null || node === AMPHIPODS[line]
+            (node) => node === null || node === AMPHIPODS[line],
         );
         if (isOpen) {
             moves.push(null);
@@ -204,19 +204,22 @@ const createHall = (): Line => Array.from({ length: 11 }, () => null);
 const createFinal = (size: number): Grid =>
     AMPHIPODS.map(
         (amphipod: Amphipod): Line =>
-            Array.from({ length: size }, () => amphipod)
+            Array.from({ length: size }, () => amphipod),
     ).concat([createHall()]);
 
-const schema = z.preprocess((input) => {
-    const data = StringSchema.parse(input)
-        .trim()
-        .split("\n")
-        .map((line) => line.split(""));
-    return [
-        ...DOORS.map((door) => [data[2][door + 1], data[3][door + 1]]),
-        createHall(),
-    ];
-}, z.array(z.array(z.enum(["A", "B", "C", "D"]).nullable())));
+const schema = z.preprocess(
+    (input) => {
+        const data = StringSchema.parse(input)
+            .trim()
+            .split("\n")
+            .map((line) => line.split(""));
+        return [
+            ...DOORS.map((door) => [data[2][door + 1], data[3][door + 1]]),
+            createHall(),
+        ];
+    },
+    z.array(z.array(z.enum(["A", "B", "C", "D"]).nullable())),
+);
 
 const part1 = (grid: Grid): number => seek(grid, createFinal(2));
 

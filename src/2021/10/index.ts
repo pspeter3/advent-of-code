@@ -13,8 +13,8 @@ type Character = z.infer<typeof CharactersSchema>;
 const schema = LinesSchema(
     z.preprocess(
         (line) => StringSchema.parse(line).split(""),
-        z.array(CharactersSchema)
-    )
+        z.array(CharactersSchema),
+    ),
 );
 
 const Closers: Readonly<Record<Opener, Closer>> = {
@@ -93,8 +93,8 @@ const part2 = (lines: ReadonlyArray<ReadonlyArray<Character>>): number => {
                         (score, char) =>
                             5 * score +
                             IncompleteScores[Closers[OpenSchema.parse(char)]],
-                        0
-                    )
+                        0,
+                    ),
             );
         }
     }

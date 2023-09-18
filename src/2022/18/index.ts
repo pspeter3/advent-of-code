@@ -45,8 +45,8 @@ const schema = LinesSchema(
         .pipe(
             z
                 .tuple([IntSchema, IntSchema, IntSchema])
-                .transform(([x, y, z]) => new Voxel(x, y, z))
-        )
+                .transform(([x, y, z]) => new Voxel(x, y, z)),
+        ),
 );
 
 const parse = (input: string): ReadonlyArray<Voxel> => schema.parse(input);
@@ -135,7 +135,7 @@ class Bounds {
 const hasPath = (
     solid: ReadonlySet<string>,
     bounds: Bounds,
-    start: Voxel
+    start: Voxel,
 ): boolean => {
     const queue: Voxel[] = [start];
     const visited = new Set<string>();

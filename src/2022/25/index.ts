@@ -4,7 +4,7 @@ import { LinesSchema } from "../../utils/schemas";
 
 const DIGITS = ["0", "1", "2", "=", "-"] as const;
 const DigitSchema = z.enum(DIGITS);
-type Digit = typeof DIGITS[number];
+type Digit = (typeof DIGITS)[number];
 const VALUES = {
     "=": -2,
     "-": -1,
@@ -19,7 +19,7 @@ const toDecimal = (snafu: SNAFU): number =>
     snafu.reduce(
         (sum, digit, index) =>
             sum + VALUES[digit] * Math.pow(5, snafu.length - index - 1),
-        0
+        0,
     );
 
 const toSNAFU = (value: number): string => {
@@ -33,11 +33,12 @@ const schema = LinesSchema(
     z
         .string()
         .transform((line) => line.split(""))
-        .pipe(z.array(DigitSchema))
+        .pipe(z.array(DigitSchema)),
 );
 
 const parse = (input: string): ReadonlyArray<SNAFU> => schema.parse(input);
 
-const part1 = (snafus: ReadonlyArray<SNAFU>): string => toSNAFU(snafus.reduce((sum, snafu) => sum + toDecimal(snafu), 0));
+const part1 = (snafus: ReadonlyArray<SNAFU>): string =>
+    toSNAFU(snafus.reduce((sum, snafu) => sum + toDecimal(snafu), 0));
 
 main(module, parse, part1);

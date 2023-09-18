@@ -24,7 +24,7 @@ const schema = LinesSchema(
     z
         .string()
         .transform((line) => line.split(":"))
-        .pipe(z.tuple([z.string(), z.union([IntSchema, ExpressionSchema])]))
+        .pipe(z.tuple([z.string(), z.union([IntSchema, ExpressionSchema])])),
 ).transform((pairs) => new Map(pairs));
 
 const parse = (input: string): MonkeyMap => schema.parse(input);
@@ -101,7 +101,7 @@ const invert = (
     target: number,
     op: Operation,
     known: number,
-    leftX: boolean
+    leftX: boolean,
 ): number => {
     switch (op) {
         case Operation.Add: {
@@ -123,7 +123,7 @@ const search = (
     dc: Context<boolean>,
     ec: Context<number>,
     key: string,
-    target: number
+    target: number,
 ): number => {
     const job = dc.monkeys.get(key);
     if (job === undefined) {

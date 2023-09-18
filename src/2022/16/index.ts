@@ -72,7 +72,7 @@ const parse = (input: string): Network => {
             .split("\n")
             .map((line) => {
                 const match = line.match(
-                    /^Valve (\w+) has flow rate=(\d+); tunnels? leads? to valves? (.+)$/
+                    /^Valve (\w+) has flow rate=(\d+); tunnels? leads? to valves? (.+)$/,
                 );
                 if (match === null) {
                     throw new Error("Line does not match");
@@ -83,7 +83,7 @@ const parse = (input: string): Network => {
                     tunnels: match[3],
                 });
                 return [valve.label, valve];
-            })
+            }),
     );
     const graph = toGraph(valves, "AA");
     return { valves, graph };
@@ -94,7 +94,7 @@ const traverse = (
     limit: number,
     label: string,
     minute: number,
-    open: ReadonlySet<string>
+    open: ReadonlySet<string>,
 ): number => {
     const { valves, graph } = network;
     const opened = new Set(open);
@@ -120,7 +120,7 @@ const doubleTraverse = (
     limit: number,
     team: Team,
     minute: number,
-    open: ReadonlySet<string>
+    open: ReadonlySet<string>,
 ): number => {
     const { valves, graph } = network;
     const arriving = team
@@ -159,8 +159,8 @@ const doubleTraverse = (
                             [b, bNext],
                         ],
                         Math.min(aNext, bNext),
-                        opened
-                    )
+                        opened,
+                    ),
                 );
             }
         }
@@ -182,8 +182,8 @@ const doubleTraverse = (
                     limit,
                     [[v, next], transit],
                     Math.min(next, arrive),
-                    opened
-                )
+                    opened,
+                ),
             );
         }
         if (count === 0) {
@@ -205,7 +205,7 @@ const part2 = (network: Network): number =>
             ["AA", 0],
         ],
         0,
-        new Set()
+        new Set(),
     );
 
 main(module, parse, part1, part2);

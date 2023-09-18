@@ -25,11 +25,11 @@ function exec<T>(
     group: string,
     mod: NodeModule,
     parse: Parser<T>,
-    solutions: Solution<T>[]
+    solutions: Solution<T>[],
 ): void {
     const filename = path.join(
         path.dirname(mod.filename),
-        `${group.toLowerCase()}.txt`
+        `${group.toLowerCase()}.txt`,
     );
     if (!fs.existsSync(filename)) {
         return;

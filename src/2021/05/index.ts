@@ -14,8 +14,8 @@ const schema = LinesSchema(
             StringSchema.parse(line)
                 .split(" -> ")
                 .map((part) => part.split(",")),
-        SegmentSchema
-    )
+        SegmentSchema,
+    ),
 );
 
 const isGridLine = ([[x1, y1], [x2, y2]]: Segment): boolean =>

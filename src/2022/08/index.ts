@@ -9,7 +9,7 @@ const parse = (input: string): Grid =>
         z
             .string()
             .transform((line) => line.split(""))
-            .pipe(z.array(IntSchema))
+            .pipe(z.array(IntSchema)),
     ).parse(input);
 
 function pair(a: number, b: number): bigint {
@@ -65,7 +65,7 @@ function search(
     col: number,
     row: number,
     cols: number,
-    rows: number
+    rows: number,
 ): number {
     let up = 0;
     let down = 0;

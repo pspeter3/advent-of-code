@@ -14,12 +14,12 @@ const Bits: Readonly<Record<Pixel, 0 | 1>> = {
 
 const PixelListSchema = z.preprocess(
     (line) => StringSchema.parse(line).trim().split(""),
-    z.array(z.nativeEnum(Pixel))
+    z.array(z.nativeEnum(Pixel)),
 );
 
 const schema = z.preprocess(
     (input) => StringSchema.parse(input).trim().split("\n\n"),
-    z.tuple([PixelListSchema, LinesSchema(PixelListSchema)])
+    z.tuple([PixelListSchema, LinesSchema(PixelListSchema)]),
 );
 
 type PixelList = ReadonlyArray<Pixel>;
@@ -76,8 +76,8 @@ const evolve = (enhancement: PixelList, { none, grid }: PixelMap): PixelMap => {
             row.push(
                 enhance(
                     enhancement,
-                    nearby([r, c]).map((cell) => valueOf(grid, cell, none))
-                )
+                    nearby([r, c]).map((cell) => valueOf(grid, cell, none)),
+                ),
             );
         }
         next.push(row);
@@ -85,7 +85,7 @@ const evolve = (enhancement: PixelList, { none, grid }: PixelMap): PixelMap => {
     return {
         none: enhance(
             enhancement,
-            Array.from({ length: 9 }, () => none)
+            Array.from({ length: 9 }, () => none),
         ),
         grid: next,
     };
@@ -94,14 +94,14 @@ const evolve = (enhancement: PixelList, { none, grid }: PixelMap): PixelMap => {
 const iterate = (
     enhancement: PixelList,
     map: PixelMap,
-    count: number
+    count: number,
 ): number => {
     for (let i = 0; i < count; i++) {
         map = evolve(enhancement, map);
     }
     return map.grid.reduce(
         (sum, row) => sum + row.filter((pixel) => pixel === Pixel.Light).length,
-        0
+        0,
     );
 };
 

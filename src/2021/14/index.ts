@@ -9,22 +9,22 @@ const schema = z.preprocess(
         LinesSchema(
             z.preprocess(
                 (line) => StringSchema.parse(line).trim().split(" -> "),
-                z.tuple([StringSchema, StringSchema])
-            )
+                z.tuple([StringSchema, StringSchema]),
+            ),
         ),
-    ])
+    ]),
 );
 
 type Replacement = readonly [pair: string, replacement: string];
 type Input = readonly [
     template: string,
-    replacements: ReadonlyArray<Replacement>
+    replacements: ReadonlyArray<Replacement>,
 ];
 
 const increment = (
     counts: Map<string, number>,
     key: string,
-    amount: number
+    amount: number,
 ): Map<string, number> => counts.set(key, (counts.get(key) ?? 0) + amount);
 
 const tokenize = (template: string): ReadonlyMap<string, number> => {
@@ -37,7 +37,7 @@ const tokenize = (template: string): ReadonlyMap<string, number> => {
 
 const replace = (
     tokens: ReadonlyMap<string, number>,
-    replacements: ReadonlyMap<string, string>
+    replacements: ReadonlyMap<string, string>,
 ): ReadonlyMap<string, number> => {
     const next = new Map(tokens);
     for (const [key, count] of tokens) {
@@ -48,7 +48,7 @@ const replace = (
         const pairs = key
             .split("")
             .map((char, i) =>
-                (i === 0 ? [char, insert] : [insert, char]).join("")
+                (i === 0 ? [char, insert] : [insert, char]).join(""),
             );
         for (const pair of pairs) {
             increment(next, pair, count);

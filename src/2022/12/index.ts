@@ -3,7 +3,7 @@ import { main } from "../../utils/host";
 class Grid {
     private static findTile(
         tiles: ReadonlyArray<GridTile>,
-        char: string
+        char: string,
     ): GridTile {
         const tile = tiles.find((tile) => tile.char === char);
         if (!tile) {
@@ -29,7 +29,7 @@ class Grid {
         this.rows = data.length;
         this.tiles = data
             .map((chars, r) =>
-                chars.map((char, q) => new GridTile(this, char, q, r))
+                chars.map((char, q) => new GridTile(this, char, q, r)),
             )
             .flat();
         this.start = Grid.findTile(this.tiles, "S");
@@ -80,7 +80,7 @@ const parse = (input: string): Grid =>
         input
             .trim()
             .split("\n")
-            .map((line) => line.split(""))
+            .map((line) => line.split("")),
     );
 
 const seek = (grid: Grid, source: GridTile): number | null => {

@@ -5,8 +5,8 @@ import { IntSchema, LinesSchema, StringSchema } from "../../utils/schemas";
 const schema = LinesSchema(
     z.preprocess(
         (line) => StringSchema.parse(line).trim().split(""),
-        z.array(IntSchema)
-    )
+        z.array(IntSchema),
+    ),
 );
 
 type Cell = readonly [row: number, col: number];
@@ -37,7 +37,7 @@ const neighbors = ([rows, cols]: Cell, [row, col]: Cell): ReadonlyArray<Cell> =>
     ).filter((cell) => !equals(cell, [row, col]));
 
 const dequeue = (
-    queue: Map<number, number>
+    queue: Map<number, number>,
 ): readonly [id: number, cost: number] => {
     let id: number | null = null;
     let cost = Infinity;
@@ -86,7 +86,7 @@ const scale = (grid: Grid, factor: number): Grid => {
             const c = col % cols;
             const d = Math.floor(row / rows) + Math.floor(col / cols);
             return ((grid[r][c] + d - 1) % 9) + 1;
-        })
+        }),
     );
 };
 

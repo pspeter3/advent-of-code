@@ -4,12 +4,12 @@ import { IntSchema, StringSchema } from "../../utils/schemas";
 
 const PositionSchema = z.preprocess(
     (line) => StringSchema.parse(line).trim().split(": ")[1],
-    IntSchema
+    IntSchema,
 );
 
 const schema = z.preprocess(
     (input) => StringSchema.parse(input).trim().split("\n"),
-    z.tuple([PositionSchema, PositionSchema])
+    z.tuple([PositionSchema, PositionSchema]),
 );
 
 type Pair = readonly [a: number, b: number];
@@ -32,7 +32,7 @@ const part1 = (positions: Pair): number => {
         const index = turn % current.length;
         const delta = Array.from(
             { length: 3 },
-            (_, v) => ((3 * turn + v) % 100) + 1
+            (_, v) => ((3 * turn + v) % 100) + 1,
         ).reduce((sum, value) => sum + value);
         current[index] = move(current[index], delta);
         scores[index] += current[index];
@@ -47,7 +47,7 @@ const parse = (key: string): Game => JSON.parse(key);
 const evolve = (
     turn: number,
     [positions, scores]: Game,
-    delta: number
+    delta: number,
 ): string => {
     const index = turn % positions.length;
     const p = set(positions, index, move(positions[index], delta));
