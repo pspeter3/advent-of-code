@@ -13,8 +13,8 @@ type Grid = ReadonlyArray<ReadonlyArray<Cell>>;
 const schema = LinesSchema(
     z.preprocess(
         (line) => StringSchema.parse(line).trim().split(""),
-        z.array(z.nativeEnum(Cell))
-    )
+        z.array(z.nativeEnum(Cell)),
+    ),
 );
 
 const serialize = (grid: Grid): string =>
@@ -46,7 +46,7 @@ const evolve = (grid: Grid): Grid => {
                         : cell;
                 }
             }
-        })
+        }),
     );
     return east.map((row, r) =>
         row.map((cell, c) => {
@@ -65,7 +65,7 @@ const evolve = (grid: Grid): Grid => {
                         : cell;
                 }
             }
-        })
+        }),
     );
 };
 

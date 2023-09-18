@@ -13,7 +13,7 @@ const schema = LinesSchema(
     z
         .string()
         .transform((line) => line.split(" "))
-        .pipe(z.tuple([z.nativeEnum(Direction), IntSchema]))
+        .pipe(z.tuple([z.nativeEnum(Direction), IntSchema])),
 );
 
 type Move = readonly [direction: Direction, amount: number];
@@ -106,7 +106,7 @@ const chase = (head: GridCell, tail: GridCell): GridCell => {
         case 2: {
             const magnitude = moves.reduce(
                 (sum, [_, amount]) => sum + amount,
-                0
+                0,
             );
             if (magnitude < 2) {
                 throw new Error(`Invalid step ${moves}`);

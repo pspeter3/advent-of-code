@@ -43,7 +43,7 @@ const decodeHeader = (bits: string): Header => {
 const decodeLiteral = (
     version: number,
     typeID: number,
-    bits: string
+    bits: string,
 ): Literal => {
     if (typeID !== PacketType.Literal) {
         throw new Error("Invalid packet header");
@@ -65,7 +65,7 @@ const decodeLiteral = (
 const decodeWrapper = (
     version: number,
     typeID: number,
-    bits: string
+    bits: string,
 ): Wrapper => {
     const index = 7;
     const lengthTypeID = binary(bits[6]);

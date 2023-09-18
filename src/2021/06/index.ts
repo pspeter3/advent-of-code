@@ -4,7 +4,7 @@ import { IntSchema, StringSchema } from "../../utils/schemas";
 
 const schema = z.preprocess(
     (input) => StringSchema.parse(input).trim().split(","),
-    z.array(IntSchema)
+    z.array(IntSchema),
 );
 
 const LIFECYCLE = 6;

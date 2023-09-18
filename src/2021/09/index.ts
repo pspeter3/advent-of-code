@@ -5,15 +5,15 @@ import { IntSchema, LinesSchema, StringSchema } from "../../utils/schemas";
 const schema = LinesSchema(
     z.preprocess(
         (line) => StringSchema.parse(line).trim().split(""),
-        z.array(IntSchema)
-    )
+        z.array(IntSchema),
+    ),
 );
 
 type Position = readonly [row: number, col: number];
 
 const neighbors = (
     [rows, cols]: Position,
-    [row, col]: Position
+    [row, col]: Position,
 ): ReadonlyArray<Position> => {
     const positions: Position[] = [];
     if (row > 0) {
@@ -36,7 +36,7 @@ const toID = ([_, cols]: Position, [row, col]: Position): number =>
 
 const size = (
     uphill: ReadonlyMap<number, ReadonlySet<number>>,
-    basin: number
+    basin: number,
 ): number => {
     if (!uphill.has(basin)) {
         throw new Error("Could not find basin");

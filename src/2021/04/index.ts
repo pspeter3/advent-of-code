@@ -19,7 +19,7 @@ const schema = z.preprocess(
     z.object({
         draws: z.preprocess(
             (line) => StringSchema.parse(line).split(","),
-            z.array(IntSchema)
+            z.array(IntSchema),
         ),
         boards: z.array(
             z.preprocess(
@@ -27,12 +27,12 @@ const schema = z.preprocess(
                 z.array(
                     z.preprocess(
                         (line) => StringSchema.parse(line).trim().split(/\s+/),
-                        z.array(IntSchema)
-                    )
-                )
-            )
+                        z.array(IntSchema),
+                    ),
+                ),
+            ),
         ),
-    })
+    }),
 );
 
 const mark = (draws: ReadonlySet<number>, board: Board): MarkedBoard =>
@@ -59,9 +59,9 @@ const score = (draw: number, board: Board, marked: MarkedBoard): number =>
         (sum, cells, row) =>
             cells.reduce(
                 (sum, cell, col) => sum + (marked[row][col] ? 0 : cell),
-                sum
+                sum,
             ),
-        0
+        0,
     ) * draw;
 
 const part1 = ({ draws, boards }: Bingo): number | null => {

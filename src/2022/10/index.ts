@@ -15,7 +15,7 @@ const schema = LinesSchema(
             .string()
             .transform((line) => line.split(" "))
             .pipe(z.tuple([z.literal("addx"), IntSchema])),
-    ])
+    ]),
 );
 
 const parse = (input: string): CommandList => schema.parse(input);
@@ -49,7 +49,7 @@ enum Pixel {
 
 const part2 = (commands: CommandList): string => {
     const pixels: Array<Array<Pixel>> = Array.from({ length: 6 }, () =>
-        Array.from({ length: 40 }, () => Pixel.Dark)
+        Array.from({ length: 40 }, () => Pixel.Dark),
     );
     let cycle = 0;
     let register = 1;

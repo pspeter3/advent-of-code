@@ -16,10 +16,10 @@ const schema = LinesSchema(
         z.array(
             z.preprocess(
                 (char) => parseInt(StringSchema.parse(char)),
-                z.nativeEnum(Bit)
-            )
-        )
-    )
+                z.nativeEnum(Bit),
+            ),
+        ),
+    ),
 );
 
 const decimal = (bits: BitString): number => parseInt(bits.join(""), 2);
@@ -27,7 +27,7 @@ const decimal = (bits: BitString): number => parseInt(bits.join(""), 2);
 const part1 = (input: ReadonlyArray<BitString>): number => {
     const counters: ReadonlyArray<Counter> = Array.from(
         { length: input[0].length },
-        () => [0, 0]
+        () => [0, 0],
     );
     for (const line of input) {
         for (const [index, bit] of line.entries()) {
@@ -35,10 +35,10 @@ const part1 = (input: ReadonlyArray<BitString>): number => {
         }
     }
     const gamma = decimal(
-        counters.map((counter) => counter.indexOf(Math.max(...counter)) as Bit)
+        counters.map((counter) => counter.indexOf(Math.max(...counter)) as Bit),
     );
     const epsilon = decimal(
-        counters.map((counter) => counter.indexOf(Math.min(...counter)) as Bit)
+        counters.map((counter) => counter.indexOf(Math.min(...counter)) as Bit),
     );
     return gamma * epsilon;
 };
@@ -46,7 +46,7 @@ const part1 = (input: ReadonlyArray<BitString>): number => {
 const seek = (
     input: ReadonlyArray<BitString>,
     callback: (...values: number[]) => number,
-    fallback: Bit
+    fallback: Bit,
 ): number => {
     let valid = input;
     const max = input[0].length;

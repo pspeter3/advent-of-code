@@ -6,12 +6,12 @@ const schema = LinesSchema(
     z
         .string()
         .transform((line) => line.split(""))
-        .pipe(z.array(z.string()))
+        .pipe(z.array(z.string())),
 );
 
 const intersection = (
     a: ReadonlySet<string>,
-    b: ReadonlySet<string>
+    b: ReadonlySet<string>,
 ): ReadonlySet<string> => {
     const source = a.size < b.size ? a : b;
     const target = a.size < b.size ? b : a;
@@ -41,7 +41,7 @@ const part1 = (rucksacks: ReadonlyArray<Rucksack>): number =>
         const split = Math.floor(rucksack.length / 2);
         const items = intersection(
             new Set(rucksack.slice(0, split)),
-            new Set(rucksack.slice(split))
+            new Set(rucksack.slice(split)),
         );
         for (const letter of items) {
             sum += score(letter);

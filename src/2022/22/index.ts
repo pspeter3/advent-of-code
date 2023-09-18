@@ -39,7 +39,7 @@ class Bounds {
     step(value: number, amount: -1 | 1) {
         if (!this.contains(value)) {
             throw new Error(
-                `Invalid value ${value} for bounds (${this.min}, ${this.max})`
+                `Invalid value ${value} for bounds (${this.min}, ${this.max})`,
             );
         }
         const next = value + amount;
@@ -122,15 +122,15 @@ class Grid implements Cursor {
         const size = new Tile(
             lines.reduce(
                 (current, line) => Math.max(current, line.length),
-                -Infinity
+                -Infinity,
             ),
-            lines.length
+            lines.length,
         );
         const cols: Bounds[] = [];
         const rowMin: number[] = Array.from({ length: size.q }, () => Infinity);
         const rowMax: number[] = Array.from(
             { length: size.q },
-            () => -Infinity
+            () => -Infinity,
         );
         const entries: Array<readonly [id: number, kind: TileKind]> = [];
         for (const [r, line] of lines.entries()) {
@@ -244,9 +244,9 @@ class CubeGrid implements Cursor {
         const size = new Tile(
             lines.reduce(
                 (current, line) => Math.max(current, line.length),
-                -Infinity
+                -Infinity,
             ),
-            lines.length
+            lines.length,
         );
         const scaledSize = CubeGrid.scale(size, scale);
         const sides: Tile[] = [];
@@ -269,9 +269,9 @@ class CubeGrid implements Cursor {
                         .map(
                             (line) =>
                                 Array.from(
-                                    line.slice(col, col + scale)
-                                ) as TileKind[]
-                        )
+                                    line.slice(col, col + scale),
+                                ) as TileKind[],
+                        ),
                 );
             }
         }
@@ -301,16 +301,16 @@ class CubeGrid implements Cursor {
             let nextTile = this.#tile.neighbor(this.#facing);
             if (!this.#inBounds(nextTile)) {
                 const neighbor = this.#sides[this.#sideId].neighbor(
-                    this.#facing
+                    this.#facing,
                 );
                 const index = this.#sides.findIndex((tile) =>
-                    tile.equals(neighbor)
+                    tile.equals(neighbor),
                 );
                 if (index !== -1) {
                     nextSideId = index as SideId;
                     nextTile = new Tile(
                         modulo(nextTile.q, this.scale),
-                        modulo(nextTile.r, this.scale)
+                        modulo(nextTile.r, this.scale),
                     );
                 } else {
                     const connection = this.#connections
@@ -320,7 +320,7 @@ class CubeGrid implements Cursor {
                         throw new Error(
                             `Undefined connection for ${this.#sideId} ${
                                 Facing[this.#facing]
-                            }`
+                            }`,
                         );
                     }
                     nextFacing = connection.facing;
@@ -342,9 +342,9 @@ class CubeGrid implements Cursor {
         return score(
             new Tile(
                 q * this.scale + this.#tile.q,
-                r * this.scale + this.#tile.r
+                r * this.scale + this.#tile.r,
             ),
-            this.#facing
+            this.#facing,
         );
     }
 
@@ -415,7 +415,7 @@ type ConnectionParams = readonly [
     direction: Facing,
     target: SideId,
     facing: Facing,
-    op: Operation
+    op: Operation,
 ];
 
 const configure = (grid: CubeGrid): void => {

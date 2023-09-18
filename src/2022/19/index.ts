@@ -44,13 +44,13 @@ const schema = LinesSchema(
                                 match[2].split(" and ").map((cost) => {
                                     const [amount, resource] = cost.split(" ");
                                     return [resource, amount];
-                                })
+                                }),
                             ),
                         ];
-                    })
-            )
+                    }),
+            ),
         )
-        .pipe(BlueprintSchema)
+        .pipe(BlueprintSchema),
 );
 
 const get = (resources: ResourceMap, resource: Resource): number =>
@@ -76,7 +76,7 @@ const harvest = (
     robots: ResourceMap,
     stores: ResourceMap,
     limits: ResourceMap,
-    costs?: ResourceMap
+    costs?: ResourceMap,
 ) =>
     new Map(
         RESOURCES.map((resource) => {
@@ -87,7 +87,7 @@ const harvest = (
                 value = Math.min(limit * next, value);
             }
             return [resource, value];
-        })
+        }),
     );
 
 class Context {
@@ -152,7 +152,7 @@ const search = (
     ctx: Context,
     time: number,
     robots: ResourceMap,
-    stores: ResourceMap
+    stores: ResourceMap,
 ): number => {
     const geodes = get(stores, Resource.Enum.geode);
     if (time === 0) {
@@ -184,13 +184,13 @@ const search = (
                 ctx,
                 next,
                 build(robots, resource),
-                harvest(next, robots, stores, ctx.limits, ctx.cost(resource))
-            )
+                harvest(next, robots, stores, ctx.limits, ctx.cost(resource)),
+            ),
         );
     }
     result = Math.max(
         result,
-        search(ctx, next, robots, harvest(next, robots, stores, ctx.limits))
+        search(ctx, next, robots, harvest(next, robots, stores, ctx.limits)),
     );
     return ctx.record(time, key, result);
 };
@@ -209,7 +209,7 @@ const part1 = (blueprints: ReadonlyArray<Blueprint>): number => {
             new Context(blueprint, duration),
             duration,
             robots,
-            stores
+            stores,
         );
         console.timeEnd("Search");
         console.log(result);
@@ -230,7 +230,7 @@ const part2 = (blueprints: ReadonlyArray<Blueprint>): number => {
             new Context(blueprint, duration),
             duration,
             robots,
-            stores
+            stores,
         );
         console.timeEnd("Search");
         console.log(result);
