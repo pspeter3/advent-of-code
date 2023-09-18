@@ -115,7 +115,7 @@ class Forecast {
     constructor(
         blizzards: Readonly<
             Record<Blizzard, ReadonlyArray<ReadonlySet<number>>>
-        >
+        >,
     ) {
         this.blizzards = blizzards;
     }
@@ -208,7 +208,7 @@ const traverse = (
     board: Tile,
     forecast: Forecast,
     state: State,
-    target: Tile
+    target: Tile,
 ): State => {
     let queue = new Map<string, State>([[state.key, state]]);
     while (queue.size > 0) {

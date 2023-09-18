@@ -17,7 +17,7 @@ const schema = LinesSchema(
     z
         .string()
         .transform((line) => line.split(" "))
-        .pipe(z.tuple([Opponent, Player]))
+        .pipe(z.tuple([Opponent, Player])),
 );
 
 const Shape = {
@@ -60,7 +60,7 @@ const part1 = (strategy: Strategy): number =>
     strategy.reduce(
         (sum, [opponent, player]) =>
             sum + score(opponent, player) + Shape[player],
-        0
+        0,
     );
 
 const part2 = (strategy: Strategy): number =>

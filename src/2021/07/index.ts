@@ -4,7 +4,7 @@ import { IntSchema, StringSchema } from "../../utils/schemas";
 
 const schema = z.preprocess(
     (input) => StringSchema.parse(input).split(","),
-    z.array(IntSchema)
+    z.array(IntSchema),
 );
 
 const identity = (distance: number): number => distance;
@@ -12,7 +12,7 @@ const triangle = (distance: number): number => 0.5 * distance * (distance + 1);
 
 const fuel = (
     crabs: ReadonlyArray<number>,
-    cost: (distance: number) => number
+    cost: (distance: number) => number,
 ): number =>
     Math.min(
         ...Uint32Array.from(
@@ -20,9 +20,9 @@ const fuel = (
             (_, index) =>
                 crabs.reduce(
                     (sum, crab) => sum + cost(Math.abs(crab - index)),
-                    0
-                )
-        )
+                    0,
+                ),
+        ),
     );
 
 const part1 = (crabs: ReadonlyArray<number>): number => fuel(crabs, identity);

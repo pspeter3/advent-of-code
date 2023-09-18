@@ -25,8 +25,8 @@ const part2 = (depths: ReadonlyArray<number>): number =>
                     sum += depths[index + i];
                 }
                 return sum;
-            }
-        )
+            },
+        ),
     );
 
 main(module, (input) => schema.parse(input), part1, part2);

@@ -16,8 +16,8 @@ const schema = LinesSchema(
         z.tuple([
             z.nativeEnum(SubmarineCommand),
             z.preprocess((value) => parseInt(value as string), z.number()),
-        ])
-    )
+        ]),
+    ),
 );
 
 const part1 = (actions: ReadonlyArray<SubmarineAction>): number => {
@@ -38,7 +38,7 @@ const part1 = (actions: ReadonlyArray<SubmarineAction>): number => {
                 }
             }
         },
-        { position: 0, depth: 0 }
+        { position: 0, depth: 0 },
     );
     return position * depth;
 };
@@ -62,7 +62,7 @@ const part2 = (actions: ReadonlyArray<SubmarineAction>): number => {
                 }
             }
         },
-        { position: 0, depth: 0, aim: 0 }
+        { position: 0, depth: 0, aim: 0 },
     );
     return position * depth;
 };

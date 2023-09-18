@@ -21,13 +21,13 @@ const isInput = (command: Command): command is InputCommand =>
 const schema = LinesSchema(
     z.preprocess(
         (line) => StringSchema.parse(line).trim().split(" "),
-        CommandSchema
-    )
+        CommandSchema,
+    ),
 );
 
 const groupBy = (
     commands: ReadonlyArray<Command>,
-    isGroup: (command: Command) => boolean
+    isGroup: (command: Command) => boolean,
 ): ReadonlyArray<ReadonlyArray<Command>> => {
     const groups: Command[][] = [];
     for (const command of commands) {
@@ -44,10 +44,10 @@ type Group = readonly [a: number, b: number, c: number];
 const scan = (
     commands: ReadonlyArray<Command>,
     a: number,
-    b: number
+    b: number,
 ): number => {
     const groups = groupBy(commands, isInput).map(
-        (group) => [group[4][2], group[5][2], group[15][2]] as Group
+        (group) => [group[4][2], group[5][2], group[15][2]] as Group,
     );
     const deps = new Map<number, number>();
     const stack: number[] = [];

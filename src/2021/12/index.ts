@@ -5,8 +5,8 @@ import { LinesSchema, StringSchema } from "../../utils/schemas";
 const schema = LinesSchema(
     z.preprocess(
         (line) => StringSchema.parse(line).trim().split("-"),
-        z.tuple([StringSchema, StringSchema])
-    )
+        z.tuple([StringSchema, StringSchema]),
+    ),
 );
 
 type Node = string;
@@ -39,7 +39,7 @@ const navigate = (
     graph: Graph,
     node: Node,
     visited: ReadonlyMap<Node, number>,
-    filter: (node: Node, visited: ReadonlyMap<Node, number>) => boolean
+    filter: (node: Node, visited: ReadonlyMap<Node, number>) => boolean,
 ): number => {
     if (node === END) {
         return 1;
@@ -61,7 +61,7 @@ const part1 = (edges: ReadonlyArray<Edge>): number =>
         toGraph(edges),
         START,
         new Map(),
-        (node, visited) => isSmall(node) && visited.has(node)
+        (node, visited) => isSmall(node) && visited.has(node),
     );
 
 const part2 = (edges: ReadonlyArray<Edge>): number =>

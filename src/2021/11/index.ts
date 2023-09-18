@@ -5,8 +5,8 @@ import { IntSchema, LinesSchema, StringSchema } from "../../utils/schemas";
 const schema = LinesSchema(
     z.preprocess(
         (line) => StringSchema.parse(line).trim().split(""),
-        z.array(IntSchema)
-    )
+        z.array(IntSchema),
+    ),
 );
 
 type Grid = ReadonlyArray<ReadonlyArray<number>>;
@@ -17,7 +17,7 @@ const FLASH = 10;
 
 const neighbors = (
     [rows, cols]: Cell,
-    [row, col]: Cell
+    [row, col]: Cell,
 ): ReadonlyArray<Cell> => {
     const nearby: Cell[] = [];
     for (let r = Math.max(0, row - 1); r < Math.min(row + 2, rows); r++) {
@@ -40,7 +40,7 @@ const evolve = (grid: Grid): readonly [next: Grid, flashes: number] => {
                 queue.push([row, col]);
             }
             return result;
-        })
+        }),
     );
     const bounds: Cell = [grid.length, grid[0].length];
     let index = 0;

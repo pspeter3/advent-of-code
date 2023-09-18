@@ -10,16 +10,24 @@ interface Target {
     yMax: number;
 }
 
-const schema = z.preprocess((input) => {
-    const match = StringSchema.parse(input)
-        .trim()
-        .match(/^target area: x=(-?\d+)..(-?\d+), y=(-?\d+)..(-?\d+)$/);
-    if (!match) {
-        return null;
-    }
-    const [xMin, xMax, yMin, yMax] = match.slice(1, 5);
-    return { xMin, xMax, yMin, yMax };
-}, z.object({ xMin: IntSchema, xMax: IntSchema, yMin: IntSchema, yMax: IntSchema }));
+const schema = z.preprocess(
+    (input) => {
+        const match = StringSchema.parse(input)
+            .trim()
+            .match(/^target area: x=(-?\d+)..(-?\d+), y=(-?\d+)..(-?\d+)$/);
+        if (!match) {
+            return null;
+        }
+        const [xMin, xMax, yMin, yMax] = match.slice(1, 5);
+        return { xMin, xMax, yMin, yMax };
+    },
+    z.object({
+        xMin: IntSchema,
+        xMax: IntSchema,
+        yMin: IntSchema,
+        yMax: IntSchema,
+    }),
+);
 
 const triangle = (n: number): number => 0.5 * n * (n + 1);
 
@@ -28,7 +36,7 @@ const drag = ([x, y]: Vector): Vector => [x - Math.sign(x), y - 1];
 
 const contains = (
     { xMin, xMax, yMin, yMax }: Target,
-    [x, y]: Vector
+    [x, y]: Vector,
 ): boolean => xMin <= x && x <= xMax && yMin <= y && y <= yMax;
 
 const missed = ({ yMin }: Target, position: Vector): boolean =>

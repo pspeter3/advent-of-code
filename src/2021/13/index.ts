@@ -4,7 +4,7 @@ import { IntSchema, LinesSchema, StringSchema } from "../../utils/schemas";
 
 const VectorSchema = z.preprocess(
     (line) => StringSchema.parse(line).trim().split(","),
-    z.tuple([IntSchema, IntSchema])
+    z.tuple([IntSchema, IntSchema]),
 );
 const AxisSchema = z.enum(["x", "y"]);
 const schema = z.preprocess(
@@ -12,14 +12,17 @@ const schema = z.preprocess(
     z.tuple([
         LinesSchema(VectorSchema),
         LinesSchema(
-            z.preprocess((line) => {
-                const match = StringSchema.parse(line)
-                    .trim()
-                    .match(/fold along ([x,y])=(\d+)/);
-                return match?.slice(1, 3);
-            }, z.tuple([AxisSchema, IntSchema]))
+            z.preprocess(
+                (line) => {
+                    const match = StringSchema.parse(line)
+                        .trim()
+                        .match(/fold along ([x,y])=(\d+)/);
+                    return match?.slice(1, 3);
+                },
+                z.tuple([AxisSchema, IntSchema]),
+            ),
         ),
-    ])
+    ]),
 );
 
 type Vector = readonly [x: number, y: number];
@@ -27,7 +30,7 @@ type Axis = z.infer<typeof AxisSchema>;
 type Fold = readonly [axis: Axis, position: number];
 type Input = readonly [
     vectors: ReadonlyArray<Vector>,
-    folds: ReadonlyArray<Fold>
+    folds: ReadonlyArray<Fold>,
 ];
 type Key = string;
 type Dots = ReadonlySet<Key>;
@@ -81,8 +84,8 @@ const part2 = ([vectors, folds]: Input): string => {
     const [cols, rows] = bounds;
     return Array.from({ length: rows + 1 }, (_, y) =>
         Array.from({ length: cols + 1 }, (_, x) =>
-            dots.has(serialize([x, y])) ? "#" : "."
-        ).join("")
+            dots.has(serialize([x, y])) ? "#" : ".",
+        ).join(""),
     ).join("\n");
 };
 

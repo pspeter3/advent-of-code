@@ -33,11 +33,11 @@ const PairSchema: z.ZodSchema<Pair> = z.lazy(() =>
     z.tuple([
         z.union([PairSchema, z.number().int()]),
         z.union([PairSchema, z.number().int()]),
-    ])
+    ]),
 );
 
 const schema = LinesSchema(
-    z.preprocess((line) => JSON.parse(StringSchema.parse(line)), PairSchema)
+    z.preprocess((line) => JSON.parse(StringSchema.parse(line)), PairSchema),
 );
 
 const isNumber = (node: Node): node is number => typeof node === "number";
@@ -50,7 +50,7 @@ const toNumber = (node: Node): number => {
 
 const traverse = (
     pair: Pair,
-    callback: (node: Node, depth: number, index: number) => Node
+    callback: (node: Node, depth: number, index: number) => Node,
 ): Pair => {
     let index = 0;
     const invoke = (node: Node, depth: number): Node =>
@@ -85,7 +85,7 @@ const MAX_DEPTH = 3;
 const MAX_VALUE = 9;
 
 const findExplode = (
-    elements: ReadonlyArray<Element>
+    elements: ReadonlyArray<Element>,
 ): ExplodeAction | null => {
     const indices: number[] = [];
     let result: readonly [pair: Pair, index: number, count: number] | null =

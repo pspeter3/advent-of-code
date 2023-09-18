@@ -139,7 +139,7 @@ interface ProposedMove {
 const propose = (
     ids: ReadonlySet<BigInt>,
     elf: GridTile,
-    direction: Direction
+    direction: Direction,
 ): ProposedMove | null => {
     for (let i = 0; i < DIRECTIONS; i++) {
         const d = (direction + i) % DIRECTIONS;

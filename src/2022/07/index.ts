@@ -29,7 +29,7 @@ class DirectoryInfo implements FileSystemInfo {
     get size(): number {
         return Array.from(this.children.values()).reduce(
             (sum, info) => sum + info.size,
-            0
+            0,
         );
     }
 

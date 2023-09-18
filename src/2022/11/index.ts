@@ -13,7 +13,7 @@ type OperationCommand = "+" | "*";
 type Operation = readonly [
     a: OperationValue,
     command: OperationCommand,
-    b: OperationValue
+    b: OperationValue,
 ];
 
 interface Test {
@@ -36,7 +36,7 @@ const parseStart = (line: string): ReadonlyArray<number> =>
 const parseTest = (
     denominatorLine: string,
     successLine: string,
-    failureLine: string
+    failureLine: string,
 ): Test => {
     const denominatorMatch = denominatorLine.match(/^divisible by (\d+)$/);
     const throwPattern = /^throw to monkey (\d+)$/;
@@ -85,7 +85,7 @@ const parse = (input: string): ReadonlyArray<Monkey> =>
 const track = (
     monkeys: ReadonlyArray<Monkey>,
     limit: number,
-    manage: (value: number) => number
+    manage: (value: number) => number,
 ): number => {
     const inventories = Array.from(monkeys, ({ start }) => Array.from(start));
     const counts = Array.from(monkeys, () => 0);
@@ -112,7 +112,7 @@ const part1 = (monkeys: ReadonlyArray<Monkey>): number =>
 const part2 = (monkeys: ReadonlyArray<Monkey>): number => {
     const base = monkeys.reduce(
         (product, { test }) => product * test.denominator,
-        1
+        1,
     );
     return track(monkeys, 10000, (value) => value % base);
 };

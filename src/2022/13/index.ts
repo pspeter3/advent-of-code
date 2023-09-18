@@ -13,8 +13,8 @@ const parse = (input: string): ReadonlyArray<PacketPair> =>
                 group
                     .split("\n")
                     .map(
-                        (line) => JSON.parse(line) as Packet
-                    ) as unknown as PacketPair
+                        (line) => JSON.parse(line) as Packet,
+                    ) as unknown as PacketPair,
         );
 
 function compareInt(left: number, right: number): boolean | null {

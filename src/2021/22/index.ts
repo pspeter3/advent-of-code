@@ -14,7 +14,7 @@ type Step = readonly [command: Command, cuboid: Cuboid];
 
 const RangeSchema = z.preprocess(
     (data) => StringSchema.parse(data).trim().split(".."),
-    z.tuple([IntSchema, IntSchema])
+    z.tuple([IntSchema, IntSchema]),
 );
 
 const CuboidSchema = z.preprocess(
@@ -23,14 +23,14 @@ const CuboidSchema = z.preprocess(
             .trim()
             .split(",")
             .map((part) => part.split("=")[1]),
-    z.tuple([RangeSchema, RangeSchema, RangeSchema])
+    z.tuple([RangeSchema, RangeSchema, RangeSchema]),
 );
 
 const schema = LinesSchema(
     z.preprocess(
         (line) => StringSchema.parse(line).trim().split(" "),
-        z.tuple([z.nativeEnum(Command), CuboidSchema])
-    )
+        z.tuple([z.nativeEnum(Command), CuboidSchema]),
+    ),
 );
 
 const serialize = (cuboid: Cuboid): string => JSON.stringify(cuboid);
@@ -60,14 +60,14 @@ const inBounds = (cuboid: Cuboid): boolean =>
 const increment = (
     counter: Map<string, number>,
     key: string,
-    amount: number = 1
+    amount: number = 1,
 ): void => {
     counter.set(key, (counter.get(key) ?? 0) + amount);
 };
 
 const reboot = (
     steps: ReadonlyArray<Step>,
-    filter: (cuboid: Cuboid) => boolean
+    filter: (cuboid: Cuboid) => boolean,
 ): number => {
     const volumes = new Map<string, number>();
     for (const [command, cuboid] of steps) {

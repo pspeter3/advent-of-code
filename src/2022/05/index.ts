@@ -14,7 +14,7 @@ interface Input {
 const toInt = (value: string): number => parseInt(value, 10);
 
 const parseStacks = (
-    section: string
+    section: string,
 ): ReadonlyMap<number, ReadonlyArray<string>> => {
     const stacks = new Map<number, string[]>();
     const lines = section.split("\n");
@@ -57,7 +57,7 @@ const parse = (input: string): Input => {
 };
 
 const clone = (
-    stacks: ReadonlyMap<number, ReadonlyArray<string>>
+    stacks: ReadonlyMap<number, ReadonlyArray<string>>,
 ): Map<number, string[]> => {
     const inventory = new Map<number, string[]>();
     for (const [key, crates] of stacks) {
@@ -67,7 +67,7 @@ const clone = (
 };
 
 const serialize = (
-    inventory: ReadonlyMap<number, ReadonlyArray<string>>
+    inventory: ReadonlyMap<number, ReadonlyArray<string>>,
 ): string =>
     Array.from(inventory.values())
         .map((crates) => crates[crates.length - 1])
