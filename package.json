@@ -12,11 +12,11 @@
   "homepage": "https://github.com/pspeter3/advent-of-code#readme",
   "dependencies": {
     "esbuild-register": "^3.5.0",
-    "zod": "^3.22.2"
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@tsconfig/node20": "^20.1.2",
-    "@types/node": "^20.6.2",
+    "@types/node": "^20.8.9",
     "prettier": "^3.0.3",
     "typescript": "^5.2.2"
   },
