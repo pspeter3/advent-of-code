@@ -2,7 +2,7 @@
   "name": "advent-of-code",
   "scripts": {
     "fix": "prettier --cache --write '*.md' 'src/**/*.ts'",
-    "start": "node --require esbuild-register",
+    "start": "tsx",
     "test": "wireit"
   },
   "repository": {
@@ -11,13 +11,13 @@
   },
   "homepage": "https://github.com/pspeter3/advent-of-code#readme",
   "dependencies": {
-    "esbuild-register": "^3.5.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
     "@tsconfig/node20": "^20.1.2",
     "@types/node": "^20.8.9",
     "prettier": "^3.0.3",
+    "tsx": "^3.14.0",
     "typescript": "^5.2.2",
     "wireit": "^0.14.1"
   },
@@ -28,6 +28,7 @@
     "test": {
       "dependencies": [
         "test:format",
+        "test:spec",
         "test:types"
       ]
     },
@@ -39,8 +40,15 @@
       ],
       "output": []
     },
+    "test:spec": {
+      "command": "tsx --test src/common/*.spec.ts",
+      "files": [
+        "src/common/**/*.ts"
+      ],
+      "output": []
+    },
     "test:types": {
-      "command": "tsc --build --pretty",
+      "command": "tsc",
       "files": [
         "src/**/*.ts",
         "tsconfig.json"
