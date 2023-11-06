@@ -1,7 +1,7 @@
 {
   "name": "advent-of-code",
   "scripts": {
-    "fix": "prettier --cache --write '*.md' 'src/**/*.ts'",
+    "fix": "prettier --cache --write '*.md' '.github/**/*.yml' 'src/**/*.ts'",
     "start": "tsx",
     "test": "wireit"
   },
@@ -33,7 +33,7 @@
       ]
     },
     "test:format": {
-      "command": "prettier --cache --check '*.md' 'src/**/*.ts'",
+      "command": "prettier --cache --check '*.md' '.github/**/*.yml' 'src/**/*.ts'",
       "files": [
         "src/**/*.ts",
         "*.md"
