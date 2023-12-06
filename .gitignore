@@ -1,4 +1,5 @@
 .wireit/
 lib/
 node_modules/
+src/**/*/input.txt
 tsconfig.tsbuildinfo
