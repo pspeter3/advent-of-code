@@ -128,14 +128,19 @@ class NumericRange {
         return NumericRange.collapse(result);
     }
 
-    private static collapse(ranges: Array<NumericRange>): ReadonlyArray<NumericRange> {
+    private static collapse(
+        ranges: Array<NumericRange>,
+    ): ReadonlyArray<NumericRange> {
         ranges.sort((a, b) => a.start - b.start);
         const result: NumericRange[] = [ranges.shift()!];
         for (const range of ranges) {
             const index = result.length - 1;
             const current = result[index];
             if (range.start < current.end) {
-                result[index] = new NumericRange(current.start, range.end - current.start);
+                result[index] = new NumericRange(
+                    current.start,
+                    range.end - current.start,
+                );
             } else {
                 result.push(range);
             }
