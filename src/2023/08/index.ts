@@ -1,5 +1,6 @@
 import z from "zod";
 import { main } from "../../utils/host";
+import { leastCommonMultiple } from "../../common/math";
 
 enum Instruction {
     Left = "L",
@@ -66,17 +67,6 @@ function findCycle({ instructions, nodes }: Network, start: Node): number {
 }
 
 const parse = (input: string): Network => NetworkSchema.parse(input);
-
-function greatestCommonDivisor(a: number, b: number): number {
-    if (b === 0) {
-        return a;
-    }
-    return greatestCommonDivisor(b, a % b);
-}
-
-function leastCommonMultiple(a: number, b: number): number {
-    return Math.abs(a * b) / greatestCommonDivisor(a, b);
-}
 
 const part1 = (network: Network): number => {
     const start = "AAA";
