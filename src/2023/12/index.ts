@@ -1,6 +1,7 @@
 import z from "zod";
 import { main } from "../../utils/host";
 import { IntSchema, LinesSchema } from "../../utils/schemas";
+import { memoize } from "../../common/functions";
 
 type NumberList = ReadonlyArray<number>;
 type SpringRow = readonly [status: string, groups: NumberList];
@@ -20,19 +21,6 @@ const Schema = LinesSchema(
 
 const estimated = (groups: NumberList): number =>
     groups.reduce((sum, value) => sum + value) + groups.length - 1;
-
-function memoize<T extends (...args: any[]) => any>(fn: T): T {
-    const cache = new Map<string, ReturnType<T>>();
-    return ((...args: Parameters<T>): ReturnType<T> => {
-        const key = JSON.stringify(args);
-        if (cache.has(key)) {
-            return cache.get(key)!;
-        }
-        const result = fn(...args);
-        cache.set(key, result);
-        return result;
-    }) as T;
-}
 
 const count = memoize((status: string, groups: NumberList): number => {
     if (status.length === 0) {
