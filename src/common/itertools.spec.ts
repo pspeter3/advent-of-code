@@ -1,6 +1,6 @@
 import assert from "assert/strict";
 import { describe, it } from "node:test";
-import { filter, map, sum, zip } from "./itertools";
+import { filter, map, sum, take, zip } from "./itertools";
 
 describe("sum", () => {
     it("should calculate the sum of numbers", () => {
@@ -29,5 +29,11 @@ describe("filter", () => {
         assert.deepEqual(Array.from(filter([1, 2, 3], (n) => n % 2 === 0)), [
             2,
         ]);
+    });
+});
+
+describe("take", () => {
+    it("should take the first few elements", () => {
+        assert.deepEqual(Array.from(take([1, 2], 1)), [1]);
     });
 });
