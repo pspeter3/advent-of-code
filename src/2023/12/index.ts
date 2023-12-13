@@ -1,7 +1,7 @@
 import z from "zod";
 import { main } from "../../utils/host";
 import { IntSchema, LinesSchema } from "../../utils/schemas";
-import { memoize } from "../../common/functions";
+import { memoize } from "../../common/functools";
 
 type NumberList = ReadonlyArray<number>;
 type SpringRow = readonly [status: string, groups: NumberList];
