@@ -62,19 +62,3 @@ export function* filter<T>(
         }
     }
 }
-
-/**
- * Takes the first items of the iterable
- * @param iterable The iterable to take from
- * @param limit The limit items
- */
-export function* take<T>(iterable: Iterable<T>, limit: number): Iterable<T> {
-    let count = 0;
-    for (const value of iterable) {
-        yield value;
-        count++;
-        if (count >= limit) {
-            break;
-        }
-    }
-}

@@ -1,6 +1,7 @@
 import z from "zod";
 import { main } from "../../utils/host";
 import { LinesSchema } from "../../utils/schemas";
+import { map, sum, zip } from "../../common/itertools";
 
 type Pattern = ReadonlyArray<string>;
 type PatternList = ReadonlyArray<Pattern>;
@@ -10,37 +11,6 @@ const PatternListSchema = z
     .string()
     .transform((input) => input.trim().split("\n\n"))
     .pipe(z.array(PatternSchema));
-
-type Pair<T> = readonly [a: T, b: T];
-
-function* zip<T>(a: Iterable<T>, b: Iterable<T>): Iterable<Pair<T>> {
-    const aIterator = a[Symbol.iterator]();
-    const bIterator = b[Symbol.iterator]();
-    let aResult = aIterator.next();
-    let bResult = bIterator.next();
-    while (!aResult.done && !bResult.done) {
-        yield [aResult.value, bResult.value];
-        aResult = aIterator.next();
-        bResult = bIterator.next();
-    }
-}
-
-function* map<T, R>(
-    iterable: Iterable<T>,
-    callback: (value: T) => R,
-): Iterable<R> {
-    for (const item of iterable) {
-        yield callback(item);
-    }
-}
-
-function sum(iterable: Iterable<number>): number {
-    let result = 0;
-    for (const value of iterable) {
-        result += value;
-    }
-    return result;
-}
 
 const diffLine = (line: string, index: number): number =>
     sum(
