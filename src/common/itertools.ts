@@ -62,3 +62,24 @@ export function* filter<T>(
         }
     }
 }
+
+/**
+ * Groups an iterable by key.
+ * @param iterable The iterable to group
+ * @param callback The group by key callback
+ * @returns Map of grouped items
+ */
+export function groupBy<K, V>(
+    iterable: Iterable<V>,
+    callback: (item: V) => K,
+): ReadonlyMap<K, ReadonlyArray<V>> {
+    const result = new Map<K, Array<V>>();
+    for (const item of iterable) {
+        const key = callback(item);
+        if (!result.has(key)) {
+            result.set(key, []);
+        }
+        result.get(key)!.push(item);
+    }
+    return result;
+}
