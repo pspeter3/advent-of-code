@@ -1,6 +1,6 @@
 import assert from "assert/strict";
 import { describe, it } from "node:test";
-import { filter, groupBy, map, sum, zip } from "./itertools";
+import { enumerate, filter, groupBy, map, sum, zip } from "./itertools";
 
 describe("sum", () => {
     it("should calculate the sum of numbers", () => {
@@ -41,5 +41,15 @@ describe("groupBy", () => {
                 [1, [1, 3]],
             ]),
         );
+    });
+});
+
+describe("enumerate", () => {
+    it("should create an enumeration", () => {
+        assert.deepEqual(Array.from(enumerate("abc")), [
+            [0, "a"],
+            [1, "b"],
+            [2, "c"],
+        ]);
     });
 });

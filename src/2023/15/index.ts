@@ -1,4 +1,4 @@
-import { map, sum } from "../../common/itertools";
+import { enumerate, map, sum } from "../../common/itertools";
 import { main } from "../../utils/host";
 
 const REMOVE = "-";
@@ -38,10 +38,8 @@ function* toPower(
     boxes: ReadonlyArray<ReadonlyMap<string, number>>,
 ): Iterable<number> {
     for (const [index, box] of boxes.entries()) {
-        let offset = 0;
-        for (const focal of box.values()) {
+        for (const [offset, focal] of enumerate(box.values())) {
             yield (index + 1) * (offset + 1) * focal;
-            offset += 1;
         }
     }
 }

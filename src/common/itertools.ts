@@ -83,3 +83,18 @@ export function groupBy<K, V>(
     }
     return result;
 }
+
+export type EnumeratePair<T> = readonly [index: number, item: T];
+
+/**
+ * Enumerates an iterable.
+ * @param iterable The iterable to enumerate
+ */
+export function* enumerate<T>(
+    iterable: Iterable<T>,
+): Iterable<EnumeratePair<T>> {
+    let index = 0;
+    for (const item of iterable) {
+        yield [index++, item];
+    }
+}
