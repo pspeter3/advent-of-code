@@ -1,6 +1,7 @@
 import z from "zod";
 import { main } from "../../utils/host";
 import { LinesSchema } from "../../utils/schemas";
+import { map, max } from "../../common/itertools";
 
 type Mirror = "\\" | "/";
 type Splitter = "|" | "-";
@@ -17,7 +18,7 @@ interface GridVector {
 class Grid {
     readonly bounds: GridVector;
     readonly #matrix: TileMatrix;
-    
+
     constructor(matrix: TileMatrix) {
         this.bounds = { q: matrix[0].length, r: matrix.length };
         this.#matrix = matrix;
@@ -148,22 +149,23 @@ function energize(grid: Grid, start: Beam): number {
     return cache.size;
 }
 
+function* starts(grid: Grid): Iterable<Beam> {
+    for (let q = 0; q < grid.bounds.q; q++) {
+        yield [{ q, r: -1 }, Direction.Down];
+        yield [{ q, r: grid.bounds.r }, Direction.Up];
+    }
+    for (let r = 0; r < grid.bounds.r; r++) {
+        yield [{ q: -1, r }, Direction.Right];
+        yield [{ q: grid.bounds.q, r }, Direction.Left];
+    }
+}
+
 const parse = (input: string): Grid => Schema.parse(input);
 
 const part1 = (grid: Grid): number =>
     energize(grid, [{ q: -1, r: 0 }, Direction.Right]);
 
-const part2 = (grid: Grid): number => {
-    let max = -Infinity;
-    for (let q = 0; q < grid.bounds.q; q++) {
-        max = Math.max(max, energize(grid, [{q, r: -1}, Direction.Down]));
-        max = Math.max(max, energize(grid, [{q, r: grid.bounds.r}, Direction.Up]));
-    }
-    for (let r = 0; r < grid.bounds.r; r++) {
-        max = Math.max(max, energize(grid, [{q: -1, r }, Direction.Right]));
-        max = Math.max(max, energize(grid, [{q: grid.bounds.q, r}, Direction.Left]));
-    }
-    return max;
-}
+const part2 = (grid: Grid): number =>
+    max(map(starts(grid), (beam) => energize(grid, beam)));
 
 main(module, parse, part1, part2);
