@@ -3,13 +3,24 @@
  * @param iterable The iterable to sum
  * @returns The sum
  */
-export function sum(iterable: Iterable<number>): number {
-    let total = 0;
-    for (const value of iterable) {
-        total += value;
-    }
-    return total;
-}
+export const sum = (iterable: Iterable<number>): number =>
+    reduce(iterable, (total, value) => total + value, 0);
+
+/**
+ * Calculate the max for an iterable of numbers.
+ * @param iterable The iterable to max
+ * @returns The max
+ */
+export const max = (iterable: Iterable<number>): number =>
+    reduce(iterable, (result, value) => Math.max(result, value), -Infinity);
+
+/**
+ * Calculate the min for an iterable of numbers.
+ * @param iterable The iterable to min
+ * @returns The min
+ */
+export const min = (iterable: Iterable<number>): number =>
+    reduce(iterable, (result, value) => Math.min(result, value), Infinity);
 
 export type ZipPair<A, B> = readonly [a: A, b: B];
 
@@ -61,6 +72,25 @@ export function* filter<T>(
             yield item;
         }
     }
+}
+
+/**
+ * Reduces an iterable to a value.
+ * @param iterable The iterable to reduce
+ * @param callback The reduce callback
+ * @param initial The initial value
+ * @returns The reduced value
+ */
+export function reduce<I, O>(
+    iterable: Iterable<I>,
+    callback: (value: O, item: I) => O,
+    initial: O,
+): O {
+    let current = initial;
+    for (const item of iterable) {
+        current = callback(current, item);
+    }
+    return current;
 }
 
 /**

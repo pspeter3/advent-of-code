@@ -1,10 +1,32 @@
 import assert from "assert/strict";
 import { describe, it } from "node:test";
-import { enumerate, filter, groupBy, map, sum, zip } from "./itertools";
+import {
+    enumerate,
+    filter,
+    groupBy,
+    map,
+    max,
+    min,
+    reduce,
+    sum,
+    zip,
+} from "./itertools";
 
 describe("sum", () => {
     it("should calculate the sum of numbers", () => {
         assert.equal(sum([1, 2, 3]), 6);
+    });
+});
+
+describe("max", () => {
+    it("should calculate the max of numbers", () => {
+        assert.equal(max([1, 2, 3]), 3);
+    });
+});
+
+describe("min", () => {
+    it("should calculate the min of numbers", () => {
+        assert.equal(min([1, 2, 3]), 1);
     });
 });
 
@@ -25,10 +47,19 @@ describe("map", () => {
 });
 
 describe("filter", () => {
-    it("should filter elements", () => {
+    it("should filter items", () => {
         assert.deepEqual(Array.from(filter([1, 2, 3], (n) => n % 2 === 0)), [
             2,
         ]);
+    });
+});
+
+describe("reduce", () => {
+    it("should reduce items", () => {
+        assert.equal(
+            reduce([1, 2, 3], (sum, item) => sum + item, 0),
+            6,
+        );
     });
 });
 
