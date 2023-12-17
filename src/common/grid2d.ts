@@ -21,6 +21,12 @@ export enum DiagonalDirection {
     NorthWest = 7,
 }
 
+export function* cardinalDirections(): Iterable<CardinalDirection> {
+    for (let i = 0; i < 4; i++) {
+        yield i;
+    }
+}
+
 export type GridDirection = CardinalDirection | DiagonalDirection;
 
 const DELTAS: ReadonlyArray<GridVector2DRecord> = [
@@ -31,7 +37,7 @@ const DELTAS: ReadonlyArray<GridVector2DRecord> = [
     { q: 1, r: -1 },
     { q: 1, r: 1 },
     { q: 1, r: 1 },
-    { q: -1, r: 1 },
+    { q: -1, r: -1 },
 ];
 
 export function toGridDelta(direction: GridDirection): GridVector2DRecord {
@@ -59,6 +65,11 @@ export function isDiagonalDiection(
 ): direction is DiagonalDirection {
     return direction >= 4;
 }
+
+export type GridNeighborEntry<T extends GridDirection> = readonly [
+    direction: T,
+    vector: GridVector2D,
+];
 
 export class GridVector2D implements GridVector2DRecord {
     static readonly ORIGIN = new GridVector2D(0, 0);
@@ -127,18 +138,18 @@ export class GridVector2D implements GridVector2DRecord {
         return this.neighbor(DiagonalDirection.NorthWest);
     }
 
-    *neighbors(): Iterable<GridVector2D> {
-        yield this.north();
-        yield this.east();
-        yield this.south();
-        yield this.west();
+    *neighbors(): Iterable<GridNeighborEntry<CardinalDirection>> {
+        yield [CardinalDirection.North, this.north()];
+        yield [CardinalDirection.East, this.east()];
+        yield [CardinalDirection.South, this.south()];
+        yield [CardinalDirection.West, this.west()];
     }
 
-    *diagonals(): Iterable<GridVector2D> {
-        yield this.northEast();
-        yield this.southEast();
-        yield this.southWest();
-        yield this.northWest();
+    *diagonals(): Iterable<GridNeighborEntry<DiagonalDirection>> {
+        yield [DiagonalDirection.NorthEast, this.northEast()];
+        yield [DiagonalDirection.SouthEast, this.southEast()];
+        yield [DiagonalDirection.SouthWest, this.southWest()];
+        yield [DiagonalDirection.NorthWest, this.northWest()];
     }
 }
 
