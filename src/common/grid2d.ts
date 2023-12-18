@@ -29,31 +29,6 @@ export function* cardinalDirections(): Iterable<CardinalDirection> {
 
 export type GridDirection = CardinalDirection | DiagonalDirection;
 
-const DELTAS: ReadonlyArray<GridVector2DRecord> = [
-    { q: 0, r: -1 },
-    { q: 1, r: 0 },
-    { q: 0, r: 1 },
-    { q: -1, r: 0 },
-    { q: 1, r: -1 },
-    { q: 1, r: 1 },
-    { q: 1, r: 1 },
-    { q: -1, r: -1 },
-];
-
-export function toGridDelta(direction: GridDirection): GridVector2DRecord {
-    return DELTAS[direction];
-}
-
-export function toGridDirection(delta: GridVector2DRecord): GridDirection {
-    const index = DELTAS.findIndex(
-        ({ q, r }) => q === delta.q && r === delta.r,
-    );
-    if (index === -1) {
-        throw new Error("Invalid delta");
-    }
-    return index;
-}
-
 export function isCardinalDirection(
     direction: GridDirection,
 ): direction is CardinalDirection {
@@ -88,6 +63,10 @@ export class GridVector2D implements GridVector2DRecord {
     constructor(q: number, r: number) {
         this.q = q;
         this.r = r;
+    }
+
+    scale(value: number): GridVector2D {
+        return new GridVector2D(this.q * value, this.r * value);
     }
 
     add({ q, r }: GridVector2DRecord): GridVector2D {
@@ -151,6 +130,29 @@ export class GridVector2D implements GridVector2DRecord {
         yield [DiagonalDirection.SouthWest, this.southWest()];
         yield [DiagonalDirection.NorthWest, this.northWest()];
     }
+}
+
+const DELTAS: ReadonlyArray<GridVector2D> = [
+    new GridVector2D(0, -1),
+    new GridVector2D(1, 0),
+    new GridVector2D(0, 1),
+    new GridVector2D(-1, 0),
+    new GridVector2D(1, -1),
+    new GridVector2D(1, 1),
+    new GridVector2D(1, 1),
+    new GridVector2D(-1, -1),
+];
+
+export function toGridDelta(direction: GridDirection): GridVector2D {
+    return DELTAS[direction];
+}
+
+export function toGridDirection(delta: GridVector2DRecord): GridDirection {
+    const index = DELTAS.findIndex((d) => d.equals(delta));
+    if (index === -1) {
+        throw new Error("Invalid delta");
+    }
+    return index;
 }
 
 export class GridBounds2D implements Iterable<GridVector2D> {
