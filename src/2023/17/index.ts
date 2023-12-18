@@ -81,6 +81,6 @@ const part1 = (grid: MatrixGrid<number>): number =>
     distance(grid, grid.bounds.min, grid.bounds.max.northWest(), 1, 3);
 
 const part2 = (grid: MatrixGrid<number>): number =>
-distance(grid, grid.bounds.min, grid.bounds.max.northWest(), 4, 10);
+    distance(grid, grid.bounds.min, grid.bounds.max.northWest(), 4, 10);
 
 main(module, parse, part1, part2);
