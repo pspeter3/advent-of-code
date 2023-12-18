@@ -7,3 +7,11 @@ export const LinesSchema = <T extends ZodTypeAny>(schema: T) =>
         .string()
         .transform((input) => input.trim().split("\n"))
         .pipe(z.array(schema));
+
+export const MatrixSchema = <T extends ZodTypeAny>(schema: T) =>
+    LinesSchema(
+        z
+            .string()
+            .transform((line) => line.split(""))
+            .pipe(z.array(schema)),
+    );
