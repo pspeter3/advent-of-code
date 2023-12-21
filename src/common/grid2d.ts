@@ -226,6 +226,10 @@ export class GridBounds2D implements Iterable<GridVector2D> {
     equals(bounds: GridBounds2D): boolean {
         return this.min.equals(bounds.min) && this.max.equals(bounds.max);
     }
+
+    translate(delta: GridVector2DRecord): GridBounds2D {
+        return new GridBounds2D(this.min.add(delta), this.max.add(delta));
+    }
 }
 
 export type MatrixGridEntry<T> = readonly [vector: GridVector2D, value: T];
