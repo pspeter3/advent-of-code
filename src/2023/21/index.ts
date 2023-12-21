@@ -104,8 +104,8 @@ const part2 = (garden: Garden): number => {
         [0, 0],
     ];
     const base = garden.bounds.max.q - garden.start.q - 1;
-    for (let i = 0; i < 3; i ++) {
-        const steps = base + (garden.bounds.cols * i);
+    for (let i = 0; i < 3; i++) {
+        const steps = base + garden.bounds.cols * i;
         triple[i] = [i, walk(garden, steps)];
     }
     const fn = createQuadratic(triple);
