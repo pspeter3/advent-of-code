@@ -62,7 +62,7 @@ function distance(
             let delta = cost;
             for (let i = 1; i <= max; i++) {
                 c = c.neighbor(d);
-                if (!grid.bounds.contains(c)) {
+                if (!grid.bounds.includes(c)) {
                     break;
                 }
                 delta += grid.at(c);

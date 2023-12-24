@@ -177,12 +177,12 @@ export class GridBounds2D implements Iterable<GridVector2D> {
     }
 
     assert(vector: GridVector2DRecord): void {
-        if (!this.contains(vector)) {
+        if (!this.includes(vector)) {
             throw new Error("Out of bounds");
         }
     }
 
-    contains({ q, r }: GridVector2DRecord): boolean {
+    includes({ q, r }: GridVector2DRecord): boolean {
         return (
             q >= this.min.q &&
             q < this.max.q &&

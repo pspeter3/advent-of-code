@@ -41,7 +41,7 @@ function walk(
     neighbor: GridVector2D,
     slopes: boolean,
 ): readonly [number, number] | null {
-    if (!grid.bounds.contains(neighbor) || isForest(grid.at(neighbor))) {
+    if (!grid.bounds.includes(neighbor) || isForest(grid.at(neighbor))) {
         return null;
     }
     const queue = [start, neighbor];
@@ -62,7 +62,7 @@ function walk(
                 map(curr.neighbors(), ([_, n]) => n),
                 (n) =>
                     !queue.at(-2)!.equals(n) &&
-                    grid.bounds.contains(n) &&
+                    grid.bounds.includes(n) &&
                     !isForest(grid.at(n)),
             ),
         );
