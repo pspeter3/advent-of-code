@@ -2,10 +2,12 @@ import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import {
     fromCantor,
+    fromZigZag,
     greatestCommonDivisor,
     leastCommonMultiple,
     toCantor,
     toTriangle,
+    toZigZag,
 } from "./math";
 
 describe("toTriangle", () => {
@@ -21,6 +23,13 @@ describe("cantor", () => {
     it("should invert", () => {
         assert.deepEqual(fromCantor(toCantor(1, 3)), [1, 3]);
         assert.deepEqual(fromCantor(toCantor(3, 4)), [3, 4]);
+    });
+});
+
+describe("cantor", () => {
+    it("should invert", () => {
+        assert.equal(fromZigZag(toZigZag(2)), 2);
+        assert.equal(fromZigZag(toZigZag(-2)), -2);
     });
 });
 

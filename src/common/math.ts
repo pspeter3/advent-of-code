@@ -31,6 +31,25 @@ export function fromCantor(z: number): readonly [x: number, y: number] {
 }
 
 /**
+ * Converts a value to zig zag encoding.
+ * @param value The value to convert
+ * @returns The zig zag value
+ */
+export function toZigZag(value: number): number {
+    return value < 0 ? -2 * value - 1 : 2 * value;
+}
+
+/**
+ * Converts a value from zig zag encoding.
+ * @param value The value to convert
+ * @returns The initial value
+ */
+export function fromZigZag(value: number): number {
+    const result = Math.ceil(value / 2);
+    return value % 2 === 1 ? -result : result;
+}
+
+/**
  * Find the greatest common divisor between two numbers.
  * @param a
  * @param b
