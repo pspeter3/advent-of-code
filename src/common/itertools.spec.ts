@@ -4,6 +4,7 @@ import {
     enumerate,
     filter,
     groupBy,
+    len,
     map,
     max,
     min,
@@ -82,5 +83,11 @@ describe("enumerate", () => {
             [1, "b"],
             [2, "c"],
         ]);
+    });
+});
+
+describe("len", () => {
+    it("should count the length", () => {
+        assert.equal(len("foo"), 3);
     });
 });

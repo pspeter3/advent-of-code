@@ -1,6 +1,12 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { greatestCommonDivisor, leastCommonMultiple, toTriangle } from "./math";
+import {
+    fromCantor,
+    greatestCommonDivisor,
+    leastCommonMultiple,
+    toCantor,
+    toTriangle,
+} from "./math";
 
 describe("toTriangle", () => {
     it("should support common triangle numbers", () => {
@@ -8,6 +14,13 @@ describe("toTriangle", () => {
         assert.equal(toTriangle(2), 3);
         assert.equal(toTriangle(3), 6);
         assert.equal(toTriangle(4), 10);
+    });
+});
+
+describe("cantor", () => {
+    it("should invert", () => {
+        assert.deepEqual(fromCantor(toCantor(1, 3)), [1, 3]);
+        assert.deepEqual(fromCantor(toCantor(3, 4)), [3, 4]);
     });
 });
 
