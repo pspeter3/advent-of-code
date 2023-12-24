@@ -51,7 +51,7 @@ function energize(grid: MatrixGrid<Tile>, start: Beam): number {
     for (const [position, direction] of queue) {
         const delta = toGridDelta(direction);
         const next = position.add(delta);
-        if (!grid.bounds.contains(next) || check(next, direction)) {
+        if (!grid.bounds.includes(next) || check(next, direction)) {
             continue;
         }
         const push = (direction: CardinalDirection): unknown =>

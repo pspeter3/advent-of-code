@@ -1,4 +1,4 @@
-import { map } from "./itertools";
+import { fromCantor, fromZigZag, toCantor, toZigZag } from "./math";
 
 export interface GridVector2DRecord {
     readonly q: number;
@@ -155,7 +155,7 @@ export function toGridDirection(delta: GridVector2DRecord): GridDirection {
     return index;
 }
 
-export class GridBounds2D implements Iterable<GridVector2D> {
+export class GridBounds2D implements GridVector2DCodec, Iterable<GridVector2D> {
     readonly min: GridVector2D;
     readonly max: GridVector2D;
 
@@ -177,12 +177,12 @@ export class GridBounds2D implements Iterable<GridVector2D> {
     }
 
     assert(vector: GridVector2DRecord): void {
-        if (!this.contains(vector)) {
+        if (!this.includes(vector)) {
             throw new Error("Out of bounds");
         }
     }
 
-    contains({ q, r }: GridVector2DRecord): boolean {
+    includes({ q, r }: GridVector2DRecord): boolean {
         return (
             q >= this.min.q &&
             q < this.max.q &&
@@ -251,17 +251,175 @@ export class MatrixGrid<T> implements Iterable<MatrixGridEntry<T>> {
         return this.matrix[vector.r][vector.q];
     }
 
-    keys(): Iterable<GridVector2D> {
+    keys(): IterableIterator<GridVector2D> {
         return this.bounds[Symbol.iterator]();
     }
 
-    values(): Iterable<T> {
-        return map(this.keys(), (vector) => this.at(vector));
+    *values(): IterableIterator<T> {
+        for (const key of this.keys()) {
+            yield this.at(key);
+        }
     }
 
     *[Symbol.iterator](): IterableIterator<MatrixGridEntry<T>> {
         for (const vector of this.keys()) {
             yield [vector, this.at(vector)];
         }
+    }
+}
+
+export interface GridVector2DCodec {
+    toId(vector: GridVector2DRecord): number;
+    fromId(id: number): GridVector2D;
+}
+
+export const InfiniteGrid2DCodec: GridVector2DCodec = {
+    toId({ q, r }) {
+        return toCantor(toZigZag(q), toZigZag(r));
+    },
+    fromId(id) {
+        return GridVector2D.fromTuple(
+            fromCantor(id).map((value) =>
+                fromZigZag(value),
+            ) as unknown as GridVector2DTuple,
+        );
+    },
+};
+
+export class GridVector2DSet implements Set<GridVector2D> {
+    readonly #codec: GridVector2DCodec;
+    readonly #data: Set<number>;
+
+    constructor(codec: GridVector2DCodec) {
+        this.#codec = codec;
+        this.#data = new Set();
+    }
+
+    add(vector: GridVector2D): this {
+        this.#data.add(this.#codec.toId(vector));
+        return this;
+    }
+
+    clear(): void {
+        this.#data.clear();
+    }
+
+    delete(vector: GridVector2D): boolean {
+        return this.#data.delete(this.#codec.toId(vector));
+    }
+
+    forEach(
+        callbackfn: (
+            value: GridVector2D,
+            value2: GridVector2D,
+            set: Set<GridVector2D>,
+        ) => void,
+        thisArg?: any,
+    ): void {
+        for (const vector of this) {
+            callbackfn.call(thisArg, vector, vector, this);
+        }
+    }
+
+    has(vector: GridVector2D): boolean {
+        return this.#data.has(this.#codec.toId(vector));
+    }
+
+    get size(): number {
+        return this.#data.size;
+    }
+
+    *entries(): IterableIterator<[GridVector2D, GridVector2D]> {
+        for (const vector of this) {
+            yield [vector, vector];
+        }
+    }
+
+    keys(): IterableIterator<GridVector2D> {
+        return this[Symbol.iterator]();
+    }
+
+    values(): IterableIterator<GridVector2D> {
+        return this[Symbol.iterator]();
+    }
+
+    *[Symbol.iterator](): IterableIterator<GridVector2D> {
+        for (const id of this.#data) {
+            yield this.#codec.fromId(id);
+        }
+    }
+
+    get [Symbol.toStringTag](): string {
+        return this.#data[Symbol.toStringTag];
+    }
+}
+
+export class GridVector2DMap<T> implements Map<GridVector2D, T> {
+    readonly #codec: GridVector2DCodec;
+    readonly #data: Map<number, T>;
+
+    constructor(codec: GridVector2DCodec) {
+        this.#codec = codec;
+        this.#data = new Map();
+    }
+
+    clear(): void {
+        this.#data.clear();
+    }
+
+    delete(key: GridVector2D): boolean {
+        return this.#data.delete(this.#codec.toId(key));
+    }
+
+    forEach(
+        callbackfn: (
+            value: T,
+            key: GridVector2D,
+            map: Map<GridVector2D, T>,
+        ) => void,
+        thisArg?: any,
+    ): void {
+        throw new Error("Method not implemented.");
+    }
+
+    get(key: GridVector2D): T | undefined {
+        return this.#data.get(this.#codec.toId(key));
+    }
+
+    has(key: GridVector2D): boolean {
+        return this.#data.has(this.#codec.toId(key));
+    }
+
+    set(key: GridVector2D, value: T): this {
+        this.#data.set(this.#codec.toId(key), value);
+        return this;
+    }
+
+    get size(): number {
+        return this.#data.size;
+    }
+
+    entries(): IterableIterator<[GridVector2D, T]> {
+        return this[Symbol.iterator]();
+    }
+
+    *keys(): IterableIterator<GridVector2D> {
+        for (const id of this.#data.keys()) {
+            yield this.#codec.fromId(id);
+        }
+    }
+
+    values(): IterableIterator<T> {
+        return this.#data.values();
+    }
+
+    *[Symbol.iterator](): IterableIterator<[GridVector2D, T]> {
+        for (const [id, value] of this.#data) {
+            yield [this.#codec.fromId(id), value];
+        }
+    }
+
+    get [Symbol.toStringTag](): string {
+        return this.#data[Symbol.toStringTag];
     }
 }
