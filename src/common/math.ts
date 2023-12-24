@@ -8,6 +8,29 @@ export function toTriangle(value: number): number {
 }
 
 /**
+ * Converts a x,y pair to a cantor id.
+ * @param x The x component
+ * @param y The y component
+ * @returns The cantor id
+ */
+export function toCantor(x: number, y: number): number {
+    return (x * x + x + 2 * x * y + 3 * y + y * y) / 2;
+}
+
+/**
+ * Converts cantor id to x,y pair.
+ * @param z The cantor id
+ * @returns The x,y pair
+ */
+export function fromCantor(z: number): readonly [x: number, y: number] {
+    const w = Math.floor((Math.sqrt(8 * z + 1) - 1) / 2);
+    const t = toTriangle(w);
+    const y = z - t;
+    const x = w - y;
+    return [x, y];
+}
+
+/**
  * Find the greatest common divisor between two numbers.
  * @param a
  * @param b

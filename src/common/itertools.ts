@@ -164,3 +164,43 @@ export function some<T>(
     }
     return false;
 }
+
+/**
+ * Determines the length of an iterable.
+ * @param iterable The iterable to count
+ * @returns The length of the iterable
+ */
+export function len(iterable: Iterable<unknown>): number {
+    let count = 0;
+    for (const _ of iterable) {
+        count++;
+    }
+    return count;
+}
+
+/**
+ * Counts numbers infinitely.
+ * @param start The starting number
+ * @param step The incrementing number
+ */
+export function* count(start: number = 0, step: number = 1): Iterable<number> {
+    let current = start;
+    while (true) {
+        yield current;
+        current += step;
+    }
+}
+
+export type RecordEntry<K extends string, V> = readonly [key: K, value: V];
+
+export function toEntries<K extends string, V>(
+    record: Readonly<Record<K, V>>,
+): ReadonlyArray<RecordEntry<K, V>> {
+    return Object.entries(record) as unknown as RecordEntry<K, V>[];
+}
+
+export function fromEntries<K extends string, V>(
+    iterable: Iterable<RecordEntry<K, V>>,
+): Readonly<Record<K, V>> {
+    return Object.fromEntries(iterable) as Record<K, V>;
+}
