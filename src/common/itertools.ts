@@ -204,3 +204,9 @@ export function fromEntries<K extends string, V>(
 ): Readonly<Record<K, V>> {
     return Object.fromEntries(iterable) as Record<K, V>;
 }
+
+export function first<T>(iterable: Iterable<T>): T | undefined {
+    const iterator = iterable[Symbol.iterator]();
+    const item = iterator.next();
+    return item.value;
+}

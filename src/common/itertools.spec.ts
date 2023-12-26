@@ -3,6 +3,7 @@ import { describe, it } from "node:test";
 import {
     enumerate,
     filter,
+    first,
     groupBy,
     len,
     map,
@@ -89,5 +90,15 @@ describe("enumerate", () => {
 describe("len", () => {
     it("should count the length", () => {
         assert.equal(len("foo"), 3);
+    });
+});
+
+describe("first", () => {
+    it("should return undefined for empty", () => {
+        assert.equal(first(new Set()), undefined);
+    });
+
+    it("should return the first element", () => {
+        assert.equal(first(new Set([2])), 2);
     });
 });
