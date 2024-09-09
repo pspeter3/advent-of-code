@@ -1,7 +1,7 @@
 import z from "zod";
 import { main } from "../../utils/host";
 import { IntSchema, LinesSchema } from "../../utils/schemas";
-import { filter, groupBy, map, max, some, sum } from "../../common/itertools";
+import { filter, map, max, some, sum } from "../../common/itertools";
 
 interface Vector3D {
     readonly x: number;
@@ -54,7 +54,7 @@ function drop(bricks: BrickList): BrickGraph {
     const grid = new Map<string, readonly [index: number, height: number]>();
     for (const [index, brick] of bricks.entries()) {
         const keys = toKeys(brick);
-        const layers = groupBy(
+        const layers = Map.groupBy(
             map(keys, (key) => grid.get(key) ?? [-1, 0]),
             ([_, h]) => h,
         );

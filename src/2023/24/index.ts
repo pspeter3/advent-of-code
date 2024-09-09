@@ -2,7 +2,7 @@ import z from "zod";
 import { main } from "../../utils/host";
 import { IntSchema, LinesSchema } from "../../utils/schemas";
 import { NumberRange } from "../../common/number-range";
-import { filter, groupBy, len, map, sum } from "../../common/itertools";
+import { filter, len, map, sum } from "../../common/itertools";
 
 interface Vector2D {
     readonly x: number;
@@ -83,7 +83,7 @@ const findComponents = (
     new Map(
         map(
             filter(
-                groupBy(rays, ({ velocity }) => velocity[key]),
+                Map.groupBy(rays, ({ velocity }) => velocity[key]),
                 ([_, value]) => value.length > 1,
             ),
             ([k, list]) => [
