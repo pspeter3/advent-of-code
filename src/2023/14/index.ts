@@ -1,4 +1,4 @@
-import { filter, groupBy, map, sum } from "../../common/itertools";
+import { filter, map, sum } from "../../common/itertools";
 import { main } from "../../utils/host";
 
 enum RockKind {
@@ -34,7 +34,7 @@ const tilt = (
     cols,
     rows,
     rocks: Array.from(
-        map(groupBy(rocks, group).values(), (line) => {
+        map(Map.groupBy(rocks, group).values(), (line) => {
             const list = line.toSorted(compare);
             const result: Rock[] = [];
             for (const rock of list) {

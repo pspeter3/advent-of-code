@@ -4,7 +4,6 @@ import {
     enumerate,
     filter,
     first,
-    groupBy,
     len,
     map,
     max,
@@ -61,18 +60,6 @@ describe("reduce", () => {
         assert.equal(
             reduce([1, 2, 3], (sum, item) => sum + item, 0),
             6,
-        );
-    });
-});
-
-describe("groupBy", () => {
-    it("should create a group", () => {
-        assert.deepEqual(
-            groupBy([1, 2, 3], (n) => n % 2),
-            new Map([
-                [0, [2]],
-                [1, [1, 3]],
-            ]),
         );
     });
 });
