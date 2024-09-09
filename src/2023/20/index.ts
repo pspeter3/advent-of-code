@@ -1,7 +1,6 @@
 import z from "zod";
 import { main } from "../../utils/host";
 import { LinesSchema } from "../../utils/schemas";
-import { reduce } from "../../common/itertools";
 import { leastCommonMultiple } from "../../common/math";
 
 enum Pulse {
@@ -229,11 +228,9 @@ const part2 = (records: PulseModuleRecordList): number => {
             }
         }
     }
-    return reduce(
-        cycles.values(),
-        (lcm, cycle) => leastCommonMultiple(lcm, cycle),
-        1,
-    );
+    return cycles
+        .values()
+        .reduce((lcm, cycle) => leastCommonMultiple(lcm, cycle), 1);
 };
 
 main(module, parse, part1, part2);

@@ -4,7 +4,7 @@
  * @returns The sum
  */
 export const sum = (iterable: Iterable<number>): number =>
-    reduce(iterable, (total, value) => total + value, 0);
+    Iterator.from(iterable).reduce((total, value) => total + value, 0);
 
 /**
  * Calculate the max for an iterable of numbers.
@@ -12,7 +12,10 @@ export const sum = (iterable: Iterable<number>): number =>
  * @returns The max
  */
 export const max = (iterable: Iterable<number>): number =>
-    reduce(iterable, (result, value) => Math.max(result, value), -Infinity);
+    Iterator.from(iterable).reduce(
+        (result, value) => Math.max(result, value),
+        -Infinity,
+    );
 
 /**
  * Calculate the min for an iterable of numbers.
@@ -20,7 +23,10 @@ export const max = (iterable: Iterable<number>): number =>
  * @returns The min
  */
 export const min = (iterable: Iterable<number>): number =>
-    reduce(iterable, (result, value) => Math.min(result, value), Infinity);
+    Iterator.from(iterable).reduce(
+        (result, value) => Math.min(result, value),
+        Infinity,
+    );
 
 export type ZipPair<A, B> = readonly [a: A, b: B];
 
@@ -42,25 +48,6 @@ export function* zip<A, B>(
         aResult = aIterator.next();
         bResult = bIterator.next();
     }
-}
-
-/**
- * Reduces an iterable to a value.
- * @param iterable The iterable to reduce
- * @param callback The reduce callback
- * @param initial The initial value
- * @returns The reduced value
- */
-export function reduce<I, O>(
-    iterable: Iterable<I>,
-    callback: (value: O, item: I) => O,
-    initial: O,
-): O {
-    let current = initial;
-    for (const item of iterable) {
-        current = callback(current, item);
-    }
-    return current;
 }
 
 export type EnumeratePair<T> = readonly [index: number, item: T];

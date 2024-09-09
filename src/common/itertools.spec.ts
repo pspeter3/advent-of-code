@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { enumerate, len, max, min, reduce, sum, zip } from "./itertools";
+import { enumerate, len, max, min, sum, zip } from "./itertools";
 
 describe("sum", () => {
     it("should calculate the sum of numbers", () => {
@@ -27,15 +27,6 @@ describe("zip", () => {
             b: 1,
             c: 2,
         });
-    });
-});
-
-describe("reduce", () => {
-    it("should reduce items", () => {
-        assert.equal(
-            reduce([1, 2, 3], (sum, item) => sum + item, 0),
-            6,
-        );
     });
 });
 
