@@ -79,24 +79,6 @@ export function* enumerate<T>(
 }
 
 /**
- * Checks if every element matches a filter.
- * @param iterable The iterable to check
- * @param callback The filter callback
- * @returns The final value
- */
-export function every<T>(
-    iterable: Iterable<T>,
-    callback: (item: T) => boolean,
-): boolean {
-    for (const item of iterable) {
-        if (!callback(item)) {
-            return false;
-        }
-    }
-    return true;
-}
-
-/**
  * Checks if some elements match a filter.
  * @param iterable The iterable to check
  * @param callback The filter callback

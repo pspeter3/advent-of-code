@@ -1,7 +1,7 @@
 import z from "zod";
 import { main } from "../../utils/host";
 import { LinesSchema } from "../../utils/schemas";
-import { every, reduce, some } from "../../common/itertools";
+import { reduce, some } from "../../common/itertools";
 import { leastCommonMultiple } from "../../common/math";
 
 enum Pulse {
@@ -94,7 +94,7 @@ class ConjuctionPulseModule extends PulseModule {
 
     process({ source, pulse }: PulseMessage): Pulse | null {
         this.#inputs.set(source, pulse);
-        return every(this.#inputs.values(), (p) => p === Pulse.High)
+        return this.#inputs.values().every((p) => p === Pulse.High)
             ? Pulse.Low
             : Pulse.High;
     }
