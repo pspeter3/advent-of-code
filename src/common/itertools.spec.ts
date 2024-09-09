@@ -1,16 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import {
-    enumerate,
-    filter,
-    first,
-    len,
-    max,
-    min,
-    reduce,
-    sum,
-    zip,
-} from "./itertools";
+import { enumerate, first, len, max, min, reduce, sum, zip } from "./itertools";
 
 describe("sum", () => {
     it("should calculate the sum of numbers", () => {
@@ -37,14 +27,6 @@ describe("zip", () => {
             b: 1,
             c: 2,
         });
-    });
-});
-
-describe("filter", () => {
-    it("should filter items", () => {
-        assert.deepEqual(Array.from(filter([1, 2, 3], (n) => n % 2 === 0)), [
-            2,
-        ]);
     });
 });
 

@@ -45,22 +45,6 @@ export function* zip<A, B>(
 }
 
 /**
- * Filters an iterable.
- * @param iterable The iterable to filter
- * @param callback The filter callback
- */
-export function* filter<T>(
-    iterable: Iterable<T>,
-    callback: (item: T) => boolean,
-): Generator<T> {
-    for (const item of iterable) {
-        if (callback(item)) {
-            yield item;
-        }
-    }
-}
-
-/**
  * Reduces an iterable to a value.
  * @param iterable The iterable to reduce
  * @param callback The reduce callback
