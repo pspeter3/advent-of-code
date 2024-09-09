@@ -21,7 +21,7 @@ export enum DiagonalDirection {
     NorthWest = 7,
 }
 
-export function* cardinalDirections(): Iterable<CardinalDirection> {
+export function* cardinalDirections(): Generator<CardinalDirection> {
     for (let i = 0; i < 4; i++) {
         yield i;
     }
@@ -117,14 +117,14 @@ export class GridVector2D implements GridVector2DRecord {
         return this.neighbor(DiagonalDirection.NorthWest);
     }
 
-    *neighbors(): Iterable<GridNeighborEntry<CardinalDirection>> {
+    *neighbors(): Generator<GridNeighborEntry<CardinalDirection>> {
         yield [CardinalDirection.North, this.north()];
         yield [CardinalDirection.East, this.east()];
         yield [CardinalDirection.South, this.south()];
         yield [CardinalDirection.West, this.west()];
     }
 
-    *diagonals(): Iterable<GridNeighborEntry<DiagonalDirection>> {
+    *diagonals(): Generator<GridNeighborEntry<DiagonalDirection>> {
         yield [DiagonalDirection.NorthEast, this.northEast()];
         yield [DiagonalDirection.SouthEast, this.southEast()];
         yield [DiagonalDirection.SouthWest, this.southWest()];
@@ -215,7 +215,7 @@ export class GridBounds2D implements GridVector2DCodec, Iterable<GridVector2D> {
         return result;
     }
 
-    *[Symbol.iterator](): IterableIterator<GridVector2D> {
+    *[Symbol.iterator](): Generator<GridVector2D> {
         for (let q = this.min.q; q < this.max.q; q++) {
             for (let r = this.min.r; r < this.max.r; r++) {
                 yield new GridVector2D(q, r);
@@ -251,17 +251,17 @@ export class MatrixGrid<T> implements Iterable<MatrixGridEntry<T>> {
         return this.matrix[vector.r][vector.q];
     }
 
-    keys(): IterableIterator<GridVector2D> {
+    keys(): Generator<GridVector2D> {
         return this.bounds[Symbol.iterator]();
     }
 
-    *values(): IterableIterator<T> {
+    *values(): Generator<T> {
         for (const key of this.keys()) {
             yield this.at(key);
         }
     }
 
-    *[Symbol.iterator](): IterableIterator<MatrixGridEntry<T>> {
+    *[Symbol.iterator](): Generator<MatrixGridEntry<T>> {
         for (const vector of this.keys()) {
             yield [vector, this.at(vector)];
         }

@@ -1,7 +1,7 @@
 import z from "zod";
 import { main } from "../../utils/host";
 import { LinesSchema } from "../../utils/schemas";
-import { map, max } from "../../common/itertools";
+import { max } from "../../common/itertools";
 import {
     CardinalDirection,
     GridBounds2D,
@@ -94,7 +94,7 @@ function energize(grid: MatrixGrid<Tile>, start: Beam): number {
     return cache.size;
 }
 
-function* starts({ min, max }: GridBounds2D): Iterable<Beam> {
+function* starts({ min, max }: GridBounds2D): Generator<Beam> {
     for (let q = min.q; q < max.q; q++) {
         yield [new GridVector2D(q, -1), CardinalDirection.South];
         yield [new GridVector2D(q, max.r), CardinalDirection.North];
@@ -111,6 +111,6 @@ const part1 = (grid: MatrixGrid<Tile>): number =>
     energize(grid, [new GridVector2D(-1, 0), CardinalDirection.East]);
 
 const part2 = (grid: MatrixGrid<Tile>): number =>
-    max(map(starts(grid.bounds), (beam) => energize(grid, beam)));
+    max(starts(grid.bounds).map((beam) => energize(grid, beam)));
 
 main(module, parse, part1, part2);

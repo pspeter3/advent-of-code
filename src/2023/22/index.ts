@@ -1,7 +1,7 @@
 import z from "zod";
 import { main } from "../../utils/host";
 import { IntSchema, LinesSchema } from "../../utils/schemas";
-import { filter, map, max, some, sum } from "../../common/itertools";
+import { filter, max, some, sum } from "../../common/itertools";
 
 interface Vector3D {
     readonly x: number;
@@ -55,7 +55,7 @@ function drop(bricks: BrickList): BrickGraph {
     for (const [index, brick] of bricks.entries()) {
         const keys = toKeys(brick);
         const layers = Map.groupBy(
-            map(keys, (key) => grid.get(key) ?? [-1, 0]),
+            keys.values().map((key) => grid.get(key) ?? [-1, 0]),
             ([_, h]) => h,
         );
         const base = max(layers.keys());
@@ -91,15 +91,15 @@ const parse = (input: string): BrickGraph => BrickListSchema.parse(input);
 
 const part1 = ({ depends }: BrickGraph): number => {
     const roots = new Set(
-        map(
-            filter(depends, (d) => d.size === 1),
-            (d) => Array.from(d)[0],
-        ),
+        depends
+            .values()
+            .filter((d) => d.size === 1)
+            .map((d) => Array.from(d)[0]),
     );
     return depends.length - roots.size;
 };
 
 const part2 = (graph: BrickGraph): number =>
-    sum(map(graph.depends.keys(), (id) => chain(graph, id)));
+    sum(graph.depends.keys().map((id) => chain(graph, id)));
 
 main(module, parse, part1, part2);

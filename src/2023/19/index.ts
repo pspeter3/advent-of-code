@@ -1,7 +1,7 @@
 import z from "zod";
 import { main } from "../../utils/host";
 import { IntSchema, LinesSchema } from "../../utils/schemas";
-import { filter, map, reduce, sum } from "../../common/itertools";
+import { sum } from "../../common/itertools";
 
 interface MachinePart {
     readonly x: number;
@@ -167,10 +167,10 @@ const parse = (input: string): System => SystemSchema.parse(input);
 
 const part1 = ({ workflows, parts }: System): number =>
     sum(
-        map(
-            filter(parts, (part) => isAccepted(workflows, part)),
-            rating,
-        ),
+        parts
+            .values()
+            .filter((part) => isAccepted(workflows, part))
+            .map(rating),
     );
 
 const part2 = ({ workflows }: System): number => {
@@ -206,13 +206,14 @@ const part2 = ({ workflows }: System): number => {
     const valid: Range = [1, 4000];
     traverse({ x: valid, m: valid, a: valid, s: valid });
     return sum(
-        map(accepted, (part) =>
-            reduce(
-                Object.values(part),
-                (product, [min, max]) => product * (max - min + 1),
-                1,
+        accepted
+            .values()
+            .map((part) =>
+                Object.values(part).reduce(
+                    (product, [min, max]) => product * (max - min + 1),
+                    1,
+                ),
             ),
-        ),
     );
 };
 

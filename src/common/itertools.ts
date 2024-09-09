@@ -45,20 +45,6 @@ export function* zip<A, B>(
 }
 
 /**
- * Maps an iterable.
- * @param iterable The iterable to map
- * @param callback The map callback
- */
-export function* map<I, O>(
-    iterable: Iterable<I>,
-    callback: (item: I) => O,
-): Generator<O> {
-    for (const item of iterable) {
-        yield callback(item);
-    }
-}
-
-/**
  * Filters an iterable.
  * @param iterable The iterable to filter
  * @param callback The filter callback

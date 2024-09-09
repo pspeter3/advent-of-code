@@ -3,12 +3,10 @@ import { main } from "../../utils/host";
 import { LinesSchema } from "../../utils/schemas";
 import {
     CardinalDirection,
-    GridBounds2D,
     GridVector2D,
     MatrixGrid,
-    cardinalDirections,
 } from "../../common/grid2d";
-import { filter, map, max } from "../../common/itertools";
+import { max } from "../../common/itertools";
 
 const SLOPES = ["^", ">", "v", "<"] as const;
 type Slope = (typeof SLOPES)[number];
@@ -58,13 +56,15 @@ function walk(
             continue;
         }
         const options = Array.from(
-            filter(
-                map(curr.neighbors(), ([_, n]) => n),
-                (n) =>
-                    !queue.at(-2)!.equals(n) &&
-                    grid.bounds.includes(n) &&
-                    !isForest(grid.at(n)),
-            ),
+            curr
+                .neighbors()
+                .map(([_, n]) => n)
+                .filter(
+                    (n) =>
+                        !queue.at(-2)!.equals(n) &&
+                        grid.bounds.includes(n) &&
+                        !isForest(grid.at(n)),
+                ),
         );
         if (options.length !== 1) {
             return [grid.bounds.toId(curr), queue.length - 1];
@@ -83,12 +83,10 @@ function toWeightGraph(
     const queue = [start];
     for (const current of queue) {
         const edges = new Map(
-            filter(
-                map(current.neighbors(), ([_, n]) =>
-                    walk(grid, current, n, slopes),
-                ),
-                (n) => n !== null,
-            ) as Iterable<[number, number]>,
+            current
+                .neighbors()
+                .map(([_, n]) => walk(grid, current, n, slopes))
+                .filter((n) => n !== null) as Iterable<[number, number]>,
         );
         graph.set(grid.bounds.toId(current), edges);
         for (const key of edges.keys()) {
@@ -126,10 +124,11 @@ function longestPath(
         return result;
     }
     return max(
-        map(
-            filter(graph.get(current)!.keys(), (id) => !next.has(id)),
-            (id) => longestPath(graph, id, target, next),
-        ),
+        graph
+            .get(current)!
+            .keys()
+            .filter((id) => !next.has(id))
+            .map((id) => longestPath(graph, id, target, next)),
     );
 }
 

@@ -1,7 +1,7 @@
 import z from "zod";
 import { main } from "../../utils/host";
 import { LinesSchema } from "../../utils/schemas";
-import { every, map, reduce, some } from "../../common/itertools";
+import { every, reduce, some } from "../../common/itertools";
 import { leastCommonMultiple } from "../../common/math";
 
 enum Pulse {
@@ -89,7 +89,7 @@ class ConjuctionPulseModule extends PulseModule {
         inputs: ReadonlySet<string>,
     ) {
         super(name, outputs);
-        this.#inputs = new Map(map(inputs, (key) => [key, Pulse.Low]));
+        this.#inputs = new Map(inputs.values().map((key) => [key, Pulse.Low]));
     }
 
     process({ source, pulse }: PulseMessage): Pulse | null {
@@ -142,12 +142,10 @@ class PulseSystem {
         inputs: ReadonlyMap<string, ReadonlySet<string>>,
     ): ReadonlyMap<string, PulseModule> {
         return new Map(
-            map(
-                map(records, (record) =>
-                    PulseSystem.#buildModule(record, inputs),
-                ),
-                (m) => [m.name, m],
-            ),
+            records
+                .values()
+                .map((record) => PulseSystem.#buildModule(record, inputs))
+                .map((m) => [m.name, m]),
         );
     }
 

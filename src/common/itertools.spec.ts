@@ -5,7 +5,6 @@ import {
     filter,
     first,
     len,
-    map,
     max,
     min,
     reduce,
@@ -38,12 +37,6 @@ describe("zip", () => {
             b: 1,
             c: 2,
         });
-    });
-});
-
-describe("map", () => {
-    it("should map the items", () => {
-        assert.deepEqual(Array.from(map([1, 2, 3], (n) => 2 * n)), [2, 4, 6]);
     });
 });
 
