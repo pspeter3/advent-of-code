@@ -1,7 +1,7 @@
 import z from "zod";
 import { main } from "../../utils/host";
 import { LinesSchema } from "../../utils/schemas";
-import { reduce, some } from "../../common/itertools";
+import { reduce } from "../../common/itertools";
 import { leastCommonMultiple } from "../../common/math";
 
 enum Pulse {
@@ -217,7 +217,7 @@ const part2 = (records: PulseModuleRecordList): number => {
     }
     const cycles = new Map<string, number>();
     let count = 0;
-    while (some(inputs, (name) => !cycles.has(name))) {
+    while (inputs.values().some((name) => !cycles.has(name))) {
         count++;
         for (const message of system.press()) {
             if (

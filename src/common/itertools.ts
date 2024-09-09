@@ -79,24 +79,6 @@ export function* enumerate<T>(
 }
 
 /**
- * Checks if some elements match a filter.
- * @param iterable The iterable to check
- * @param callback The filter callback
- * @returns The final value
- */
-export function some<T>(
-    iterable: Iterable<T>,
-    callback: (item: T) => boolean,
-): boolean {
-    for (const item of iterable) {
-        if (callback(item)) {
-            return true;
-        }
-    }
-    return false;
-}
-
-/**
  * Determines the length of an iterable.
  * @param iterable The iterable to count
  * @returns The length of the iterable

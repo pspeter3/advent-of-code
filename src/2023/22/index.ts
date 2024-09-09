@@ -1,7 +1,7 @@
 import z from "zod";
 import { main } from "../../utils/host";
 import { IntSchema, LinesSchema } from "../../utils/schemas";
-import { max, some, sum } from "../../common/itertools";
+import { max, sum } from "../../common/itertools";
 
 interface Vector3D {
     readonly x: number;
@@ -81,7 +81,7 @@ function chain({ depends, supports }: BrickGraph, index: number): number {
             if (queue.has(n)) {
                 continue;
             }
-            if (some(depends[n], (i) => !queue.has(i))) {
+            if (depends[n].values().some((i) => !queue.has(i))) {
                 continue;
             }
             queue.add(n);
