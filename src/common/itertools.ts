@@ -32,7 +32,7 @@ export type ZipPair<A, B> = readonly [a: A, b: B];
 export function* zip<A, B>(
     a: Iterable<A>,
     b: Iterable<B>,
-): Iterable<ZipPair<A, B>> {
+): Generator<ZipPair<A, B>> {
     const aIterator = a[Symbol.iterator]();
     const bIterator = b[Symbol.iterator]();
     let aResult = aIterator.next();
@@ -52,7 +52,7 @@ export function* zip<A, B>(
 export function* map<I, O>(
     iterable: Iterable<I>,
     callback: (item: I) => O,
-): Iterable<O> {
+): Generator<O> {
     for (const item of iterable) {
         yield callback(item);
     }
@@ -66,7 +66,7 @@ export function* map<I, O>(
 export function* filter<T>(
     iterable: Iterable<T>,
     callback: (item: T) => boolean,
-): Iterable<T> {
+): Generator<T> {
     for (const item of iterable) {
         if (callback(item)) {
             yield item;
@@ -101,7 +101,7 @@ export type EnumeratePair<T> = readonly [index: number, item: T];
  */
 export function* enumerate<T>(
     iterable: Iterable<T>,
-): Iterable<EnumeratePair<T>> {
+): Generator<EnumeratePair<T>> {
     let index = 0;
     for (const item of iterable) {
         yield [index++, item];
@@ -162,7 +162,7 @@ export function len(iterable: Iterable<unknown>): number {
  * @param start The starting number
  * @param step The incrementing number
  */
-export function* count(start: number = 0, step: number = 1): Iterable<number> {
+export function* count(start: number = 0, step: number = 1): Generator<number> {
     let current = start;
     while (true) {
         yield current;
