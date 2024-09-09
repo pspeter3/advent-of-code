@@ -1,7 +1,6 @@
 import z from "zod";
 import { main } from "../../utils/host";
 import { LinesSchema } from "../../utils/schemas";
-import { every, map, reduce, some } from "../../common/itertools";
 import { leastCommonMultiple } from "../../common/math";
 
 enum Pulse {
@@ -89,12 +88,12 @@ class ConjuctionPulseModule extends PulseModule {
         inputs: ReadonlySet<string>,
     ) {
         super(name, outputs);
-        this.#inputs = new Map(map(inputs, (key) => [key, Pulse.Low]));
+        this.#inputs = new Map(inputs.values().map((key) => [key, Pulse.Low]));
     }
 
     process({ source, pulse }: PulseMessage): Pulse | null {
         this.#inputs.set(source, pulse);
-        return every(this.#inputs.values(), (p) => p === Pulse.High)
+        return this.#inputs.values().every((p) => p === Pulse.High)
             ? Pulse.Low
             : Pulse.High;
     }
@@ -142,12 +141,10 @@ class PulseSystem {
         inputs: ReadonlyMap<string, ReadonlySet<string>>,
     ): ReadonlyMap<string, PulseModule> {
         return new Map(
-            map(
-                map(records, (record) =>
-                    PulseSystem.#buildModule(record, inputs),
-                ),
-                (m) => [m.name, m],
-            ),
+            records
+                .values()
+                .map((record) => PulseSystem.#buildModule(record, inputs))
+                .map((m) => [m.name, m]),
         );
     }
 
@@ -219,7 +216,7 @@ const part2 = (records: PulseModuleRecordList): number => {
     }
     const cycles = new Map<string, number>();
     let count = 0;
-    while (some(inputs, (name) => !cycles.has(name))) {
+    while (inputs.values().some((name) => !cycles.has(name))) {
         count++;
         for (const message of system.press()) {
             if (
@@ -231,11 +228,9 @@ const part2 = (records: PulseModuleRecordList): number => {
             }
         }
     }
-    return reduce(
-        cycles.values(),
-        (lcm, cycle) => leastCommonMultiple(lcm, cycle),
-        1,
-    );
+    return cycles
+        .values()
+        .reduce((lcm, cycle) => leastCommonMultiple(lcm, cycle), 1);
 };
 
 main(module, parse, part1, part2);

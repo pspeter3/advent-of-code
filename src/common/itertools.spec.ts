@@ -1,17 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import {
-    enumerate,
-    filter,
-    first,
-    len,
-    map,
-    max,
-    min,
-    reduce,
-    sum,
-    zip,
-} from "./itertools";
+import { enumerate, len, max, min, sum, zip } from "./itertools";
 
 describe("sum", () => {
     it("should calculate the sum of numbers", () => {
@@ -41,29 +30,6 @@ describe("zip", () => {
     });
 });
 
-describe("map", () => {
-    it("should map the items", () => {
-        assert.deepEqual(Array.from(map([1, 2, 3], (n) => 2 * n)), [2, 4, 6]);
-    });
-});
-
-describe("filter", () => {
-    it("should filter items", () => {
-        assert.deepEqual(Array.from(filter([1, 2, 3], (n) => n % 2 === 0)), [
-            2,
-        ]);
-    });
-});
-
-describe("reduce", () => {
-    it("should reduce items", () => {
-        assert.equal(
-            reduce([1, 2, 3], (sum, item) => sum + item, 0),
-            6,
-        );
-    });
-});
-
 describe("enumerate", () => {
     it("should create an enumeration", () => {
         assert.deepEqual(Array.from(enumerate("abc")), [
@@ -77,15 +43,5 @@ describe("enumerate", () => {
 describe("len", () => {
     it("should count the length", () => {
         assert.equal(len("foo"), 3);
-    });
-});
-
-describe("first", () => {
-    it("should return undefined for empty", () => {
-        assert.equal(first(new Set()), undefined);
-    });
-
-    it("should return the first element", () => {
-        assert.equal(first(new Set([2])), 2);
     });
 });

@@ -1,4 +1,4 @@
-import { enumerate, map, sum } from "../../common/itertools";
+import { enumerate, sum } from "../../common/itertools";
 import { main } from "../../utils/host";
 
 const REMOVE = "-";
@@ -47,7 +47,7 @@ function* toPower(
 const parse = (input: string): ReadonlyArray<string> => input.trim().split(",");
 
 const part1 = (sequence: ReadonlyArray<string>): number =>
-    sum(map(sequence, hash));
+    sum(sequence.values().map(hash));
 
 const part2 = (sequence: ReadonlyArray<string>): number => {
     const boxes: ReadonlyArray<Map<string, number>> = Array.from(

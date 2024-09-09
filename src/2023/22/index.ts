@@ -1,7 +1,7 @@
 import z from "zod";
 import { main } from "../../utils/host";
 import { IntSchema, LinesSchema } from "../../utils/schemas";
-import { filter, map, max, some, sum } from "../../common/itertools";
+import { max, sum } from "../../common/itertools";
 
 interface Vector3D {
     readonly x: number;
@@ -55,7 +55,7 @@ function drop(bricks: BrickList): BrickGraph {
     for (const [index, brick] of bricks.entries()) {
         const keys = toKeys(brick);
         const layers = Map.groupBy(
-            map(keys, (key) => grid.get(key) ?? [-1, 0]),
+            keys.values().map((key) => grid.get(key) ?? [-1, 0]),
             ([_, h]) => h,
         );
         const base = max(layers.keys());
@@ -63,7 +63,10 @@ function drop(bricks: BrickList): BrickGraph {
         for (const key of keys) {
             grid.set(key, [index, base + height]);
         }
-        for (const [i] of filter(layers.get(base)!, ([i]) => i !== -1)) {
+        for (const [i] of layers
+            .get(base)!
+            .values()
+            .filter(([i]) => i !== -1)) {
             depends[index].add(i);
             supports[i].add(index);
         }
@@ -78,7 +81,7 @@ function chain({ depends, supports }: BrickGraph, index: number): number {
             if (queue.has(n)) {
                 continue;
             }
-            if (some(depends[n], (i) => !queue.has(i))) {
+            if (depends[n].values().some((i) => !queue.has(i))) {
                 continue;
             }
             queue.add(n);
@@ -91,15 +94,15 @@ const parse = (input: string): BrickGraph => BrickListSchema.parse(input);
 
 const part1 = ({ depends }: BrickGraph): number => {
     const roots = new Set(
-        map(
-            filter(depends, (d) => d.size === 1),
-            (d) => Array.from(d)[0],
-        ),
+        depends
+            .values()
+            .filter((d) => d.size === 1)
+            .map((d) => Array.from(d)[0]),
     );
     return depends.length - roots.size;
 };
 
 const part2 = (graph: BrickGraph): number =>
-    sum(map(graph.depends.keys(), (id) => chain(graph, id)));
+    sum(graph.depends.keys().map((id) => chain(graph, id)));
 
 main(module, parse, part1, part2);

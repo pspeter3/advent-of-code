@@ -2,7 +2,7 @@ import z from "zod";
 import { main } from "../../utils/host";
 import { IntSchema, LinesSchema } from "../../utils/schemas";
 import { NumberRange } from "../../common/number-range";
-import { filter, len, map, sum } from "../../common/itertools";
+import { len, sum } from "../../common/itertools";
 
 interface Vector2D {
     readonly x: number;
@@ -57,7 +57,7 @@ function collides2D(a: Ray2D, b: Ray2D): Vector2D | null {
 
 type Pair<T> = readonly [a: T, b: T];
 
-function* pairs<T>(list: ReadonlyArray<T>): Iterable<Pair<T>> {
+function* pairs<T>(list: ReadonlyArray<T>): Generator<Pair<T>> {
     for (let i = 0; i < list.length; i++) {
         for (let j = i + 1; j < list.length; j++) {
             yield [list[i], list[j]];
@@ -67,13 +67,14 @@ function* pairs<T>(list: ReadonlyArray<T>): Iterable<Pair<T>> {
 
 const solve2D = (rays: ReadonlyArray<Ray2D>, range: NumberRange): number =>
     len(
-        filter(
-            map(pairs(rays), ([a, b]) => collides2D(a, b)),
-            (vector) =>
-                vector !== null &&
-                range.includes(vector.x) &&
-                range.includes(vector.y),
-        ),
+        pairs(rays)
+            .map(([a, b]) => collides2D(a, b))
+            .filter(
+                (vector) =>
+                    vector !== null &&
+                    range.includes(vector.x) &&
+                    range.includes(vector.y),
+            ),
     );
 
 const findComponents = (
@@ -81,19 +82,16 @@ const findComponents = (
     key: Vector3DKey,
 ): ReadonlyMap<number, ReadonlyArray<number>> =>
     new Map(
-        map(
-            filter(
-                Map.groupBy(rays, ({ velocity }) => velocity[key]),
-                ([_, value]) => value.length > 1,
-            ),
-            ([k, list]) => [
+        Map.groupBy(rays, ({ velocity }) => velocity[key])
+            .entries()
+            .filter(([_, value]) => value.length > 1)
+            .map(([k, list]) => [
                 k,
                 Array.from(
                     pairs(list),
                     ([{ position: a }, { position: b }]) => a[key] - b[key],
                 ),
-            ],
-        ),
+            ]),
     );
 
 function findComponentVelocity(

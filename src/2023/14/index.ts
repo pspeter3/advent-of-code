@@ -1,4 +1,4 @@
-import { filter, map, sum } from "../../common/itertools";
+import { sum } from "../../common/itertools";
 import { main } from "../../utils/host";
 
 enum RockKind {
@@ -34,18 +34,20 @@ const tilt = (
     cols,
     rows,
     rocks: Array.from(
-        map(Map.groupBy(rocks, group).values(), (line) => {
-            const list = line.toSorted(compare);
-            const result: Rock[] = [];
-            for (const rock of list) {
-                result.push(
-                    rock.kind === RockKind.Cube
-                        ? rock
-                        : shift(result.at(-1), rock),
-                );
-            }
-            return result;
-        }),
+        Map.groupBy(rocks, group)
+            .values()
+            .map((line) => {
+                const list = line.toSorted(compare);
+                const result: Rock[] = [];
+                for (const rock of list) {
+                    result.push(
+                        rock.kind === RockKind.Cube
+                            ? rock
+                            : shift(result.at(-1), rock),
+                    );
+                }
+                return result;
+            }),
     ).flat(),
 });
 
@@ -142,10 +144,10 @@ function findCycle(platform: Platform): PlatformCycle {
 
 const load = ({ rows, rocks }: Platform): number =>
     sum(
-        map(
-            filter(rocks, ({ kind }) => kind === RockKind.Round),
-            ({ r }) => rows - r,
-        ),
+        rocks
+            .values()
+            .filter(({ kind }) => kind === RockKind.Round)
+            .map(({ r }) => rows - r),
     );
 
 const parse = (input: string): Platform => {

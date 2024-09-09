@@ -4,7 +4,7 @@ import {
     GridNeighborEntry,
     GridVector2D,
 } from "../../common/grid2d";
-import { enumerate, map } from "../../common/itertools";
+import { enumerate } from "../../common/itertools";
 import { main } from "../../utils/host";
 
 interface Garden {

@@ -1,7 +1,7 @@
 import z from "zod";
 import { main } from "../../utils/host";
 import { LinesSchema } from "../../utils/schemas";
-import { map, sum, zip } from "../../common/itertools";
+import { sum, zip } from "../../common/itertools";
 
 type Pattern = ReadonlyArray<string>;
 type PatternList = ReadonlyArray<Pattern>;
@@ -14,14 +14,13 @@ const PatternListSchema = z
 
 const diffLine = (line: string, index: number): number =>
     sum(
-        map(
-            zip(Array.from(line.slice(0, index)).reverse(), line.slice(index)),
+        zip(Array.from(line.slice(0, index)).reverse(), line.slice(index)).map(
             ([a, b]) => (a !== b ? 1 : 0),
         ),
     );
 
 const diffPattern = (pattern: Pattern, index: number): number =>
-    sum(map(pattern, (line) => diffLine(line, index)));
+    sum(pattern.values().map((line) => diffLine(line, index)));
 
 function findIndex(pattern: Pattern, delta: number): number {
     for (let i = 1; i < pattern[0].length; i++) {
@@ -43,9 +42,9 @@ const rotate = (pattern: Pattern): Pattern =>
 const parse = (input: string): PatternList => PatternListSchema.parse(input);
 
 const part1 = (patterns: PatternList): number =>
-    sum(map(patterns, (pattern) => score(pattern, 0)));
+    sum(patterns.values().map((pattern) => score(pattern, 0)));
 
 const part2 = (patterns: PatternList): number =>
-    sum(map(patterns, (pattern) => score(pattern, 1)));
+    sum(patterns.values().map((pattern) => score(pattern, 1)));
 
 main(module, parse, part1, part2);
