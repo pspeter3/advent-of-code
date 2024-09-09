@@ -104,20 +104,6 @@ export function* count(start: number = 0, step: number = 1): Generator<number> {
     }
 }
 
-export type RecordEntry<K extends string, V> = readonly [key: K, value: V];
-
-export function toEntries<K extends string, V>(
-    record: Readonly<Record<K, V>>,
-): ReadonlyArray<RecordEntry<K, V>> {
-    return Object.entries(record) as unknown as RecordEntry<K, V>[];
-}
-
-export function fromEntries<K extends string, V>(
-    iterable: Iterable<RecordEntry<K, V>>,
-): Readonly<Record<K, V>> {
-    return Object.fromEntries(iterable) as Record<K, V>;
-}
-
 export function first<T>(iterable: Iterable<T>): T | undefined {
     const iterator = iterable[Symbol.iterator]();
     const item = iterator.next();
