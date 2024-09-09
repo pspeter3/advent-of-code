@@ -1,5 +1,3 @@
-import { first } from "./itertools";
-
 export type WeightedEdgeMap<T> = ReadonlyMap<T, number>;
 export type WeightedGraph<T> = ReadonlyMap<T, WeightedEdgeMap<T>>;
 
@@ -67,7 +65,7 @@ function findCut<T>(graph: WeightedGraph<T>): WeightedGraphCut<T> {
     if (graph.size < 2) {
         throw new Error("Invalid graph");
     }
-    const start = first(graph.keys()) as T;
+    const start = graph.keys().take(1) as T;
     const found = [start];
     const nodes = new Set(graph.keys());
     let cut = -Infinity;

@@ -103,9 +103,3 @@ export function* count(start: number = 0, step: number = 1): Generator<number> {
         current += step;
     }
 }
-
-export function first<T>(iterable: Iterable<T>): T | undefined {
-    const iterator = iterable[Symbol.iterator]();
-    const item = iterator.next();
-    return item.value;
-}

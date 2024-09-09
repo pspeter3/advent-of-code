@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { enumerate, first, len, max, min, reduce, sum, zip } from "./itertools";
+import { enumerate, len, max, min, reduce, sum, zip } from "./itertools";
 
 describe("sum", () => {
     it("should calculate the sum of numbers", () => {
@@ -52,15 +52,5 @@ describe("enumerate", () => {
 describe("len", () => {
     it("should count the length", () => {
         assert.equal(len("foo"), 3);
-    });
-});
-
-describe("first", () => {
-    it("should return undefined for empty", () => {
-        assert.equal(first(new Set()), undefined);
-    });
-
-    it("should return the first element", () => {
-        assert.equal(first(new Set([2])), 2);
     });
 });
