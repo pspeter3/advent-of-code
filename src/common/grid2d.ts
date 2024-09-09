@@ -329,21 +329,21 @@ export class GridVector2DSet implements Set<GridVector2D> {
         return this.#data.size;
     }
 
-    *entries(): IterableIterator<[GridVector2D, GridVector2D]> {
+    *entries(): SetIterator<[GridVector2D, GridVector2D]> {
         for (const vector of this) {
             yield [vector, vector];
         }
     }
 
-    keys(): IterableIterator<GridVector2D> {
+    keys(): SetIterator<GridVector2D> {
         return this[Symbol.iterator]();
     }
 
-    values(): IterableIterator<GridVector2D> {
+    values(): SetIterator<GridVector2D> {
         return this[Symbol.iterator]();
     }
 
-    *[Symbol.iterator](): IterableIterator<GridVector2D> {
+    *[Symbol.iterator](): SetIterator<GridVector2D> {
         for (const id of this.#data) {
             yield this.#codec.fromId(id);
         }
@@ -351,6 +351,34 @@ export class GridVector2DSet implements Set<GridVector2D> {
 
     get [Symbol.toStringTag](): string {
         return this.#data[Symbol.toStringTag];
+    }
+
+    union<U>(other: ReadonlySetLike<U>): Set<GridVector2D | U> {
+        throw new Error("Method not implemented.");
+    }
+
+    intersection<U>(other: ReadonlySetLike<U>): Set<GridVector2D & U> {
+        throw new Error("Method not implemented.");
+    }
+
+    difference<U>(other: ReadonlySetLike<U>): Set<GridVector2D> {
+        throw new Error("Method not implemented.");
+    }
+
+    symmetricDifference<U>(other: ReadonlySetLike<U>): Set<GridVector2D | U> {
+        throw new Error("Method not implemented.");
+    }
+
+    isSubsetOf(other: ReadonlySetLike<unknown>): boolean {
+        throw new Error("Method not implemented.");
+    }
+
+    isSupersetOf(other: ReadonlySetLike<unknown>): boolean {
+        throw new Error("Method not implemented.");
+    }
+
+    isDisjointFrom(other: ReadonlySetLike<unknown>): boolean {
+        throw new Error("Method not implemented.");
     }
 }
 
@@ -399,21 +427,21 @@ export class GridVector2DMap<T> implements Map<GridVector2D, T> {
         return this.#data.size;
     }
 
-    entries(): IterableIterator<[GridVector2D, T]> {
+    entries(): MapIterator<[GridVector2D, T]> {
         return this[Symbol.iterator]();
     }
 
-    *keys(): IterableIterator<GridVector2D> {
+    *keys(): MapIterator<GridVector2D> {
         for (const id of this.#data.keys()) {
             yield this.#codec.fromId(id);
         }
     }
 
-    values(): IterableIterator<T> {
+    values(): MapIterator<T> {
         return this.#data.values();
     }
 
-    *[Symbol.iterator](): IterableIterator<[GridVector2D, T]> {
+    *[Symbol.iterator](): MapIterator<[GridVector2D, T]> {
         for (const [id, value] of this.#data) {
             yield [this.#codec.fromId(id), value];
         }

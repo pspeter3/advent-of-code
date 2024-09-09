@@ -1,7 +1,7 @@
 {
   "name": "advent-of-code",
   "scripts": {
-    "fix": "prettier --cache --write '*.md' '.github/**/*.yml' 'src/**/*.ts'",
+    "fix": "prettier --cache --write '*.md' '.github/**/*.yml' '.vscode/**/*.json' 'src/**/*.ts'",
     "start": "tsx",
     "test": "wireit"
   },
@@ -34,8 +34,10 @@
       ]
     },
     "test:format": {
-      "command": "prettier --cache --check '*.md' '.github/**/*.yml' 'src/**/*.ts'",
+      "command": "prettier --cache --check '*.md' '.github/**/*.yml' '.vscode/**/*.json' 'src/**/*.ts'",
       "files": [
+        ".github/**/*.yml",
+        ".vscode/**/*.json",
         "src/**/*.ts",
         "*.md"
       ],
