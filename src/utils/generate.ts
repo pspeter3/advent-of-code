@@ -13,7 +13,7 @@ main(module, parse, part1, part2);
 `;
 
 async function generate(): Promise<void> {
-    const year = "2015"; // new Date().getFullYear().toString();
+    const year = new Date().getFullYear().toString();
     const dirnames = await fs.readdir(path.join(__dirname, "..", year));
     const days = dirnames
         .map((dirname) => parseInt(dirname, 10))
