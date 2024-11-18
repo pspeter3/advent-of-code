@@ -12,8 +12,9 @@ const part2 = (input: unknown): number => 0;
 main(module, parse, part1, part2);
 `;
 
-async function generate(): Promise<void> {
-    const year = new Date().getFullYear().toString();
+async function generate(
+    year: string = new Date().getFullYear().toString(),
+): Promise<void> {
     const dirnames = await fs.readdir(path.join(__dirname, "..", year));
     const days = dirnames
         .map((dirname) => parseInt(dirname, 10))
@@ -26,7 +27,7 @@ async function generate(): Promise<void> {
 }
 
 if (require.main === module) {
-    generate().catch((err) => {
+    generate(process.argv[2]).catch((err) => {
         console.error(err);
         process.exit(1);
     });
