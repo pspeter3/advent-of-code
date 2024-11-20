@@ -2,10 +2,13 @@ import crypto from "node:crypto";
 import { main } from "../../utils/host";
 
 function mine(key: string, size: number): number {
-    const prefix = Array.from({length: size}, () => 0).join("");
+    const prefix = Array.from({ length: size }, () => 0).join("");
     let i = 1;
     while (true) {
-        const hash = crypto.createHash("md5").update(`${key}${i}`).digest("hex");
+        const hash = crypto
+            .createHash("md5")
+            .update(`${key}${i}`)
+            .digest("hex");
         if (hash.startsWith(prefix)) {
             return i;
         }
