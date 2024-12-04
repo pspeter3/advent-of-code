@@ -27,7 +27,19 @@ export function* cardinalDirections(): Generator<CardinalDirection> {
     }
 }
 
+export function* diagonalDirections(): Generator<DiagonalDirection> {
+    for (let i = 4; i < 8; i++) {
+        yield i;
+    }
+}
+
 export type GridDirection = CardinalDirection | DiagonalDirection;
+
+export function* gridDirections(): Generator<GridDirection> {
+    for (let i = 0; i < 8; i++) {
+        yield i;
+    }
+}
 
 export function isCardinalDirection(
     direction: GridDirection,
@@ -39,6 +51,12 @@ export function isDiagonalDiection(
     direction: GridDirection,
 ): direction is DiagonalDirection {
     return direction >= 4;
+}
+
+export function debugDirection(direction: GridDirection): string {
+    return isCardinalDirection(direction)
+        ? CardinalDirection[direction]
+        : DiagonalDirection[direction];
 }
 
 export type GridNeighborEntry<T extends GridDirection> = readonly [
@@ -139,7 +157,7 @@ const DELTAS: ReadonlyArray<GridVector2D> = [
     new GridVector2D(-1, 0),
     new GridVector2D(1, -1),
     new GridVector2D(1, 1),
-    new GridVector2D(1, 1),
+    new GridVector2D(-1, 1),
     new GridVector2D(-1, -1),
 ];
 
@@ -216,8 +234,8 @@ export class GridBounds2D implements GridVector2DCodec, Iterable<GridVector2D> {
     }
 
     *[Symbol.iterator](): Generator<GridVector2D> {
-        for (let q = this.min.q; q < this.max.q; q++) {
-            for (let r = this.min.r; r < this.max.r; r++) {
+        for (let r = this.min.r; r < this.max.r; r++) {
+            for (let q = this.min.q; q < this.max.q; q++) {
                 yield new GridVector2D(q, r);
             }
         }
@@ -265,6 +283,10 @@ export class MatrixGrid<T> implements Iterable<MatrixGridEntry<T>> {
         for (const vector of this.keys()) {
             yield [vector, this.at(vector)];
         }
+    }
+
+    entries(): Generator<MatrixGridEntry<T>> {
+        return this[Symbol.iterator]();
     }
 }
 
