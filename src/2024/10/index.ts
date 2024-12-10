@@ -57,11 +57,12 @@ const part1 = (grid: MatrixGrid<number>): number =>
             .map((cell) => findPeaks(grid, cell)),
     );
 
-const part2 = (grid: MatrixGrid<number>): number => sum(
-    grid
-        .keys()
-        .filter((cell) => grid.at(cell) === 0)
-        .map((cell) => findTrails(grid, cell)),
-);
+const part2 = (grid: MatrixGrid<number>): number =>
+    sum(
+        grid
+            .keys()
+            .filter((cell) => grid.at(cell) === 0)
+            .map((cell) => findTrails(grid, cell)),
+    );
 
 main(module, parse, part1, part2);
