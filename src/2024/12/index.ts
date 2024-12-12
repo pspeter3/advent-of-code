@@ -1,4 +1,9 @@
-import { GridBounds2D, GridVector2D, GridVector2DSet, MatrixGrid } from "../../common/grid2d";
+import {
+    GridBounds2D,
+    GridVector2D,
+    GridVector2DSet,
+    MatrixGrid,
+} from "../../common/grid2d";
 import { enumerate, len, sum } from "../../common/itertools";
 import { main } from "../../utils/host";
 
@@ -13,16 +18,16 @@ type RegionList = ReadonlyArray<Region>;
 
 function* toCorners(cell: GridVector2D): Generator<GridVector2D> {
     yield cell;
-    yield cell.add({q: 1, r: 0});
-    yield cell.add({q: 1, r: 1});
-    yield cell.add({q: 0, r: 1});
+    yield cell.add({ q: 1, r: 0 });
+    yield cell.add({ q: 1, r: 1 });
+    yield cell.add({ q: 0, r: 1 });
 }
 
 function* toTouches(cell: GridVector2D): Generator<GridVector2D> {
-    yield cell.add({q: -1, r: -1});
-    yield cell.add({q: 0, r: -1});
+    yield cell.add({ q: -1, r: -1 });
+    yield cell.add({ q: 0, r: -1 });
     yield cell;
-    yield cell.add({q: -1, r: 0});
+    yield cell.add({ q: -1, r: 0 });
 }
 
 const isCorner = (tiles: ReadonlyArray<GridVector2D>): boolean => {
@@ -43,7 +48,10 @@ const parse = (input: string): RegionList => {
             .split("\n")
             .map((line) => line.trim().split("")),
     );
-    const dual = new GridBounds2D(grid.bounds.min, grid.bounds.max.add({q: 1, r: 1}));
+    const dual = new GridBounds2D(
+        grid.bounds.min,
+        grid.bounds.max.add({ q: 1, r: 1 }),
+    );
     const seen = new GridVector2DSet(grid.bounds);
     const regions: Region[] = [];
     for (const key of grid.keys().filter((cell) => !seen.has(cell))) {
@@ -65,14 +73,18 @@ const parse = (input: string): RegionList => {
         }
         for (const cell of frontier) {
             for (const corner of toCorners(cell)) {
-                const tiles = toTouches(corner).filter((t) => grid.bounds.includes(t) && frontier.has(t)).toArray();
+                const tiles = toTouches(corner)
+                    .filter((t) => grid.bounds.includes(t) && frontier.has(t))
+                    .toArray();
                 if (tiles.length % 2 === 1) {
                     corners.add(corner);
                     continue;
                 }
                 if (tiles.length === 2) {
                     const [a, b] = tiles;
-                    const diagonal = a.neighbors().every(([_, n]) => !n.equals(b));
+                    const diagonal = a
+                        .neighbors()
+                        .every(([_, n]) => !n.equals(b));
                     if (diagonal) {
                         corners.add(corner);
                         doubles.add(corner);
@@ -88,10 +100,12 @@ const parse = (input: string): RegionList => {
         });
     }
     return regions;
-}
+};
 
-const part1 = (regions: RegionList): number => sum(regions.values().map((r) => r.area * r.perimeter));
+const part1 = (regions: RegionList): number =>
+    sum(regions.values().map((r) => r.area * r.perimeter));
 
-const part2 = (regions: RegionList): number => sum(regions.values().map((r) => r.area * r.corners));
+const part2 = (regions: RegionList): number =>
+    sum(regions.values().map((r) => r.area * r.corners));
 
 main(module, parse, part1, part2);
