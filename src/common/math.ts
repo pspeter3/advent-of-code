@@ -71,3 +71,30 @@ export function greatestCommonDivisor(a: number, b: number): number {
 export function leastCommonMultiple(a: number, b: number): number {
     return Math.abs(a) * (Math.abs(b) / greatestCommonDivisor(a, b));
 }
+
+function extendedGreatestCommonDivisor(
+    a: number,
+    b: number,
+): readonly [number, number, number] {
+    if (b === 0) {
+        return [a, 1, 0];
+    }
+    const [gcd, x1, y1] = extendedGreatestCommonDivisor(b, a % b);
+    const x = y1;
+    const y = x1 - Math.floor(a / b) * y1;
+    return [gcd, x, y];
+}
+
+export function chineseRemainderTheorem(
+    a: number,
+    ma: number,
+    b: number,
+    mb: number,
+): number {
+    const [gcd, x, y] = extendedGreatestCommonDivisor(ma, mb);
+    if (gcd !== 1) {
+        throw new Error("The moduli are not coprime.");
+    }
+    const result = (a * y * mb + b * x * ma) % (ma * mb);
+    return result < 0 ? result + ma * mb : result;
+}
