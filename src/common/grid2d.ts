@@ -241,6 +241,10 @@ export class GridBounds2D implements GridVector2DCodec, Iterable<GridVector2D> {
         }
     }
 
+    values(): Generator<GridVector2D> {
+        return this[Symbol.iterator]();
+    }
+
     equals(bounds: GridBounds2D): boolean {
         return this.min.equals(bounds.min) && this.max.equals(bounds.max);
     }
@@ -312,9 +316,14 @@ export class GridVector2DSet implements Set<GridVector2D> {
     readonly #codec: GridVector2DCodec;
     readonly #data: Set<number>;
 
-    constructor(codec: GridVector2DCodec) {
+    constructor(codec: GridVector2DCodec, iterable?: Iterable<GridVector2D>) {
         this.#codec = codec;
         this.#data = new Set();
+        if (iterable) {
+            for (const vector of iterable) {
+                this.add(vector);
+            }
+        }
     }
 
     add(vector: GridVector2D): this {
@@ -408,9 +417,17 @@ export class GridVector2DMap<T> implements Map<GridVector2D, T> {
     readonly #codec: GridVector2DCodec;
     readonly #data: Map<number, T>;
 
-    constructor(codec: GridVector2DCodec) {
+    constructor(
+        codec: GridVector2DCodec,
+        entries?: Iterable<readonly [GridVector2D, T]>,
+    ) {
         this.#codec = codec;
         this.#data = new Map();
+        if (entries) {
+            for (const [key, value] of entries) {
+                this.set(key, value);
+            }
+        }
     }
 
     clear(): void {
