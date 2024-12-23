@@ -70,3 +70,63 @@ export function minCut<T>(
 
     return best;
 }
+
+export type GraphEdge<T> = readonly [source: T, target: T];
+
+export function createUndirectedGraph<T>(
+    edges: ReadonlyArray<GraphEdge<T>>,
+): Graph<T> {
+    const graph = new Map<T, Set<T>>();
+    for (const [source, target] of edges) {
+        addEdge(graph, source, target);
+        addEdge(graph, target, source);
+    }
+    return graph;
+}
+
+export function createDirectedGraph<T>(
+    edges: ReadonlyArray<GraphEdge<T>>,
+): Graph<T> {
+    const graph = new Map<T, Set<T>>();
+    for (const [source, target] of edges) {
+        addEdge(graph, source, target);
+    }
+    return graph;
+}
+
+function addEdge<T>(graph: Map<T, Set<T>>, source: T, target: T) {
+    if (!graph.has(source)) {
+        graph.set(source, new Set());
+    }
+    graph.get(source)!.add(target);
+}
+
+export function bronKerbosch<T>(
+    R: Set<T>,
+    P: Set<T>,
+    X: Set<T>,
+    graph: Graph<T>,
+    cliques: Array<ReadonlySet<T>>,
+): void {
+    if (P.size === 0 && X.size === 0) {
+        cliques.push(R);
+        return;
+    }
+    for (const v of P) {
+        const newR = new Set(R).add(v);
+        const neighbors = graph.get(v) ?? new Set();
+        const newP = P.intersection(neighbors);
+        const newX = X.intersection(neighbors);
+        bronKerbosch(newR, newP, newX, graph, cliques);
+        P.delete(v);
+        X.add(v);
+    }
+}
+
+export function findCliques(
+    graph: Graph<string>,
+): ReadonlyArray<ReadonlySet<string>> {
+    const cliques: Array<ReadonlySet<string>> = [];
+    bronKerbosch(new Set(), new Set(graph.keys()), new Set(), graph, cliques);
+    return cliques;
+}
