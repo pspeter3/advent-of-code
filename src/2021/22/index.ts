@@ -2,10 +2,11 @@ import { z } from "zod";
 import { main } from "../../utils/host";
 import { IntSchema, LinesSchema, StringSchema } from "../../utils/schemas";
 
-enum Command {
-    On = "on",
-    Off = "off",
-}
+const Command = {
+    On: "on",
+    Off: "off",
+} as const;
+type Command = (typeof Command)[keyof typeof Command];
 
 type Range = readonly [min: number, max: number];
 type Cuboid = readonly [x: Range, y: Range, z: Range];

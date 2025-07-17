@@ -2,12 +2,13 @@ import { z } from "zod";
 import { main } from "../../utils/host";
 import { IntSchema, LinesSchema } from "../../utils/schemas";
 
-enum Operation {
-    Add = "+",
-    Sub = "-",
-    Mul = "*",
-    Div = "/",
-}
+const Operation = {
+    Add: "+",
+    Sub: "-",
+    Mul: "*",
+    Div: "/",
+} as const;
+type Operation = (typeof Operation)[keyof typeof Operation];
 
 const ExpressionSchema = z
     .string()

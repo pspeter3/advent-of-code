@@ -12,10 +12,12 @@ interface MachinePart {
 type MachinePartKey = keyof MachinePart;
 
 type WorkflowKey = string;
-enum WorkflowFilterOp {
-    LT = "<",
-    GT = ">",
-}
+const WorkflowFilterOp = {
+    LT: "<",
+    GT: ">",
+} as const;
+type WorkflowFilterOp =
+    (typeof WorkflowFilterOp)[keyof typeof WorkflowFilterOp];
 interface WorkflowFilter {
     readonly key: MachinePartKey;
     readonly op: WorkflowFilterOp;

@@ -2,14 +2,15 @@ import z from "zod";
 import { main } from "../../utils/host";
 import { LinesSchema } from "../../utils/schemas";
 
-enum PipeMarker {
-    Vertical = "|",
-    Horizontal = "-",
-    NorthEast = "L",
-    NorthWest = "J",
-    SouthWest = "7",
-    SouthEast = "F",
-}
+const PipeMarker = {
+    Vertical: "|",
+    Horizontal: "-",
+    NorthEast: "L",
+    NorthWest: "J",
+    SouthWest: "7",
+    SouthEast: "F",
+} as const;
+type PipeMarker = (typeof PipeMarker)[keyof typeof PipeMarker];
 type GroundMarker = ".";
 type StartMarker = "S";
 type TileMarker = GroundMarker | StartMarker | PipeMarker;

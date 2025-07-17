@@ -1,18 +1,20 @@
 import { main } from "../../utils/host";
 
-enum Blizzard {
-    Up = "^",
-    Right = ">",
-    Down = "v",
-    Left = "<",
-}
+const Blizzard = {
+    Up: "^",
+    Right: ">",
+    Down: "v",
+    Left: "<",
+} as const;
+type Blizzard = (typeof Blizzard)[keyof typeof Blizzard];
 
-enum Direction {
-    Up,
-    Right,
-    Down,
-    Left,
-}
+const Direction = {
+    Up: 0,
+    Right: 1,
+    Down: 2,
+    Left: 3,
+} as const;
+type Direction = (typeof Direction)[keyof typeof Direction];
 
 const MOVES = {
     [Blizzard.Up]: Direction.Up,

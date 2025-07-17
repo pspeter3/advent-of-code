@@ -2,23 +2,26 @@ import { z } from "zod";
 import { main } from "../../utils/host";
 import { IntSchema } from "../../utils/schemas";
 
-enum Facing {
-    Right = 0,
-    Down = 1,
-    Left = 2,
-    Up = 3,
-}
+const Facing = {
+    Right: 0,
+    Down: 1,
+    Left: 2,
+    Up: 3,
+} as const;
+type Facing = (typeof Facing)[keyof typeof Facing];
 
-enum TileKind {
-    Open = ".",
-    Wall = "#",
-}
+const TileKind = {
+    Open: ".",
+    Wall: "#",
+} as const;
+type TileKind = (typeof TileKind)[keyof typeof TileKind];
 const TileKindSchema = z.nativeEnum(TileKind);
 
-enum Turn {
-    Left = "L",
-    Right = "R",
-}
+const Turn = {
+    Left: "L",
+    Right: "R",
+} as const;
+type Turn = (typeof Turn)[keyof typeof Turn];
 
 type Instruction = number | Turn;
 type InstructionList = ReadonlyArray<Instruction>;

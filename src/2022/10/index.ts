@@ -42,10 +42,11 @@ const part1 = (commands: CommandList): number => {
     return sum;
 };
 
-enum Pixel {
-    Lit = "#",
-    Dark = ".",
-}
+const Pixel = {
+    Lit: "#",
+    Dark: ".",
+} as const;
+type Pixel = (typeof Pixel)[keyof typeof Pixel];
 
 const part2 = (commands: CommandList): string => {
     const pixels: Array<Array<Pixel>> = Array.from({ length: 6 }, () =>

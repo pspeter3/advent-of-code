@@ -2,11 +2,12 @@ import { z } from "zod";
 import { main } from "../../utils/host";
 import { LinesSchema, StringSchema } from "../../utils/schemas";
 
-enum Cell {
-    East = ">",
-    South = "v",
-    Empty = ".",
-}
+const Cell = {
+    East: ">",
+    South: "v",
+    Empty: ".",
+} as const;
+type Cell = (typeof Cell)[keyof typeof Cell];
 
 type Grid = ReadonlyArray<ReadonlyArray<Cell>>;
 

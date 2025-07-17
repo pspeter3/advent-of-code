@@ -35,15 +35,16 @@ interface CamelRoundWithType extends CamelRound {
     readonly type: CamelHandType;
 }
 
-enum CamelHandType {
-    HighCard = 0,
-    Pair = 1,
-    TwoPair = 2,
-    ThreeOfAKind = 3,
-    FullHouse = 4,
-    FourOfAKind = 5,
-    FiveOfAKind = 6,
-}
+const CamelHandType = {
+    HighCard: 0,
+    Pair: 1,
+    TwoPair: 2,
+    ThreeOfAKind: 3,
+    FullHouse: 4,
+    FourOfAKind: 5,
+    FiveOfAKind: 6,
+} as const;
+type CamelHandType = (typeof CamelHandType)[keyof typeof CamelHandType];
 
 type CamelRoundList = ReadonlyArray<CamelRound>;
 

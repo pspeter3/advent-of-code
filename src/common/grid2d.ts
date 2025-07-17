@@ -7,19 +7,37 @@ export interface GridVector2DRecord {
 
 export type GridVector2DTuple = readonly [q: number, r: number];
 
-export enum CardinalDirection {
-    North = 0,
-    East = 1,
-    South = 2,
-    West = 3,
-}
+export const CardinalDirection = {
+    North: 0,
+    East: 1,
+    South: 2,
+    West: 3,
+} as const;
+export type CardinalDirection =
+    (typeof CardinalDirection)[keyof typeof CardinalDirection];
 
-export enum DiagonalDirection {
-    NorthEast = 4,
-    SouthEast = 5,
-    SouthWest = 6,
-    NorthWest = 7,
-}
+export const DiagonalDirection = {
+    NorthEast: 4,
+    SouthEast: 5,
+    SouthWest: 6,
+    NorthWest: 7,
+} as const;
+export type DiagonalDirection =
+    (typeof DiagonalDirection)[keyof typeof DiagonalDirection];
+
+const CARDINAL_DIRECTION_NAMES = [
+    "North",
+    "East",
+    "South",
+    "West",
+] as const;
+
+const DIAGONAL_DIRECTION_NAMES = [
+    "NorthEast",
+    "SouthEast",
+    "SouthWest",
+    "NorthWest",
+] as const;
 
 export function* cardinalDirections(): Generator<CardinalDirection> {
     for (let i = 0; i < 4; i++) {
@@ -55,8 +73,8 @@ export function isDiagonalDiection(
 
 export function debugDirection(direction: GridDirection): string {
     return isCardinalDirection(direction)
-        ? CardinalDirection[direction]
-        : DiagonalDirection[direction];
+        ? CARDINAL_DIRECTION_NAMES[direction]
+        : DIAGONAL_DIRECTION_NAMES[direction - 4];
 }
 
 export type GridNeighborEntry<T extends GridDirection> = readonly [

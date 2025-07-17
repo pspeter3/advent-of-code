@@ -3,16 +3,28 @@ import { main } from "../../utils/host";
 
 type Register = "A" | "B" | "C";
 
-enum OpCode {
-    adv = 0,
-    bxl = 1,
-    bst = 2,
-    jnz = 3,
-    bxc = 4,
-    out = 5,
-    bdv = 6,
-    cdv = 7,
-}
+const OpCode = {
+    adv: 0,
+    bxl: 1,
+    bst: 2,
+    jnz: 3,
+    bxc: 4,
+    out: 5,
+    bdv: 6,
+    cdv: 7,
+} as const;
+type OpCode = (typeof OpCode)[keyof typeof OpCode];
+
+const OP_CODE_NAMES = [
+    "adv",
+    "bxl",
+    "bst",
+    "jnz",
+    "bxc",
+    "out",
+    "bdv",
+    "cdv",
+] as const;
 
 interface Debugger {
     readonly registers: Readonly<Record<Register, bigint>>;
@@ -80,7 +92,7 @@ class Computer {
             const op = this.#program[this.#instruction];
             const value = this.#program[this.#instruction + 1];
             if (this.#log) {
-                console.group(OpCode[op], value);
+                console.group(OP_CODE_NAMES[op], value);
                 console.log(this.#instruction, this.#registers);
             }
             this.#eval(op, value);

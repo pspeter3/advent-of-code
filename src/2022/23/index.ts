@@ -1,11 +1,12 @@
 import { main } from "../../utils/host";
 
-enum Direction {
-    North = 0,
-    South = 1,
-    West = 2,
-    East = 3,
-}
+const Direction = {
+    North: 0,
+    South: 1,
+    West: 2,
+    East: 3,
+} as const;
+type Direction = (typeof Direction)[keyof typeof Direction];
 const DIRECTIONS = 4;
 
 const zigZag = (value: number): bigint => {

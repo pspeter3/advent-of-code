@@ -1,16 +1,17 @@
 import { main } from "../../utils/host";
 import { StringSchema } from "../../utils/schemas";
 
-enum PacketType {
-    Sum = 0,
-    Product = 1,
-    Minimum = 2,
-    Maximum = 3,
-    Literal = 4,
-    GreaterThan = 5,
-    LessThan = 6,
-    EqualTo = 7,
-}
+const PacketType = {
+    Sum: 0,
+    Product: 1,
+    Minimum: 2,
+    Maximum: 3,
+    Literal: 4,
+    GreaterThan: 5,
+    LessThan: 6,
+    EqualTo: 7,
+} as const;
+type PacketType = (typeof PacketType)[keyof typeof PacketType];
 
 interface Header {
     readonly version: number;

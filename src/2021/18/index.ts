@@ -11,10 +11,11 @@ interface Element {
     readonly index: number;
 }
 
-enum Operation {
-    Explode,
-    Split,
-}
+const Operation = {
+    Explode: 0,
+    Split: 1,
+} as const;
+type Operation = (typeof Operation)[keyof typeof Operation];
 
 interface ExplodeAction {
     readonly operation: Operation.Explode;

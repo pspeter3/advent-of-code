@@ -2,10 +2,11 @@ import { z } from "zod";
 import { main } from "../../utils/host";
 import { LinesSchema, StringSchema } from "../../utils/schemas";
 
-enum Pixel {
-    Dark = ".",
-    Light = "#",
-}
+const Pixel = {
+    Dark: ".",
+    Light: "#",
+} as const;
+type Pixel = (typeof Pixel)[keyof typeof Pixel];
 
 const Bits: Readonly<Record<Pixel, 0 | 1>> = {
     [Pixel.Dark]: 0,

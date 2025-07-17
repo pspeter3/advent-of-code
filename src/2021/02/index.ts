@@ -2,11 +2,13 @@ import { z } from "zod";
 import { main } from "../../utils/host";
 import { LinesSchema, StringSchema } from "../../utils/schemas";
 
-enum SubmarineCommand {
-    Forward = "forward",
-    Down = "down",
-    Up = "up",
-}
+const SubmarineCommand = {
+    Forward: "forward",
+    Down: "down",
+    Up: "up",
+} as const;
+type SubmarineCommand =
+    (typeof SubmarineCommand)[keyof typeof SubmarineCommand];
 
 type SubmarineAction = readonly [command: SubmarineCommand, amount: number];
 

@@ -2,12 +2,13 @@ import { z } from "zod";
 import { main } from "../../utils/host";
 import { IntSchema, LinesSchema } from "../../utils/schemas";
 
-enum Direction {
-    Up = "U",
-    Right = "R",
-    Down = "D",
-    Left = "L",
-}
+const Direction = {
+    Up: "U",
+    Right: "R",
+    Down: "D",
+    Left: "L",
+} as const;
+type Direction = (typeof Direction)[keyof typeof Direction];
 
 const schema = LinesSchema(
     z
