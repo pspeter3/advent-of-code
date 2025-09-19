@@ -11,7 +11,7 @@ type PulseModuleKind = (typeof PulseModuleKind)[keyof typeof PulseModuleKind];
 
 interface PulseModuleRecord {
     readonly name: string;
-    readonly kind?: PulseModuleKind;
+    readonly kind?: PulseModuleKind | undefined;
     readonly outputs: ReadonlyArray<string>;
 }
 
@@ -129,6 +129,8 @@ class PulseSystem {
                     outputs,
                     inputs.get(name)!,
                 );
+            default:
+                throw new Error("Unreachable");
         }
     }
 
