@@ -3,8 +3,8 @@ import {
     GridVector2D,
     GridVector2DMap,
     GridVector2DSet,
-} from "../../common/grid2d";
-import { main } from "../../utils/host";
+} from "../../common/grid2d.ts";
+import { main } from "../../utils/host.ts";
 
 interface RaceTrack {
     readonly bounds: GridBounds2D;
@@ -77,4 +77,4 @@ const part1 = (track: RaceTrack): number =>
 const part2 = (track: RaceTrack): number =>
     findCheats(track, 20, track.path.size === 85 ? 76 : 100);
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

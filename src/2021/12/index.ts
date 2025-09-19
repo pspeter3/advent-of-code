@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
-import { LinesSchema, StringSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { LinesSchema, StringSchema } from "../../utils/schemas.ts";
 
 const schema = LinesSchema(
     z.preprocess(
@@ -86,4 +86,4 @@ const part2 = (edges: ReadonlyArray<Edge>): number =>
         return false;
     });
 
-main(module, (input) => schema.parse(input), part1, part2);
+await main(import.meta, (input) => schema.parse(input), part1, part2);

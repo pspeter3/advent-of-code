@@ -1,8 +1,8 @@
 import z from "zod";
-import { main } from "../../utils/host";
-import { IntSchema } from "../../utils/schemas";
-import { sum } from "../../common/itertools";
-import { memoize } from "../../common/functools";
+import { main } from "../../utils/host.ts";
+import { IntSchema } from "../../utils/schemas.ts";
+import { sum } from "../../common/itertools.ts";
+import { memoize } from "../../common/functools.ts";
 
 type StoneList = ReadonlyArray<number>;
 
@@ -38,4 +38,4 @@ const part1 = (stones: StoneList): number =>
 const part2 = (stones: StoneList): number =>
     sum(stones.values().map((stone) => blink(stone, 75)));
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

@@ -1,6 +1,6 @@
 import z from "zod";
-import { main } from "../../utils/host";
-import { IntSchema, LinesSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { IntSchema, LinesSchema } from "../../utils/schemas.ts";
 
 type History = ReadonlyArray<number>;
 type Report = ReadonlyArray<History>;
@@ -54,4 +54,4 @@ const part1 = (report: Report): number =>
 const part2 = (report: Report): number =>
     report.reduce((sum, history) => sum + predictPrev(history), 0);
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

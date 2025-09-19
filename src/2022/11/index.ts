@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
-import { IntSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { IntSchema } from "../../utils/schemas.ts";
 
 interface Monkey {
     readonly start: ReadonlyArray<number>;
@@ -117,4 +117,4 @@ const part2 = (monkeys: ReadonlyArray<Monkey>): number => {
     return track(monkeys, 10000, (value) => value % base);
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

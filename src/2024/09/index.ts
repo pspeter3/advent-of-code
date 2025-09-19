@@ -1,7 +1,7 @@
 import z from "zod";
-import { main } from "../../utils/host";
-import { IntSchema } from "../../utils/schemas";
-import { enumerate, sum } from "../../common/itertools";
+import { main } from "../../utils/host.ts";
+import { IntSchema } from "../../utils/schemas.ts";
+import { enumerate, sum } from "../../common/itertools.ts";
 
 type DiskMap = ReadonlyArray<number>;
 
@@ -178,4 +178,4 @@ const part1 = (diskMap: DiskMap): number =>
 const part2 = (diskMap: DiskMap): number =>
     checksum(defragFiles(toDisk(diskMap)));
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

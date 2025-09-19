@@ -1,6 +1,6 @@
 import z from "zod";
-import { main } from "../../utils/host";
-import { IntSchema, LinesSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { IntSchema, LinesSchema } from "../../utils/schemas.ts";
 
 const CubeColor = { Red: "red", Green: "green", Blue: "blue" } as const;
 type CubeColor = (typeof CubeColor)[keyof typeof CubeColor];
@@ -96,4 +96,4 @@ const part2 = (input: CubeGameList): number => {
     return sum;
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

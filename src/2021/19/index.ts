@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
-import { IntSchema, StringSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { IntSchema, StringSchema } from "../../utils/schemas.ts";
 
 const VectorSchema = z.preprocess(
     (line) => StringSchema.parse(line).trim().split(","),
@@ -140,4 +140,4 @@ const part2 = (sensors: ReadonlyArray<Sensor>): number => {
     return max;
 };
 
-main(module, (input) => schema.parse(input), part1, part2);
+await main(import.meta, (input) => schema.parse(input), part1, part2);

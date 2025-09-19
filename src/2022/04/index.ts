@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
-import { IntSchema, LinesSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { IntSchema, LinesSchema } from "../../utils/schemas.ts";
 
 const RangeSchema = z
     .string()
@@ -29,4 +29,4 @@ const part1 = (input: ReadonlyArray<Pair>): number =>
 const part2 = (input: ReadonlyArray<Pair>): number =>
     input.filter(([a, b]) => overlap(a, b)).length;
 
-main(module, (input) => schema.parse(input), part1, part2);
+await main(import.meta, (input) => schema.parse(input), part1, part2);

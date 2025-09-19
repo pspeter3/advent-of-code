@@ -1,17 +1,10 @@
-import { main } from "../../utils/host";
+import { main } from "../../utils/host.ts";
 
 const Blizzard = { Up: "^", Right: ">", Down: "v", Left: "<" } as const;
 type Blizzard = (typeof Blizzard)[keyof typeof Blizzard];
 
 const Direction = { Up: 0, Right: 1, Down: 2, Left: 3 } as const;
 type Direction = (typeof Direction)[keyof typeof Direction];
-
-const MOVES = {
-    [Blizzard.Up]: Direction.Up,
-    [Blizzard.Right]: Direction.Right,
-    [Blizzard.Down]: Direction.Down,
-    [Blizzard.Left]: Direction.Left,
-};
 
 const BLIZZARDS = new Set([
     Blizzard.Up,
@@ -230,4 +223,4 @@ const part2 = ({ board, forecast, state }: Input): number => {
     return final.minute;
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

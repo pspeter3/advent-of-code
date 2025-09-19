@@ -1,4 +1,4 @@
-import { main } from "../../utils/host";
+import { main } from "../../utils/host.ts";
 
 const parse = (input: string): ReadonlyArray<string> =>
     input.trim().split("\n");
@@ -38,4 +38,4 @@ const part1 = (input: ReadonlyArray<string>): number =>
 const part2 = (input: ReadonlyArray<string>): number =>
     input.reduce((sum, line) => sum + toValue(transform(line)), 0);
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

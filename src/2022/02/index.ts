@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
-import { LinesSchema, StringSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { LinesSchema } from "../../utils/schemas.ts";
 
 const OPPONENT = ["A", "B", "C"] as const;
 const PLAYER = ["X", "Y", "Z"] as const;
@@ -69,4 +69,4 @@ const part2 = (strategy: Strategy): number =>
         return sum + score(opponent, move) + Shape[move];
     }, 0);
 
-main(module, (input) => schema.parse(input), part1, part2);
+await main(import.meta, (input) => schema.parse(input), part1, part2);

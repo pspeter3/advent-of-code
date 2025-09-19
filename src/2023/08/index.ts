@@ -1,6 +1,6 @@
 import z from "zod";
-import { main } from "../../utils/host";
-import { leastCommonMultiple } from "../../common/math";
+import { main } from "../../utils/host.ts";
+import { leastCommonMultiple } from "../../common/math.ts";
 
 const Instruction = { Left: "L", Right: "R" } as const;
 type Instruction = (typeof Instruction)[keyof typeof Instruction];
@@ -85,4 +85,4 @@ const part2 = (network: Network): number => {
     return cycles.reduce((lcm, cycle) => leastCommonMultiple(lcm, cycle), 1);
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

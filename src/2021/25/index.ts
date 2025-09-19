@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
-import { LinesSchema, StringSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { LinesSchema, StringSchema } from "../../utils/schemas.ts";
 
 const Cell = { East: ">", South: "v", Empty: "." } as const;
 type Cell = (typeof Cell)[keyof typeof Cell];
@@ -78,4 +78,4 @@ const part1 = (grid: Grid): number => {
     return count;
 };
 
-main(module, (input) => schema.parse(input), part1);
+await main(import.meta, (input) => schema.parse(input), part1);

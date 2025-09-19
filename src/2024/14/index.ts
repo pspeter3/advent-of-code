@@ -1,9 +1,8 @@
 import z from "zod";
-import { main } from "../../utils/host";
-import { IntSchema, LinesSchema } from "../../utils/schemas";
-import { DiagonalDirection } from "../../common/grid2d";
-import { min } from "../../common/itertools";
-import { chineseRemainderTheorem } from "../../common/math";
+import { main } from "../../utils/host.ts";
+import { IntSchema, LinesSchema } from "../../utils/schemas.ts";
+import { DiagonalDirection } from "../../common/grid2d.ts";
+import { chineseRemainderTheorem } from "../../common/math.ts";
 
 interface Vector2DRecord {
     readonly x: number;
@@ -129,4 +128,4 @@ const part2 = (robots: RobotList): number => {
     return chineseRemainderTheorem(minX[0], bounds.x, minY[0], bounds.y);
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

@@ -1,8 +1,7 @@
 import z from "zod";
-import { main } from "../../utils/host";
-import { IntSchema, LinesSchema } from "../../utils/schemas";
-import { len } from "../../common/itertools";
-import { report } from "process";
+import { main } from "../../utils/host.ts";
+import { IntSchema, LinesSchema } from "../../utils/schemas.ts";
+import { len } from "../../common/itertools.ts";
 
 type Report = ReadonlyArray<number>;
 type ReportList = ReadonlyArray<Report>;
@@ -47,4 +46,4 @@ const part2 = (reports: ReportList): number =>
         }),
     );
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

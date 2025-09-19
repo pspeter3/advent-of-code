@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
-import { IntSchema, LinesSchema, StringSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { IntSchema, LinesSchema, StringSchema } from "../../utils/schemas.ts";
 
 const schema = LinesSchema(
     z.preprocess(
@@ -114,4 +114,4 @@ const part2 = (data: ReadonlyArray<ReadonlyArray<number>>): number => {
     return results.slice(0, 3).reduce((product, value) => product * value);
 };
 
-main(module, (input) => schema.parse(input), part1, part2);
+await main(import.meta, (input) => schema.parse(input), part1, part2);

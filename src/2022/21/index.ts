@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
-import { IntSchema, LinesSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { IntSchema, LinesSchema } from "../../utils/schemas.ts";
 
 const Operation = { Add: "+", Sub: "-", Mul: "*", Div: "/" } as const;
 type Operation = (typeof Operation)[keyof typeof Operation];
@@ -164,4 +164,4 @@ const part2 = (monkeys: MonkeyMap): number => {
     return search(dc, ec, l ? lhs : rhs, target);
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

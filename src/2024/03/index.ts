@@ -1,5 +1,5 @@
-import { sum } from "../../common/itertools";
-import { main } from "../../utils/host";
+import { sum } from "../../common/itertools.ts";
+import { main } from "../../utils/host.ts";
 
 const parse = (input: string): string => input.trim();
 
@@ -44,4 +44,4 @@ const part2 = (input: string): number => {
     return result;
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

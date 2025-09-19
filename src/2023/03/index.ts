@@ -1,4 +1,4 @@
-import { main } from "../../utils/host";
+import { main } from "../../utils/host.ts";
 
 const DIGITS: ReadonlySet<string> = new Set([
     "0",
@@ -148,4 +148,4 @@ const part2 = (grid: CharGrid): number => {
     return result;
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

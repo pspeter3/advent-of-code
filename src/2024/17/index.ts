@@ -1,5 +1,5 @@
 import z from "zod";
-import { main } from "../../utils/host";
+import { main } from "../../utils/host.ts";
 
 type Register = "A" | "B" | "C";
 
@@ -181,4 +181,4 @@ const part2 = ({ registers, program }: Debugger): bigint => {
     throw new Error("Answer not found");
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

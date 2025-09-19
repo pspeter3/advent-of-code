@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
-import { IntSchema, StringSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { IntSchema, StringSchema } from "../../utils/schemas.ts";
 
 const schema = z.preprocess(
     (input) => StringSchema.parse(input).trim().split(","),
@@ -29,4 +29,4 @@ const forecast = (fish: ReadonlyArray<number>, days: number): BigInt => {
 const part1 = (fish: ReadonlyArray<number>): BigInt => forecast(fish, 80);
 const part2 = (fish: ReadonlyArray<number>): BigInt => forecast(fish, 256);
 
-main(module, (input) => schema.parse(input), part1, part2);
+await main(import.meta, (input) => schema.parse(input), part1, part2);

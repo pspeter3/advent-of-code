@@ -1,5 +1,5 @@
-import { sum } from "../../common/itertools";
-import { main } from "../../utils/host";
+import { sum } from "../../common/itertools.ts";
+import { main } from "../../utils/host.ts";
 
 const RockKind = { Round: "O", Cube: "#" } as const;
 type RockKind = (typeof RockKind)[keyof typeof RockKind];
@@ -172,4 +172,4 @@ const part2 = (platform: Platform): number => {
     return load(platforms[index]);
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

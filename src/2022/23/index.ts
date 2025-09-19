@@ -1,4 +1,4 @@
-import { main } from "../../utils/host";
+import { main } from "../../utils/host.ts";
 
 const Direction = { North: 0, South: 1, West: 2, East: 3 } as const;
 type Direction = (typeof Direction)[keyof typeof Direction];
@@ -274,4 +274,4 @@ const part2 = (elves: ReadonlyArray<GridTile>): number => {
     return count;
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

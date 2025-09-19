@@ -1,16 +1,16 @@
 import z from "zod";
-import { main } from "../../utils/host";
-import { LinesSchema } from "../../utils/schemas";
-import { max } from "../../common/itertools";
+import { main } from "../../utils/host.ts";
+import { LinesSchema } from "../../utils/schemas.ts";
+import { max } from "../../common/itertools.ts";
 import {
     CardinalDirection,
     GridBounds2D,
     GridVector2D,
-    GridVector2DRecord,
+    type GridVector2DRecord,
     MatrixGrid,
     toGridDelta,
     toGridDirection,
-} from "../../common/grid2d";
+} from "../../common/grid2d.ts";
 
 type Mirror = "\\" | "/";
 type Splitter = "|" | "-";
@@ -113,4 +113,4 @@ const part1 = (grid: MatrixGrid<Tile>): number =>
 const part2 = (grid: MatrixGrid<Tile>): number =>
     max(starts(grid.bounds).map((beam) => energize(grid, beam)));
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

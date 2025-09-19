@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
-import { IntSchema, LinesSchema, StringSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { IntSchema, LinesSchema, StringSchema } from "../../utils/schemas.ts";
 
 const VariableSchema = z.enum(["w", "x", "y", "z"]);
 const InstructionSchema = z.enum(["add", "mul", "div", "mod", "eql"]);
@@ -93,4 +93,4 @@ const part1 = (commands: ReadonlyArray<Command>): number =>
 const part2 = (commands: ReadonlyArray<Command>): number =>
     scan(commands, 1, 9);
 
-main(module, (input) => schema.parse(input), part1, part2);
+await main(import.meta, (input) => schema.parse(input), part1, part2);

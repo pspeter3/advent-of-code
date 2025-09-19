@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
-import { IntSchema, LinesSchema, StringSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { IntSchema, LinesSchema, StringSchema } from "../../utils/schemas.ts";
 
 const Command = { On: "on", Off: "off" } as const;
 type Command = (typeof Command)[keyof typeof Command];
@@ -99,4 +99,4 @@ const reboot = (
 const part1 = (steps: ReadonlyArray<Step>): number => reboot(steps, inBounds);
 const part2 = (steps: ReadonlyArray<Step>): number => reboot(steps, () => true);
 
-main(module, (input) => schema.parse(input), part1, part2);
+await main(import.meta, (input) => schema.parse(input), part1, part2);

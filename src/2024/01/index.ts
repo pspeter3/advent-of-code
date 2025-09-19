@@ -1,7 +1,7 @@
 import z from "zod";
-import { main } from "../../utils/host";
-import { IntSchema, LinesSchema } from "../../utils/schemas";
-import { sum, zip } from "../../common/itertools";
+import { main } from "../../utils/host.ts";
+import { IntSchema, LinesSchema } from "../../utils/schemas.ts";
+import { sum, zip } from "../../common/itertools.ts";
 
 const PairSchema = z
     .string()
@@ -34,4 +34,4 @@ const part2 = ([a, b]: Lists): number => {
     return sum(a.values().map((x) => x * (counts.get(x)?.length ?? 0)));
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

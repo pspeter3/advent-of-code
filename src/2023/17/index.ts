@@ -1,13 +1,12 @@
 import { Heap } from "heap-js";
 import {
     CardinalDirection,
-    GridBounds2D,
     GridVector2D,
     MatrixGrid,
     cardinalDirections,
-} from "../../common/grid2d";
-import { main } from "../../utils/host";
-import { IntSchema, MatrixSchema } from "../../utils/schemas";
+} from "../../common/grid2d.ts";
+import { main } from "../../utils/host.ts";
+import { IntSchema, MatrixSchema } from "../../utils/schemas.ts";
 
 const Schema = MatrixSchema(IntSchema).transform(
     (matrix) => new MatrixGrid(matrix),
@@ -83,4 +82,4 @@ const part1 = (grid: MatrixGrid<number>): number =>
 const part2 = (grid: MatrixGrid<number>): number =>
     distance(grid, grid.bounds.min, grid.bounds.max.northWest(), 4, 10);
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

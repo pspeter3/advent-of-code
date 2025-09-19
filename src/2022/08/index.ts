@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
-import { IntSchema, LinesSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { IntSchema, LinesSchema } from "../../utils/schemas.ts";
 
 type Grid = ReadonlyArray<ReadonlyArray<number>>;
 
@@ -111,4 +111,4 @@ const part2 = (grid: Grid): number => {
     return result;
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

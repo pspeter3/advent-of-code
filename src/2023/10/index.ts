@@ -1,6 +1,6 @@
 import z from "zod";
-import { main } from "../../utils/host";
-import { LinesSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { LinesSchema } from "../../utils/schemas.ts";
 
 const PipeMarker = {
     Vertical: "|",
@@ -253,4 +253,4 @@ const part2 = (grid: TileGrid): number => {
     return count;
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

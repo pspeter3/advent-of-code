@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
-import { IntSchema, StringSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { IntSchema, StringSchema } from "../../utils/schemas.ts";
 
 type Draws = ReadonlyArray<number>;
 type Board = ReadonlyArray<ReadonlyArray<number>>;
@@ -93,4 +93,4 @@ const part2 = ({ draws, boards }: Bingo): number | null => {
     return null;
 };
 
-main(module, (input) => schema.parse(input), part1, part2);
+await main(import.meta, (input) => schema.parse(input), part1, part2);

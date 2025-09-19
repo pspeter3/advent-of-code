@@ -1,4 +1,4 @@
-import { main } from "../../utils/host";
+import { main } from "../../utils/host.ts";
 
 interface MoveOperation {
     readonly amount: number;
@@ -99,4 +99,4 @@ const part2 = ({ stacks, moves }: Input): string => {
     return serialize(inventory);
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

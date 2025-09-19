@@ -4,8 +4,8 @@ import {
     GridVector2D,
     GridVector2DMap,
     GridVector2DSet,
-} from "../../common/grid2d";
-import { main } from "../../utils/host";
+} from "../../common/grid2d.ts";
+import { main } from "../../utils/host.ts";
 
 interface Puzzle {
     readonly bounds: GridBounds2D;
@@ -102,4 +102,4 @@ const part2 = (puzzle: Puzzle): number => {
     return count;
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

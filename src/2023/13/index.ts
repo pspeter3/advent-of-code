@@ -1,7 +1,7 @@
 import z from "zod";
-import { main } from "../../utils/host";
-import { LinesSchema } from "../../utils/schemas";
-import { sum, zip } from "../../common/itertools";
+import { main } from "../../utils/host.ts";
+import { LinesSchema } from "../../utils/schemas.ts";
+import { sum, zip } from "../../common/itertools.ts";
 
 type Pattern = ReadonlyArray<string>;
 type PatternList = ReadonlyArray<Pattern>;
@@ -47,4 +47,4 @@ const part1 = (patterns: PatternList): number =>
 const part2 = (patterns: PatternList): number =>
     sum(patterns.values().map((pattern) => score(pattern, 1)));
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

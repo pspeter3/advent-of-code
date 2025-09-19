@@ -1,5 +1,5 @@
-import { enumerate, sum } from "../../common/itertools";
-import { main } from "../../utils/host";
+import { enumerate, sum } from "../../common/itertools.ts";
+import { main } from "../../utils/host.ts";
 
 const REMOVE = "-";
 const ADD = "=";
@@ -72,4 +72,4 @@ const part2 = (sequence: ReadonlyArray<string>): number => {
     return sum(toPower(boxes));
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

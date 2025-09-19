@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
-import { IntSchema, LinesSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { IntSchema, LinesSchema } from "../../utils/schemas.ts";
 
 const RESOURCES = ["ore", "clay", "obsidian", "geode"] as const;
 const Resource = z.enum(RESOURCES);
@@ -240,4 +240,4 @@ const part2 = (blueprints: ReadonlyArray<Blueprint>): number => {
     return scores.reduce((acc, score) => acc * score);
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

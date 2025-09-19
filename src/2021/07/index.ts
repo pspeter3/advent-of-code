@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
-import { IntSchema, StringSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { IntSchema, StringSchema } from "../../utils/schemas.ts";
 
 const schema = z.preprocess(
     (input) => StringSchema.parse(input).split(","),
@@ -28,4 +28,4 @@ const fuel = (
 const part1 = (crabs: ReadonlyArray<number>): number => fuel(crabs, identity);
 const part2 = (crabs: ReadonlyArray<number>): number => fuel(crabs, triangle);
 
-main(module, (input) => schema.parse(input), part1, part2);
+await main(import.meta, (input) => schema.parse(input), part1, part2);

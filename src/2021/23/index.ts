@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
-import { StringSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { StringSchema } from "../../utils/schemas.ts";
 
 type Amphipod = "A" | "B" | "C" | "D";
 
@@ -241,4 +241,4 @@ const part2 = (grid: Grid): number => {
     return seek(input, createFinal(4));
 };
 
-main(module, (input) => schema.parse(input), part1, part2);
+await main(import.meta, (input) => schema.parse(input), part1, part2);

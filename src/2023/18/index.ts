@@ -1,11 +1,11 @@
 import z from "zod";
-import { main } from "../../utils/host";
+import { main } from "../../utils/host.ts";
 import {
     CardinalDirection,
     GridVector2D,
     toGridDelta,
-} from "../../common/grid2d";
-import { IntSchema, LinesSchema } from "../../utils/schemas";
+} from "../../common/grid2d.ts";
+import { IntSchema, LinesSchema } from "../../utils/schemas.ts";
 
 interface Trench {
     readonly direction: CardinalDirection;
@@ -66,4 +66,4 @@ const part1 = (trenches: TrenchList): number => trenchArea(trenches);
 const part2 = (trenches: TrenchList): number =>
     trenchArea(trenches.map(parseColor));
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

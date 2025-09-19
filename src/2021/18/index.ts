@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
-import { LinesSchema, StringSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { LinesSchema, StringSchema } from "../../utils/schemas.ts";
 
 type Pair = readonly [left: Node, right: Node];
 type Node = Pair | number;
@@ -199,4 +199,4 @@ const part2 = (pairs: ReadonlyArray<Pair>): number => {
     return max;
 };
 
-main(module, (input) => schema.parse(input), part1, part2);
+await main(import.meta, (input) => schema.parse(input), part1, part2);

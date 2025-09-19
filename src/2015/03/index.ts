@@ -1,11 +1,11 @@
 import z from "zod";
-import { main } from "../../utils/host";
+import { main } from "../../utils/host.ts";
 import {
     CardinalDirection,
     GridVector2D,
     GridVector2DSet,
     InfiniteGrid2DCodec,
-} from "../../common/grid2d";
+} from "../../common/grid2d.ts";
 
 const Directions = ["^", ">", "v", "<"] as const;
 type CardinalDirectionList = ReadonlyArray<CardinalDirection>;
@@ -49,4 +49,4 @@ const part2 = (directions: CardinalDirectionList): number => {
     return positions.size;
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

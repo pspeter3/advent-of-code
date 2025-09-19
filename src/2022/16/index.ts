@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
+import { main } from "../../utils/host.ts";
 
 const ValveSchema = z.object({
     label: z.string(),
@@ -208,4 +208,4 @@ const part2 = (network: Network): number =>
         new Set(),
     );
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

@@ -1,4 +1,4 @@
-import { fromCantor, fromZigZag, toCantor, toZigZag } from "./math";
+import { fromCantor, fromZigZag, toCantor, toZigZag } from "./math.ts";
 
 export interface GridVector2DRecord {
     readonly q: number;
@@ -382,31 +382,31 @@ export class GridVector2DSet implements Set<GridVector2D> {
         return this.#data[Symbol.toStringTag];
     }
 
-    union<U>(other: ReadonlySetLike<U>): Set<GridVector2D | U> {
+    union<U>(_: ReadonlySetLike<U>): Set<GridVector2D | U> {
         throw new Error("Method not implemented.");
     }
 
-    intersection<U>(other: ReadonlySetLike<U>): Set<GridVector2D & U> {
+    intersection<U>(_: ReadonlySetLike<U>): Set<GridVector2D & U> {
         throw new Error("Method not implemented.");
     }
 
-    difference<U>(other: ReadonlySetLike<U>): Set<GridVector2D> {
+    difference<U>(_: ReadonlySetLike<U>): Set<GridVector2D> {
         throw new Error("Method not implemented.");
     }
 
-    symmetricDifference<U>(other: ReadonlySetLike<U>): Set<GridVector2D | U> {
+    symmetricDifference<U>(_: ReadonlySetLike<U>): Set<GridVector2D | U> {
         throw new Error("Method not implemented.");
     }
 
-    isSubsetOf(other: ReadonlySetLike<unknown>): boolean {
+    isSubsetOf(_: ReadonlySetLike<unknown>): boolean {
         throw new Error("Method not implemented.");
     }
 
-    isSupersetOf(other: ReadonlySetLike<unknown>): boolean {
+    isSupersetOf(_: ReadonlySetLike<unknown>): boolean {
         throw new Error("Method not implemented.");
     }
 
-    isDisjointFrom(other: ReadonlySetLike<unknown>): boolean {
+    isDisjointFrom(_: ReadonlySetLike<unknown>): boolean {
         throw new Error("Method not implemented.");
     }
 }
@@ -437,12 +437,8 @@ export class GridVector2DMap<T> implements Map<GridVector2D, T> {
     }
 
     forEach(
-        callbackfn: (
-            value: T,
-            key: GridVector2D,
-            map: Map<GridVector2D, T>,
-        ) => void,
-        thisArg?: any,
+        _: (value: T, key: GridVector2D, map: Map<GridVector2D, T>) => void,
+        __?: any,
     ): void {
         throw new Error("Method not implemented.");
     }

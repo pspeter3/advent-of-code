@@ -1,6 +1,6 @@
 import z from "zod";
-import { main } from "../../utils/host";
-import { IntSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { IntSchema } from "../../utils/schemas.ts";
 
 type AlmanacRange = readonly [target: number, source: number, length: number];
 
@@ -204,4 +204,4 @@ const part2 = ({ seeds, maps }: Almanac): number => {
     return ranges.reduce((min, range) => Math.min(min, range.start), Infinity);
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

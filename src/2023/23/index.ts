@@ -1,12 +1,12 @@
 import z from "zod";
-import { main } from "../../utils/host";
-import { LinesSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { LinesSchema } from "../../utils/schemas.ts";
 import {
     CardinalDirection,
     GridVector2D,
     MatrixGrid,
-} from "../../common/grid2d";
-import { max } from "../../common/itertools";
+} from "../../common/grid2d.ts";
+import { max } from "../../common/itertools.ts";
 
 const SLOPES = ["^", ">", "v", "<"] as const;
 type Slope = (typeof SLOPES)[number];
@@ -152,4 +152,4 @@ const part1 = (grid: MatrixGrid<Tile>): number => solve(grid, true);
 
 const part2 = (grid: MatrixGrid<Tile>): number => solve(grid, false);
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
-import { LinesSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { LinesSchema } from "../../utils/schemas.ts";
 
 const DIGITS = ["0", "1", "2", "=", "-"] as const;
 const DigitSchema = z.enum(DIGITS);
@@ -41,4 +41,4 @@ const parse = (input: string): ReadonlyArray<SNAFU> => schema.parse(input);
 const part1 = (snafus: ReadonlyArray<SNAFU>): string =>
     toSNAFU(snafus.reduce((sum, snafu) => sum + toDecimal(snafu), 0));
 
-main(module, parse, part1);
+await main(import.meta, parse, part1);

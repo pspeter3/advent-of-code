@@ -1,11 +1,6 @@
-import {
-    CardinalDirection,
-    GridBounds2D,
-    GridNeighborEntry,
-    GridVector2D,
-} from "../../common/grid2d";
-import { enumerate } from "../../common/itertools";
-import { main } from "../../utils/host";
+import { GridBounds2D, GridVector2D } from "../../common/grid2d.ts";
+import { enumerate } from "../../common/itertools.ts";
+import { main } from "../../utils/host.ts";
 
 interface Garden {
     readonly bounds: GridBounds2D;
@@ -112,4 +107,4 @@ const part2 = (garden: Garden): number => {
     return fn(202300);
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

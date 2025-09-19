@@ -1,5 +1,5 @@
-import { main } from "../../utils/host";
-import { StringSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { StringSchema } from "../../utils/schemas.ts";
 
 const PacketType = {
     Sum: 0,
@@ -180,4 +180,4 @@ const part1 = (data: string): number =>
 
 const part2 = (data: string): number => evaluate(decode(toBits(data))[0]);
 
-main(module, (input) => schema.parse(input), part1, part2);
+await main(import.meta, (input) => schema.parse(input), part1, part2);

@@ -1,6 +1,6 @@
 import z from "zod";
-import { main } from "../../utils/host";
-import { LinesSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { LinesSchema } from "../../utils/schemas.ts";
 
 interface Galaxy {
     readonly q: number;
@@ -80,4 +80,4 @@ const part1 = (cosmos: Cosmos): number => sumDistances(expandCosmos(cosmos, 2));
 const part2 = (cosmos: Cosmos): number =>
     sumDistances(expandCosmos(cosmos, 1_000_000));
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

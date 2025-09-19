@@ -1,6 +1,6 @@
 import z from "zod";
-import { main } from "../../utils/host";
-import { IntSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { IntSchema } from "../../utils/schemas.ts";
 
 interface BoatRace {
     readonly time: number;
@@ -63,4 +63,4 @@ const part2 = (races: BoatRaceList): number => {
     return countBounds(convertBounds(calculateRoots({ time, distance })));
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

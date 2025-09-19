@@ -1,7 +1,7 @@
 import z from "zod";
-import { main } from "../../utils/host";
-import { LinesSchema } from "../../utils/schemas";
-import { leastCommonMultiple } from "../../common/math";
+import { main } from "../../utils/host.ts";
+import { LinesSchema } from "../../utils/schemas.ts";
+import { leastCommonMultiple } from "../../common/math.ts";
 
 const Pulse = { Low: 0, High: 1 } as const;
 type Pulse = (typeof Pulse)[keyof typeof Pulse];
@@ -11,7 +11,7 @@ type PulseModuleKind = (typeof PulseModuleKind)[keyof typeof PulseModuleKind];
 
 interface PulseModuleRecord {
     readonly name: string;
-    readonly kind?: PulseModuleKind;
+    readonly kind?: PulseModuleKind | undefined;
     readonly outputs: ReadonlyArray<string>;
 }
 
@@ -129,6 +129,8 @@ class PulseSystem {
                     outputs,
                     inputs.get(name)!,
                 );
+            default:
+                throw new Error("Unreachable");
         }
     }
 
@@ -229,4 +231,4 @@ const part2 = (records: PulseModuleRecordList): number => {
         .reduce((lcm, cycle) => leastCommonMultiple(lcm, cycle), 1);
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

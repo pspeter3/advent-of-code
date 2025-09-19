@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
-import { LinesSchema, StringSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { LinesSchema, StringSchema } from "../../utils/schemas.ts";
 
 const OpenSchema = z.enum(["(", "[", "{", "<"]);
 const CloseSchema = z.enum([")", "}", "]", ">"]);
@@ -101,4 +101,4 @@ const part2 = (lines: ReadonlyArray<ReadonlyArray<Character>>): number => {
     return scores.sort((a, b) => a - b)[Math.floor(scores.length / 2)];
 };
 
-main(module, (input) => schema.parse(input), part1, part2);
+await main(import.meta, (input) => schema.parse(input), part1, part2);

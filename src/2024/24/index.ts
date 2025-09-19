@@ -1,6 +1,6 @@
 import z from "zod";
-import { main } from "../../utils/host";
-import { IntSchema, LinesSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { IntSchema, LinesSchema } from "../../utils/schemas.ts";
 
 type WireValue = 0 | 1;
 const GateOp = { AND: "AND", OR: "OR", XOR: "XOR" } as const;
@@ -233,4 +233,4 @@ const part2 = ({ gates }: Puzzle): string => {
     return Array.from(wrong).sort().join(",");
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

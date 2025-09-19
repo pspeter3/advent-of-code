@@ -1,5 +1,5 @@
-import { len, sum } from "../../common/itertools";
-import { main } from "../../utils/host";
+import { len, sum } from "../../common/itertools.ts";
+import { main } from "../../utils/host.ts";
 
 type Pin = 0 | 1 | 2 | 3 | 4 | 5;
 type Tumbler = readonly [Pin, Pin, Pin, Pin, Pin];
@@ -48,6 +48,6 @@ const part1 = ({ locks, keys }: Puzzle): number =>
             ),
     );
 
-const part2 = (input: unknown): number => 0;
+const part2 = (_: unknown): number => 0;
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

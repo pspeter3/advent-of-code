@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
-import { IntSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { IntSchema } from "../../utils/schemas.ts";
 
 const Facing = { Right: 0, Down: 1, Left: 2, Up: 3 } as const;
 type Facing = (typeof Facing)[keyof typeof Facing];
@@ -360,7 +360,7 @@ interface ForceField {
 }
 
 const traverse = (cursor: Cursor, instructions: InstructionList): number => {
-    for (const [index, instruction] of instructions.entries()) {
+    for (const [_, instruction] of instructions.entries()) {
         if (typeof instruction === "number") {
             cursor.move(instruction);
         } else {
@@ -468,4 +468,4 @@ const part2 = ({ section, instructions }: ForceField): number => {
     return traverse(grid, instructions);
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

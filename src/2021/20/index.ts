@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
-import { LinesSchema, StringSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { LinesSchema, StringSchema } from "../../utils/schemas.ts";
 
 const Pixel = { Dark: ".", Light: "#" } as const;
 type Pixel = (typeof Pixel)[keyof typeof Pixel];
@@ -109,4 +109,4 @@ const part1 = ([enhancement, grid]: Input): number =>
 const part2 = ([enhancement, grid]: Input): number =>
     iterate(enhancement, { none: Pixel.Dark, grid }, 50);
 
-main(module, (input) => schema.parse(input), part1, part2);
+await main(import.meta, (input) => schema.parse(input), part1, part2);

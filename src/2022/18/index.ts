@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
-import { IntSchema, LinesSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { IntSchema, LinesSchema } from "../../utils/schemas.ts";
 
 class Voxel {
     private static readonly Neighbors: ReadonlyArray<Voxel> = [
@@ -132,28 +132,6 @@ class Bounds {
     }
 }
 
-const hasPath = (
-    solid: ReadonlySet<string>,
-    bounds: Bounds,
-    start: Voxel,
-): boolean => {
-    const queue: Voxel[] = [start];
-    const visited = new Set<string>();
-    for (const voxel of queue) {
-        if (!bounds.contains(voxel)) {
-            return true;
-        }
-        visited.add(voxel.id);
-        for (const neighbor of voxel.neighbors()) {
-            const { id } = neighbor;
-            if (!solid.has(id) && !visited.has(id)) {
-                queue.push(neighbor);
-            }
-        }
-    }
-    return false;
-};
-
 const part2 = (voxels: ReadonlyArray<Voxel>): number => {
     const solid = new Set<string>();
     const bounds = new Bounds();
@@ -190,4 +168,4 @@ const part2 = (voxels: ReadonlyArray<Voxel>): number => {
     return faces;
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

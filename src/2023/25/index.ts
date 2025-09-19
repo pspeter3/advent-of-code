@@ -1,7 +1,11 @@
 import z from "zod";
-import { main } from "../../utils/host";
-import { LinesSchema } from "../../utils/schemas";
-import { Graph, minCut, WeightedMatrixGraph } from "../../common/graph";
+import { main } from "../../utils/host.ts";
+import { LinesSchema } from "../../utils/schemas.ts";
+import {
+    type Graph,
+    minCut,
+    type WeightedMatrixGraph,
+} from "../../common/graph.ts";
 
 const EdgeListSchema = z
     .string()
@@ -32,13 +36,6 @@ function toMatrixGraph<T>(graph: Graph<T>): WeightedMatrixGraph<T> {
     return { nodes, matrix };
 }
 
-type Matrix = number[][];
-
-interface MinCutResult {
-    readonly cuts: number;
-    readonly nodes: ReadonlySet<number>;
-}
-
 const parse = (input: string): Graph<string> => GraphSchema.parse(input);
 
 const part1 = (graph: Graph<string>): number => {
@@ -50,4 +47,4 @@ const part1 = (graph: Graph<string>): number => {
 
 const part2 = (_: unknown): number => 0;
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

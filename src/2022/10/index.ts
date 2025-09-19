@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
-import { IntSchema, LinesSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { IntSchema, LinesSchema } from "../../utils/schemas.ts";
 
 type NoOpCommand = "noop";
 type AddXCommand = readonly [command: "addx", amount: number];
@@ -70,4 +70,4 @@ const part2 = (commands: CommandList): string => {
     return pixels.map((row) => row.join("")).join("\n");
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

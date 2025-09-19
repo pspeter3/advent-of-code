@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
-import { IntSchema, LinesSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { IntSchema, LinesSchema } from "../../utils/schemas.ts";
 
 const Direction = { Up: "U", Right: "R", Down: "D", Left: "L" } as const;
 type Direction = (typeof Direction)[keyof typeof Direction];
@@ -154,4 +154,4 @@ const part2 = (moves: MoveList): number => {
     return cells.size;
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

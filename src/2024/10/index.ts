@@ -1,8 +1,12 @@
 import z from "zod";
-import { main } from "../../utils/host";
-import { IntSchema, LinesSchema } from "../../utils/schemas";
-import { GridVector2D, GridVector2DSet, MatrixGrid } from "../../common/grid2d";
-import { len, sum } from "../../common/itertools";
+import { main } from "../../utils/host.ts";
+import { IntSchema, LinesSchema } from "../../utils/schemas.ts";
+import {
+    GridVector2D,
+    GridVector2DSet,
+    MatrixGrid,
+} from "../../common/grid2d.ts";
+import { len, sum } from "../../common/itertools.ts";
 
 const GridSchema = LinesSchema(
     z
@@ -65,4 +69,4 @@ const part2 = (grid: MatrixGrid<number>): number =>
             .map((cell) => findTrails(grid, cell)),
     );
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

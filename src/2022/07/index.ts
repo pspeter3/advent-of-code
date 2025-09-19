@@ -1,4 +1,4 @@
-import { main } from "../../utils/host";
+import { main } from "../../utils/host.ts";
 
 interface FileSystemInfo {
     name: string;
@@ -155,4 +155,4 @@ const part2 = (root: DirectoryInfo): number => {
         .sort((a, b) => a.size - b.size)[0].size;
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

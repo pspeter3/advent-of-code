@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
-import { IntSchema, StringSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { IntSchema, StringSchema } from "../../utils/schemas.ts";
 
 const PositionSchema = z.preprocess(
     (line) => StringSchema.parse(line).trim().split(": ")[1],
@@ -89,4 +89,4 @@ const part2 = (positions: Pair): number => {
     return Math.max(...wins);
 };
 
-main(module, (input) => schema.parse(input), part1, part2);
+await main(import.meta, (input) => schema.parse(input), part1, part2);

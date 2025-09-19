@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { NumberRange } from "./number-range";
+import { NumberRange } from "./number-range.ts";
 
 describe("NumberRange", () => {
     it("should have the correct length", () => {
