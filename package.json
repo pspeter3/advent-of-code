@@ -1,5 +1,6 @@
 {
     "name": "advent-of-code",
+    "type": "module",
     "scripts": {
         "fix": "prettier --cache --write '*.md' '.github/**/*.yml' '.vscode/**/*.json' 'src/**/*.ts'",
         "start": "tsx",
