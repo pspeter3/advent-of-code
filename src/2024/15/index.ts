@@ -54,8 +54,11 @@ const parse = (input: string): Warehouse => {
         line
             .trim()
             .split("")
-            .map((char) =>
-                MOVES.indexOf(char as unknown as (typeof MOVES)[number]),
+            .map(
+                (char) =>
+                    MOVES.indexOf(
+                        char as unknown as (typeof MOVES)[number],
+                    ) as CardinalDirection,
             ),
     );
 
