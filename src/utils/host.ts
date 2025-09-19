@@ -1,42 +1,36 @@
-import fs from "fs";
-import path from "path";
+import fs from "node:fs/promises";
+import path from "node:path";
 
 export type Parser<T> = (input: string) => T;
 export type Solution<T> = (data: T) => unknown;
 
 /**
  * Times solutions
- * @param mod The host module
  * @param parse The input parser
  * @param solutions The solutions
  */
-export function main<T>(
-    mod: NodeModule,
+export async function main<T>(
+    meta: ImportMeta,
     parse: Parser<T>,
     ...solutions: Solution<T>[]
-): void {
-    if (require.main === mod) {
-        exec("Example", mod, parse, solutions);
-        exec("Input", mod, parse, solutions);
-    }
+): Promise<void> {
+    exec("Example", meta, parse, solutions);
+    exec("Input", meta, parse, solutions);
 }
 
-function exec<T>(
+async function exec<T>(
     group: string,
-    mod: NodeModule,
+    meta: ImportMeta,
     parse: Parser<T>,
     solutions: Solution<T>[],
-): void {
-    const filename = path.join(
-        path.dirname(mod.filename),
-        `${group.toLowerCase()}.txt`,
-    );
-    if (!fs.existsSync(filename)) {
+): Promise<void> {
+    const filename = path.join(meta.dirname, `${group.toLowerCase()}.txt`);
+    if (!(await exists(filename))) {
         return;
     }
     console.group(group);
     console.time("Load");
-    const input = fs.readFileSync(filename, "utf8");
+    const input = await fs.readFile(filename, "utf8");
     console.timeEnd("Load");
     console.time("Parse");
     const data = parse(input);
@@ -49,4 +43,13 @@ function exec<T>(
         console.log(result);
     }
     console.groupEnd();
+}
+
+async function exists(filename: string): Promise<boolean> {
+    try {
+        await fs.stat(filename);
+        return true;
+    } catch {
+        return false;
+    }
 }
