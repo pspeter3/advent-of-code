@@ -6,13 +6,6 @@ type Blizzard = (typeof Blizzard)[keyof typeof Blizzard];
 const Direction = { Up: 0, Right: 1, Down: 2, Left: 3 } as const;
 type Direction = (typeof Direction)[keyof typeof Direction];
 
-const MOVES = {
-    [Blizzard.Up]: Direction.Up,
-    [Blizzard.Right]: Direction.Right,
-    [Blizzard.Down]: Direction.Down,
-    [Blizzard.Left]: Direction.Left,
-};
-
 const BLIZZARDS = new Set([
     Blizzard.Up,
     Blizzard.Right,

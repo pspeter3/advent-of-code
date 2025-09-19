@@ -1,4 +1,3 @@
-import { dir } from "node:console";
 import {
     diagonalDirections,
     type GridDirection,

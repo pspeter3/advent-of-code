@@ -36,13 +36,6 @@ function toMatrixGraph<T>(graph: Graph<T>): WeightedMatrixGraph<T> {
     return { nodes, matrix };
 }
 
-type Matrix = number[][];
-
-interface MinCutResult {
-    readonly cuts: number;
-    readonly nodes: ReadonlySet<number>;
-}
-
 const parse = (input: string): Graph<string> => GraphSchema.parse(input);
 
 const part1 = (graph: Graph<string>): number => {

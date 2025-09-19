@@ -1,4 +1,3 @@
-import { dir } from "node:console";
 import {
     CardinalDirection,
     GridBounds2D,

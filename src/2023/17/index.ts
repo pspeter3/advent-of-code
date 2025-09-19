@@ -1,7 +1,6 @@
 import { Heap } from "heap-js";
 import {
     CardinalDirection,
-    GridBounds2D,
     GridVector2D,
     MatrixGrid,
     cardinalDirections,

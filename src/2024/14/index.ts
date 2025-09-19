@@ -2,7 +2,6 @@ import z from "zod";
 import { main } from "../../utils/host.ts";
 import { IntSchema, LinesSchema } from "../../utils/schemas.ts";
 import { DiagonalDirection } from "../../common/grid2d.ts";
-import { min } from "../../common/itertools.ts";
 import { chineseRemainderTheorem } from "../../common/math.ts";
 
 interface Vector2DRecord {

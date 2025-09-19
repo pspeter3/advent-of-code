@@ -1,5 +1,5 @@
 import { memoize } from "../../common/functools.ts";
-import { CardinalDirection, GridVector2D } from "../../common/grid2d.ts";
+import { GridVector2D } from "../../common/grid2d.ts";
 import { sum } from "../../common/itertools.ts";
 import { main } from "../../utils/host.ts";
 
@@ -35,8 +35,6 @@ const DirectionalKeypad = new Map<DirectionalKeypadKey, GridVector2D>([
     ["v", new GridVector2D(1, 1)],
     [">", new GridVector2D(2, 1)],
 ]);
-
-const Directions = ["^", ">", "v", "<"] as const;
 
 type KeypadPathSet = ReadonlySet<string>;
 

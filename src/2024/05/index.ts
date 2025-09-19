@@ -3,7 +3,6 @@ import { main } from "../../utils/host.ts";
 import { IntSchema, LinesSchema } from "../../utils/schemas.ts";
 import { sum } from "../../common/itertools.ts";
 
-type Rule = readonly [before: number, after: number];
 type Update = ReadonlyArray<number>;
 type Rules = ReadonlyMap<number, ReadonlySet<number>>;
 type UpdateList = ReadonlyArray<Update>;

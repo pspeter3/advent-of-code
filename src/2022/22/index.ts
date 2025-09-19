@@ -360,7 +360,7 @@ interface ForceField {
 }
 
 const traverse = (cursor: Cursor, instructions: InstructionList): number => {
-    for (const [index, instruction] of instructions.entries()) {
+    for (const [_, instruction] of instructions.entries()) {
         if (typeof instruction === "number") {
             cursor.move(instruction);
         } else {

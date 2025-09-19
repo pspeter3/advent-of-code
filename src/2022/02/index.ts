@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { main } from "../../utils/host.ts";
-import { LinesSchema, StringSchema } from "../../utils/schemas.ts";
+import { LinesSchema } from "../../utils/schemas.ts";
 
 const OPPONENT = ["A", "B", "C"] as const;
 const PLAYER = ["X", "Y", "Z"] as const;

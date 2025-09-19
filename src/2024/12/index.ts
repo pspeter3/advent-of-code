@@ -4,7 +4,7 @@ import {
     GridVector2DSet,
     MatrixGrid,
 } from "../../common/grid2d.ts";
-import { enumerate, len, sum } from "../../common/itertools.ts";
+import { sum } from "../../common/itertools.ts";
 import { main } from "../../utils/host.ts";
 
 interface Region {
@@ -29,17 +29,6 @@ function* toTouches(cell: GridVector2D): Generator<GridVector2D> {
     yield cell;
     yield cell.add({ q: -1, r: 0 });
 }
-
-const isCorner = (tiles: ReadonlyArray<GridVector2D>): boolean => {
-    if (tiles.length % 2 === 1) {
-        return true;
-    }
-    if (tiles.length === 2) {
-        const [a, b] = tiles;
-        return a.neighbors().every(([_, n]) => !n.equals(b));
-    }
-    return false;
-};
 
 const parse = (input: string): RegionList => {
     const grid = new MatrixGrid(
