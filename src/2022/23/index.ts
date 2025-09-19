@@ -1,4 +1,4 @@
-import { main } from "../../utils/host";
+import { main } from "../../utils/host.ts";
 
 const Direction = { North: 0, South: 1, West: 2, East: 3 } as const;
 type Direction = (typeof Direction)[keyof typeof Direction];

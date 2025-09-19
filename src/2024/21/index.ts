@@ -1,7 +1,7 @@
-import { memoize } from "../../common/functools";
-import { CardinalDirection, GridVector2D } from "../../common/grid2d";
-import { sum } from "../../common/itertools";
-import { main } from "../../utils/host";
+import { memoize } from "../../common/functools.ts";
+import { CardinalDirection, GridVector2D } from "../../common/grid2d.ts";
+import { sum } from "../../common/itertools.ts";
+import { main } from "../../utils/host.ts";
 
 type AcceptKey = "A";
 type EmptyKey = "#";

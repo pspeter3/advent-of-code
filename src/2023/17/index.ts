@@ -5,9 +5,9 @@ import {
     GridVector2D,
     MatrixGrid,
     cardinalDirections,
-} from "../../common/grid2d";
-import { main } from "../../utils/host";
-import { IntSchema, MatrixSchema } from "../../utils/schemas";
+} from "../../common/grid2d.ts";
+import { main } from "../../utils/host.ts";
+import { IntSchema, MatrixSchema } from "../../utils/schemas.ts";
 
 const Schema = MatrixSchema(IntSchema).transform(
     (matrix) => new MatrixGrid(matrix),

@@ -1,5 +1,5 @@
-import { len } from "../../common/itertools";
-import { main } from "../../utils/host";
+import { len } from "../../common/itertools.ts";
+import { main } from "../../utils/host.ts";
 
 const parse = (input: string): ReadonlyArray<string> =>
     input.trim().split("\n");

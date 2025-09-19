@@ -4,8 +4,8 @@ import {
     GridVector2D,
     GridVector2DMap,
     GridVector2DSet,
-} from "../../common/grid2d";
-import { main } from "../../utils/host";
+} from "../../common/grid2d.ts";
+import { main } from "../../utils/host.ts";
 
 interface Puzzle {
     readonly bounds: GridBounds2D;

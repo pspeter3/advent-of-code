@@ -1,4 +1,4 @@
-import { fromCantor, fromZigZag, toCantor, toZigZag } from "./math";
+import { fromCantor, fromZigZag, toCantor, toZigZag } from "./math.ts";
 
 export interface GridVector2DRecord {
     readonly q: number;

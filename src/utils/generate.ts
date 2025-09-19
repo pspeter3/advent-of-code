@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
-const template = `import { main } from "../../utils/host";
+const template = `import { main } from "../../utils/host.ts";
 
 const parse = (input: string): unknown => null;
 

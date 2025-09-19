@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
-import { LinesSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { LinesSchema } from "../../utils/schemas.ts";
 
 const DIGITS = ["0", "1", "2", "=", "-"] as const;
 const DigitSchema = z.enum(DIGITS);

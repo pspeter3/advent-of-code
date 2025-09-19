@@ -1,7 +1,7 @@
 import z from "zod";
-import { main } from "../../utils/host";
-import { IntSchema, LinesSchema } from "../../utils/schemas";
-import { memoize } from "../../common/functools";
+import { main } from "../../utils/host.ts";
+import { IntSchema, LinesSchema } from "../../utils/schemas.ts";
+import { memoize } from "../../common/functools.ts";
 
 type NumberList = ReadonlyArray<number>;
 type SpringRow = readonly [status: string, groups: NumberList];

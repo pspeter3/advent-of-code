@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
-import { IntSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { IntSchema } from "../../utils/schemas.ts";
 
 const Facing = { Right: 0, Down: 1, Left: 2, Up: 3 } as const;
 type Facing = (typeof Facing)[keyof typeof Facing];

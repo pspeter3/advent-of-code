@@ -1,5 +1,5 @@
-import { sum } from "../../common/itertools";
-import { main } from "../../utils/host";
+import { sum } from "../../common/itertools.ts";
+import { main } from "../../utils/host.ts";
 
 const parse = (input: string): string => input.trim();
 

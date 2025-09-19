@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { enumerate, len, max, min, sum, zip } from "./itertools";
+import { enumerate, len, max, min, sum, zip } from "./itertools.ts";
 
 describe("sum", () => {
     it("should calculate the sum of numbers", () => {

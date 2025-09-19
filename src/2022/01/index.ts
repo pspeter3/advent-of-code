@@ -1,4 +1,4 @@
-import { main } from "../../utils/host";
+import { main } from "../../utils/host.ts";
 
 type Elf = ReadonlyArray<number>;
 type Inventory = ReadonlyArray<Elf>;

@@ -1,13 +1,13 @@
 import { dir } from "node:console";
 import {
     diagonalDirections,
-    GridDirection,
+    type GridDirection,
     gridDirections,
     GridVector2D,
     MatrixGrid,
-} from "../../common/grid2d";
-import { len, sum } from "../../common/itertools";
-import { main } from "../../utils/host";
+} from "../../common/grid2d.ts";
+import { len, sum } from "../../common/itertools.ts";
+import { main } from "../../utils/host.ts";
 
 const parse = (input: string): MatrixGrid<string> =>
     new MatrixGrid(

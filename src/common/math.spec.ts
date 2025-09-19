@@ -8,7 +8,7 @@ import {
     toCantor,
     toTriangle,
     toZigZag,
-} from "./math";
+} from "./math.ts";
 
 describe("toTriangle", () => {
     it("should support common triangle numbers", () => {

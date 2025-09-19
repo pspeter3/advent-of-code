@@ -1,6 +1,6 @@
 import z from "zod";
-import { main } from "../../utils/host";
-import { IntSchema, LinesSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { IntSchema, LinesSchema } from "../../utils/schemas.ts";
 
 type History = ReadonlyArray<number>;
 type Report = ReadonlyArray<History>;

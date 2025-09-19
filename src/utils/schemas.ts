@@ -1,4 +1,4 @@
-import { z, ZodTypeAny } from "zod";
+import { z, type ZodTypeAny } from "zod";
 
 export const StringSchema = z.string();
 export const IntSchema = z.coerce.number().int();

@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
-import { StringSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { StringSchema } from "../../utils/schemas.ts";
 
 type Amphipod = "A" | "B" | "C" | "D";
 

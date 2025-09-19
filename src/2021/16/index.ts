@@ -1,5 +1,5 @@
-import { main } from "../../utils/host";
-import { StringSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { StringSchema } from "../../utils/schemas.ts";
 
 const PacketType = {
     Sum: 0,

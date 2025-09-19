@@ -1,6 +1,6 @@
-import { sum } from "../../common/itertools";
-import { main } from "../../utils/host";
-import { IntSchema, LinesSchema } from "../../utils/schemas";
+import { sum } from "../../common/itertools.ts";
+import { main } from "../../utils/host.ts";
+import { IntSchema, LinesSchema } from "../../utils/schemas.ts";
 
 class PRNG {
     #secret: number;

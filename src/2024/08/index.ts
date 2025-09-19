@@ -2,8 +2,8 @@ import {
     GridBounds2D,
     GridVector2D,
     GridVector2DSet,
-} from "../../common/grid2d";
-import { main } from "../../utils/host";
+} from "../../common/grid2d.ts";
+import { main } from "../../utils/host.ts";
 
 type Antenna = string;
 type FrequencyMap = ReadonlyMap<Antenna, ReadonlyArray<GridVector2D>>;

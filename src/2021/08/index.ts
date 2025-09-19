@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
-import { LinesSchema, StringSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { LinesSchema, StringSchema } from "../../utils/schemas.ts";
 
 type Signal = ReadonlyArray<string>;
 type Entry = readonly [input: Signal, output: Signal];

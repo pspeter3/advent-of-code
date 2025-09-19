@@ -1,12 +1,12 @@
-import Heap from "heap-js";
+import { Heap } from "heap-js";
 import {
     CardinalDirection,
     GridBounds2D,
     GridVector2D,
     GridVector2DMap,
     GridVector2DSet,
-} from "../../common/grid2d";
-import { main } from "../../utils/host";
+} from "../../common/grid2d.ts";
+import { main } from "../../utils/host.ts";
 
 interface Maze {
     readonly bounds: GridBounds2D;

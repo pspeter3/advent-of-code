@@ -28,11 +28,12 @@
 
         // Recommended Options
         "strict": true,
-        // "verbatimModuleSyntax": true,
+        "verbatimModuleSyntax": true,
         "isolatedModules": true,
         "noUncheckedSideEffectImports": true,
         "moduleDetection": "force",
         "skipLibCheck": true,
-        "erasableSyntaxOnly": true
+        "erasableSyntaxOnly": true,
+        "rewriteRelativeImportExtensions": true
     }
 }

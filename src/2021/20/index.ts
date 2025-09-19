@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
-import { LinesSchema, StringSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { LinesSchema, StringSchema } from "../../utils/schemas.ts";
 
 const Pixel = { Dark: ".", Light: "#" } as const;
 type Pixel = (typeof Pixel)[keyof typeof Pixel];

@@ -3,12 +3,12 @@ import {
     GridBounds2D,
     GridVector2D,
     GridVector2DMap,
-    GridVector2DRecord,
+    type GridVector2DRecord,
     GridVector2DSet,
-} from "../../common/grid2d";
-import { main } from "../../utils/host";
-import { IntSchema, LinesSchema } from "../../utils/schemas";
-import { sum } from "../../common/itertools";
+} from "../../common/grid2d.ts";
+import { main } from "../../utils/host.ts";
+import { IntSchema, LinesSchema } from "../../utils/schemas.ts";
+import { sum } from "../../common/itertools.ts";
 
 const Command = {
     TurnOn: "turn on",

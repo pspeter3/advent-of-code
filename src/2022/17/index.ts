@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
+import { main } from "../../utils/host.ts";
 
 const Direction = { Left: "<", Right: ">" } as const;
 type Direction = (typeof Direction)[keyof typeof Direction];

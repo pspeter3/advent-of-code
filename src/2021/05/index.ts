@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
-import { IntSchema, LinesSchema, StringSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { IntSchema, LinesSchema, StringSchema } from "../../utils/schemas.ts";
 
 type Vector = readonly [x: number, y: number];
 type Segment = readonly [a: Vector, b: Vector];

@@ -1,4 +1,4 @@
-import { main } from "../../utils/host";
+import { main } from "../../utils/host.ts";
 
 type PacketValue = number | ReadonlyArray<PacketValue>;
 type Packet = ReadonlyArray<PacketValue>;

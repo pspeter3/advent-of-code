@@ -1,5 +1,5 @@
-import { enumerate, sum } from "../../common/itertools";
-import { main } from "../../utils/host";
+import { enumerate, sum } from "../../common/itertools.ts";
+import { main } from "../../utils/host.ts";
 
 const REMOVE = "-";
 const ADD = "=";

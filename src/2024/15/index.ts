@@ -4,9 +4,9 @@ import {
     GridBounds2D,
     GridVector2D,
     GridVector2DSet,
-} from "../../common/grid2d";
-import { sum } from "../../common/itertools";
-import { main } from "../../utils/host";
+} from "../../common/grid2d.ts";
+import { sum } from "../../common/itertools.ts";
+import { main } from "../../utils/host.ts";
 
 interface Warehouse {
     readonly bounds: GridBounds2D;

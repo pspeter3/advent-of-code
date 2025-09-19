@@ -1,5 +1,5 @@
-import { sum } from "../../common/itertools";
-import { main } from "../../utils/host";
+import { sum } from "../../common/itertools.ts";
+import { main } from "../../utils/host.ts";
 
 const RockKind = { Round: "O", Cube: "#" } as const;
 type RockKind = (typeof RockKind)[keyof typeof RockKind];

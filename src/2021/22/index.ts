@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
-import { IntSchema, LinesSchema, StringSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { IntSchema, LinesSchema, StringSchema } from "../../utils/schemas.ts";
 
 const Command = { On: "on", Off: "off" } as const;
 type Command = (typeof Command)[keyof typeof Command];

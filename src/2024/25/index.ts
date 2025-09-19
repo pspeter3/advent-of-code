@@ -1,5 +1,5 @@
-import { len, sum } from "../../common/itertools";
-import { main } from "../../utils/host";
+import { len, sum } from "../../common/itertools.ts";
+import { main } from "../../utils/host.ts";
 
 type Pin = 0 | 1 | 2 | 3 | 4 | 5;
 type Tumbler = readonly [Pin, Pin, Pin, Pin, Pin];

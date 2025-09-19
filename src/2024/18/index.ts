@@ -1,13 +1,13 @@
 import z from "zod";
-import { main } from "../../utils/host";
-import { IntSchema, LinesSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { IntSchema, LinesSchema } from "../../utils/schemas.ts";
 import {
     GridBounds2D,
     GridVector2D,
     GridVector2DMap,
     GridVector2DSet,
-} from "../../common/grid2d";
-import Heap from "heap-js";
+} from "../../common/grid2d.ts";
+import { Heap } from "heap-js";
 
 interface Puzzle {
     readonly bounds: GridBounds2D;

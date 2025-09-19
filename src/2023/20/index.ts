@@ -1,7 +1,7 @@
 import z from "zod";
-import { main } from "../../utils/host";
-import { LinesSchema } from "../../utils/schemas";
-import { leastCommonMultiple } from "../../common/math";
+import { main } from "../../utils/host.ts";
+import { LinesSchema } from "../../utils/schemas.ts";
+import { leastCommonMultiple } from "../../common/math.ts";
 
 const Pulse = { Low: 0, High: 1 } as const;
 type Pulse = (typeof Pulse)[keyof typeof Pulse];

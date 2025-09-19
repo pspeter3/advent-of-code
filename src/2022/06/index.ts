@@ -1,4 +1,4 @@
-import { main } from "../../utils/host";
+import { main } from "../../utils/host.ts";
 
 const analyze = (input: string, packet: number): number => {
     for (let i = 0; i < input.length - packet; i++) {

@@ -1,6 +1,6 @@
 import z from "zod";
-import { main } from "../../utils/host";
-import { IntSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { IntSchema } from "../../utils/schemas.ts";
 
 interface BoatRace {
     readonly time: number;

@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
-import { LinesSchema, StringSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { LinesSchema, StringSchema } from "../../utils/schemas.ts";
 
 const Bit = { Zero: 0, One: 1 } as const;
 type Bit = (typeof Bit)[keyof typeof Bit];

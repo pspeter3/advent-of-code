@@ -1,11 +1,6 @@
-import {
-    CardinalDirection,
-    GridBounds2D,
-    GridNeighborEntry,
-    GridVector2D,
-} from "../../common/grid2d";
-import { enumerate } from "../../common/itertools";
-import { main } from "../../utils/host";
+import { GridBounds2D, GridVector2D } from "../../common/grid2d.ts";
+import { enumerate } from "../../common/itertools.ts";
+import { main } from "../../utils/host.ts";
 
 interface Garden {
     readonly bounds: GridBounds2D;

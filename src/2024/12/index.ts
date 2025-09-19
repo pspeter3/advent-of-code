@@ -3,9 +3,9 @@ import {
     GridVector2D,
     GridVector2DSet,
     MatrixGrid,
-} from "../../common/grid2d";
-import { enumerate, len, sum } from "../../common/itertools";
-import { main } from "../../utils/host";
+} from "../../common/grid2d.ts";
+import { enumerate, len, sum } from "../../common/itertools.ts";
+import { main } from "../../utils/host.ts";
 
 interface Region {
     readonly id: string;

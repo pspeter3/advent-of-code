@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { main } from "../../utils/host";
-import { IntSchema, StringSchema } from "../../utils/schemas";
+import { main } from "../../utils/host.ts";
+import { IntSchema, StringSchema } from "../../utils/schemas.ts";
 
 const PositionSchema = z.preprocess(
     (line) => StringSchema.parse(line).trim().split(": ")[1],

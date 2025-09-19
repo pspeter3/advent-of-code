@@ -1,4 +1,4 @@
-import { main } from "../../utils/host";
+import { main } from "../../utils/host.ts";
 
 const DIGITS: ReadonlySet<string> = new Set([
     "0",

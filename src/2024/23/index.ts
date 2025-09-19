@@ -1,7 +1,11 @@
 import z from "zod";
-import { main } from "../../utils/host";
-import { LinesSchema } from "../../utils/schemas";
-import { createUndirectedGraph, findCliques, Graph } from "../../common/graph";
+import { main } from "../../utils/host.ts";
+import { LinesSchema } from "../../utils/schemas.ts";
+import {
+    createUndirectedGraph,
+    findCliques,
+    type Graph,
+} from "../../common/graph.ts";
 
 type Pair = readonly [string, string];
 type PairList = ReadonlyArray<Pair>;

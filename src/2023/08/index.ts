@@ -1,6 +1,6 @@
 import z from "zod";
-import { main } from "../../utils/host";
-import { leastCommonMultiple } from "../../common/math";
+import { main } from "../../utils/host.ts";
+import { leastCommonMultiple } from "../../common/math.ts";
 
 const Instruction = { Left: "L", Right: "R" } as const;
 type Instruction = (typeof Instruction)[keyof typeof Instruction];

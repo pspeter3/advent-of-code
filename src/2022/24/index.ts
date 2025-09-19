@@ -1,4 +1,4 @@
-import { main } from "../../utils/host";
+import { main } from "../../utils/host.ts";
 
 const Blizzard = { Up: "^", Right: ">", Down: "v", Left: "<" } as const;
 type Blizzard = (typeof Blizzard)[keyof typeof Blizzard];
