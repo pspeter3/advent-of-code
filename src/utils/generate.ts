@@ -9,7 +9,7 @@ const part1 = (input: unknown): number => 0;
 
 const part2 = (input: unknown): number => 0;
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);
 `;
 
 async function generate(

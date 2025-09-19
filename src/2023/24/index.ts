@@ -154,4 +154,4 @@ const part2 = (rays: ReadonlyArray<Ray3D>): number =>
         ),
     );
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

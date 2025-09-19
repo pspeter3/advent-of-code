@@ -164,4 +164,4 @@ const part2 = (monkeys: MonkeyMap): number => {
     return search(dc, ec, l ? lhs : rhs, target);
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

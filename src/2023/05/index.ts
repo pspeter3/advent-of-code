@@ -204,4 +204,4 @@ const part2 = ({ seeds, maps }: Almanac): number => {
     return ranges.reduce((min, range) => Math.min(min, range.start), Infinity);
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

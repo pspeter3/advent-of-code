@@ -71,4 +71,4 @@ const part2 = (input: ReadonlyArray<BitString>): number => {
     return oxygen * scrubber;
 };
 
-main(module, (input) => schema.parse(input), part1, part2);
+await main(import.meta, (input) => schema.parse(input), part1, part2);

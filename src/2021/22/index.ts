@@ -99,4 +99,4 @@ const reboot = (
 const part1 = (steps: ReadonlyArray<Step>): number => reboot(steps, inBounds);
 const part2 = (steps: ReadonlyArray<Step>): number => reboot(steps, () => true);
 
-main(module, (input) => schema.parse(input), part1, part2);
+await main(import.meta, (input) => schema.parse(input), part1, part2);

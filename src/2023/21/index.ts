@@ -107,4 +107,4 @@ const part2 = (garden: Garden): number => {
     return fn(202300);
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

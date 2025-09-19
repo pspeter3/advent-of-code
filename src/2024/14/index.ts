@@ -128,4 +128,4 @@ const part2 = (robots: RobotList): number => {
     return chineseRemainderTheorem(minX[0], bounds.x, minY[0], bounds.y);
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

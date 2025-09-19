@@ -152,4 +152,4 @@ const part1 = (grid: MatrixGrid<Tile>): number => solve(grid, true);
 
 const part2 = (grid: MatrixGrid<Tile>): number => solve(grid, false);
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

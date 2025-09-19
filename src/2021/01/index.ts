@@ -29,4 +29,4 @@ const part2 = (depths: ReadonlyArray<number>): number =>
         ),
     );
 
-main(module, (input) => schema.parse(input), part1, part2);
+await main(import.meta, (input) => schema.parse(input), part1, part2);

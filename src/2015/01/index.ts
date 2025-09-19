@@ -35,4 +35,4 @@ const part2 = (instructions: InstructionList): number => {
     throw new Error("Never entered basement");
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

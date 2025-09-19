@@ -247,4 +247,4 @@ const part2 = (input: Warehouse): number => {
     return sumGPS(warehouse.boxes);
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

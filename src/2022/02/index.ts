@@ -69,4 +69,4 @@ const part2 = (strategy: Strategy): number =>
         return sum + score(opponent, move) + Shape[move];
     }, 0);
 
-main(module, (input) => schema.parse(input), part1, part2);
+await main(import.meta, (input) => schema.parse(input), part1, part2);

@@ -69,4 +69,4 @@ const part2 = (grid: MatrixGrid<number>): number =>
             .map((cell) => findTrails(grid, cell)),
     );
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

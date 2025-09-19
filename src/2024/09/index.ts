@@ -178,4 +178,4 @@ const part1 = (diskMap: DiskMap): number =>
 const part2 = (diskMap: DiskMap): number =>
     checksum(defragFiles(toDisk(diskMap)));
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

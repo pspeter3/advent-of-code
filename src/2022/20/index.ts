@@ -45,4 +45,4 @@ const part2 = (sequence: ReadonlyArray<number>): number => {
     return coordinates(list);
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

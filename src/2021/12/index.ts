@@ -86,4 +86,4 @@ const part2 = (edges: ReadonlyArray<Edge>): number =>
         return false;
     });
 
-main(module, (input) => schema.parse(input), part1, part2);
+await main(import.meta, (input) => schema.parse(input), part1, part2);

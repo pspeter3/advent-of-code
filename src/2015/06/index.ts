@@ -110,4 +110,4 @@ const part2 = (instructions: InstructionList): number => {
     return sum(lights.values());
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

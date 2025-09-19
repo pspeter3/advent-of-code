@@ -199,4 +199,4 @@ const part2 = (pairs: ReadonlyArray<Pair>): number => {
     return max;
 };
 
-main(module, (input) => schema.parse(input), part1, part2);
+await main(import.meta, (input) => schema.parse(input), part1, part2);

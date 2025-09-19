@@ -51,4 +51,4 @@ const part2 = ({ graph }: Puzzle): string => {
     return Array.from(result).sort().join(",");
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

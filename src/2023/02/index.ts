@@ -96,4 +96,4 @@ const part2 = (input: CubeGameList): number => {
     return sum;
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

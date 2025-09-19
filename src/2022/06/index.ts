@@ -14,4 +14,4 @@ const part1 = (input: string): number => analyze(input, 4);
 
 const part2 = (input: string): number => analyze(input, 14);
 
-main(module, (input) => input.trim(), part1, part2);
+await main(import.meta, (input) => input.trim(), part1, part2);

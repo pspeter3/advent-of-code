@@ -94,4 +94,4 @@ const part1 = ({ bounds, vectors }: Puzzle): number => {
 const part2 = (puzzle: Puzzle): string =>
     serialize(puzzle.vectors[search(puzzle, 0, puzzle.vectors.length)]);
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

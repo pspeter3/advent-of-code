@@ -113,4 +113,4 @@ const part1 = (grid: MatrixGrid<Tile>): number =>
 const part2 = (grid: MatrixGrid<Tile>): number =>
     max(starts(grid.bounds).map((beam) => energize(grid, beam)));
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

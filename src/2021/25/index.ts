@@ -78,4 +78,4 @@ const part1 = (grid: Grid): number => {
     return count;
 };
 
-main(module, (input) => schema.parse(input), part1);
+await main(import.meta, (input) => schema.parse(input), part1);

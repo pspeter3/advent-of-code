@@ -41,4 +41,4 @@ const parse = (input: string): ReadonlyArray<SNAFU> => schema.parse(input);
 const part1 = (snafus: ReadonlyArray<SNAFU>): string =>
     toSNAFU(snafus.reduce((sum, snafu) => sum + toDecimal(snafu), 0));
 
-main(module, parse, part1);
+await main(import.meta, parse, part1);

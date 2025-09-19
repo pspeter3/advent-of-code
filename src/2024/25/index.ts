@@ -50,4 +50,4 @@ const part1 = ({ locks, keys }: Puzzle): number =>
 
 const part2 = (_: unknown): number => 0;
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

@@ -89,4 +89,4 @@ const part2 = ([vectors, folds]: Input): string => {
     ).join("\n");
 };
 
-main(module, (input) => schema.parse(input), part1, part2);
+await main(import.meta, (input) => schema.parse(input), part1, part2);

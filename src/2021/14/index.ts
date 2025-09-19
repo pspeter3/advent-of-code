@@ -79,4 +79,4 @@ const evolve = ([template, pairs]: Input, steps: number): number => {
 const part1 = (input: Input): number => evolve(input, 10);
 const part2 = (input: Input): number => evolve(input, 40);
 
-main(module, (input) => schema.parse(input), part1, part2);
+await main(import.meta, (input) => schema.parse(input), part1, part2);

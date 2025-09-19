@@ -99,4 +99,4 @@ const part2 = (grid: Grid): number => {
     return seek(scaled, Origin, max(scaled));
 };
 
-main(module, (input) => schema.parse(input), part1, part2);
+await main(import.meta, (input) => schema.parse(input), part1, part2);

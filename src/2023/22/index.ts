@@ -105,4 +105,4 @@ const part1 = ({ depends }: BrickGraph): number => {
 const part2 = (graph: BrickGraph): number =>
     sum(graph.depends.keys().map((id) => chain(graph, id)));
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

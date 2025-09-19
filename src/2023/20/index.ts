@@ -231,4 +231,4 @@ const part2 = (records: PulseModuleRecordList): number => {
         .reduce((lcm, cycle) => leastCommonMultiple(lcm, cycle), 1);
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

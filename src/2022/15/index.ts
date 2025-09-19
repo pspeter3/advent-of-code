@@ -100,4 +100,4 @@ const part2 = (sensors: ReadonlyMap<Tile, number>): number => {
     return 0;
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

@@ -38,4 +38,4 @@ const part1 = (stones: StoneList): number =>
 const part2 = (stones: StoneList): number =>
     sum(stones.values().map((stone) => blink(stone, 75)));
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

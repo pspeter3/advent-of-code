@@ -233,4 +233,4 @@ const part2 = ({ gates }: Puzzle): string => {
     return Array.from(wrong).sort().join(",");
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

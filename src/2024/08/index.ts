@@ -91,4 +91,4 @@ const part2 = ({ bounds, frequencies }: City): number => {
     return antinodes.size;
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

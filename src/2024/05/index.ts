@@ -83,4 +83,4 @@ const part2 = ({ rules, updates }: Puzzle): number =>
             .map(middle),
     );
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

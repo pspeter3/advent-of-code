@@ -69,4 +69,4 @@ const part1 = (rows: SpringRowList): number =>
 const part2 = (rows: SpringRowList): number =>
     rows.reduce((sum, row) => sum + count(...unfold(row)), 0);
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

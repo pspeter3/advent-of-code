@@ -117,4 +117,4 @@ const part2 = (monkeys: ReadonlyArray<Monkey>): number => {
     return track(monkeys, 10000, (value) => value % base);
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

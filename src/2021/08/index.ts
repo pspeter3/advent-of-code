@@ -106,4 +106,4 @@ const part2 = (data: ReadonlyArray<Entry>): number =>
         return sum + fromDigits(output.map((value) => key.get(sorted(value))!));
     }, 0);
 
-main(module, (input) => schema.parse(input), part1, part2);
+await main(import.meta, (input) => schema.parse(input), part1, part2);

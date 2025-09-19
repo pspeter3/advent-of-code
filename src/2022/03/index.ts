@@ -64,4 +64,4 @@ const part2 = (input: ReadonlyArray<Rucksack>): number => {
     return result;
 };
 
-main(module, (input) => schema.parse(input), part1, part2);
+await main(import.meta, (input) => schema.parse(input), part1, part2);

@@ -154,4 +154,4 @@ const part2 = (moves: MoveList): number => {
     return cells.size;
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

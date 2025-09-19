@@ -22,4 +22,4 @@ const part1 = (key: string): number => mine(key, 5);
 
 const part2 = (key: string): number => mine(key, 6);
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

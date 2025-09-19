@@ -85,4 +85,4 @@ const part2 = (network: Network): number => {
     return cycles.reduce((lcm, cycle) => leastCommonMultiple(lcm, cycle), 1);
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

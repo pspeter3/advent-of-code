@@ -72,4 +72,4 @@ const part2 = (grid: MatrixGrid<string>): number =>
             }),
     );
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

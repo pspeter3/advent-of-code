@@ -70,4 +70,4 @@ const part2 = (commands: CommandList): string => {
     return pixels.map((row) => row.join("")).join("\n");
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

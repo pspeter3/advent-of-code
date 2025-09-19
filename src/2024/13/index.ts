@@ -103,4 +103,4 @@ const part2 = (machines: MachineList): number =>
             .map(([a, b]) => 3 * a + b),
     );
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

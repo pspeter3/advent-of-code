@@ -54,4 +54,4 @@ const part1 = (report: Report): number =>
 const part2 = (report: Report): number =>
     report.reduce((sum, history) => sum + predictPrev(history), 0);
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

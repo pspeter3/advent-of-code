@@ -223,4 +223,4 @@ const part2 = ({ board, forecast, state }: Input): number => {
     return final.minute;
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

@@ -72,4 +72,4 @@ const part2 = (cards: ScratchCardList): number => {
     return copies.reduce((sum, count) => sum + count);
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

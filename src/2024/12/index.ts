@@ -97,4 +97,4 @@ const part1 = (regions: RegionList): number =>
 const part2 = (regions: RegionList): number =>
     sum(regions.values().map((r) => r.area * r.corners));
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

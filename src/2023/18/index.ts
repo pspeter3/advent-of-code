@@ -66,4 +66,4 @@ const part1 = (trenches: TrenchList): number => trenchArea(trenches);
 const part2 = (trenches: TrenchList): number =>
     trenchArea(trenches.map(parseColor));
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

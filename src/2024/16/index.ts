@@ -156,4 +156,4 @@ const part1 = ({ cost }: MazeResult): number => cost;
 
 const part2 = ({ tiles }: MazeResult): number => tiles;
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

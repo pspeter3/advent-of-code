@@ -77,4 +77,4 @@ const part1 = (track: RaceTrack): number =>
 const part2 = (track: RaceTrack): number =>
     findCheats(track, 20, track.path.size === 85 ? 76 : 100);
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

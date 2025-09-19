@@ -66,4 +66,4 @@ const part1 = (equations: EquationList): number => solve(equations, 2);
 
 const part2 = (equations: EquationList): number => solve(equations, 3);
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

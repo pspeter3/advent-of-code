@@ -30,4 +30,4 @@ const part2 = (boxes: BoxList): number =>
         }),
     );
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

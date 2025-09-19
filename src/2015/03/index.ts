@@ -49,4 +49,4 @@ const part2 = (directions: CardinalDirectionList): number => {
     return positions.size;
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

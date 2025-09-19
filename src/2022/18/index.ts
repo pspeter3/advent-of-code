@@ -168,4 +168,4 @@ const part2 = (voxels: ReadonlyArray<Voxel>): number => {
     return faces;
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

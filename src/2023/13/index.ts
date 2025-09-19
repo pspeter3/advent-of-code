@@ -47,4 +47,4 @@ const part1 = (patterns: PatternList): number =>
 const part2 = (patterns: PatternList): number =>
     sum(patterns.values().map((pattern) => score(pattern, 1)));
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

@@ -261,4 +261,4 @@ const part2 = (directions: ReadonlyArray<Direction>): number => {
     return base + (max - height);
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

@@ -159,4 +159,4 @@ const part2 = (walls: WallList): number => {
     return count;
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

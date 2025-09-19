@@ -63,4 +63,4 @@ const part2 = (races: BoatRaceList): number => {
     return countBounds(convertBounds(calculateRoots({ time, distance })));
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

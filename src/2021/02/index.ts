@@ -69,4 +69,4 @@ const part2 = (actions: ReadonlyArray<SubmarineAction>): number => {
     return position * depth;
 };
 
-main(module, (input) => schema.parse(input), part1, part2);
+await main(import.meta, (input) => schema.parse(input), part1, part2);

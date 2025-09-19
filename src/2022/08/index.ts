@@ -111,4 +111,4 @@ const part2 = (grid: Grid): number => {
     return result;
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

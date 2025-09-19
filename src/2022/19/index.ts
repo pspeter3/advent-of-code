@@ -240,4 +240,4 @@ const part2 = (blueprints: ReadonlyArray<Blueprint>): number => {
     return scores.reduce((acc, score) => acc * score);
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

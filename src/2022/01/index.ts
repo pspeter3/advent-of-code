@@ -27,4 +27,4 @@ const part2 = (inventory: Inventory): number =>
             .slice(0, 3),
     );
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

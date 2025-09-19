@@ -91,4 +91,4 @@ const part2 = (seeds: ReadonlyArray<number>): number => {
     return max;
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

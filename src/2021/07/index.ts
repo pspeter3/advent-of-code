@@ -28,4 +28,4 @@ const fuel = (
 const part1 = (crabs: ReadonlyArray<number>): number => fuel(crabs, identity);
 const part2 = (crabs: ReadonlyArray<number>): number => fuel(crabs, triangle);
 
-main(module, (input) => schema.parse(input), part1, part2);
+await main(import.meta, (input) => schema.parse(input), part1, part2);

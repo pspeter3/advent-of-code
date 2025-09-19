@@ -79,4 +79,4 @@ const part2 = (pairs: ReadonlyArray<PacketPair>): number => {
     return (packets.indexOf(a) + 1) * (packets.indexOf(b) + 1);
 };
 
-main(module, parse, part1, part2);
+await main(import.meta, parse, part1, part2);

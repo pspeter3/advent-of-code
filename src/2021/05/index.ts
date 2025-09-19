@@ -54,4 +54,4 @@ const part1 = (segments: ReadonlyArray<Segment>): number =>
 
 const part2 = intersections;
 
-main(module, (input) => schema.parse(input), part1, part2);
+await main(import.meta, (input) => schema.parse(input), part1, part2);
