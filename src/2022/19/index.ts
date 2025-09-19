@@ -154,7 +154,7 @@ const search = (
     robots: ResourceMap,
     stores: ResourceMap,
 ): number => {
-    const geodes = get(stores, Resource.Enum.geode);
+    const geodes = get(stores, Resource.enum.geode);
     if (time === 0) {
         return geodes;
     }
@@ -172,8 +172,8 @@ const search = (
         if (get(robots, resource) >= ctx.limit(resource)) {
             continue;
         }
-        if (resource === Resource.Enum.geode) {
-            const bots = get(robots, Resource.Enum.geode);
+        if (resource === Resource.enum.geode) {
+            const bots = get(robots, Resource.enum.geode);
             if (geodes + time * bots + triangle(time) <= ctx.max) {
                 continue;
             }
@@ -199,7 +199,7 @@ const parse = (input: string): ReadonlyArray<Blueprint> => schema.parse(input);
 
 const part1 = (blueprints: ReadonlyArray<Blueprint>): number => {
     const duration = 24;
-    const robots: ResourceMap = new Map([[Resource.Enum.ore, 1]]);
+    const robots: ResourceMap = new Map([[Resource.enum.ore, 1]]);
     const stores: ResourceMap = new Map();
     return blueprints.reduce((sum, blueprint, index) => {
         const id = index + 1;
@@ -220,7 +220,7 @@ const part1 = (blueprints: ReadonlyArray<Blueprint>): number => {
 
 const part2 = (blueprints: ReadonlyArray<Blueprint>): number => {
     const duration = 32;
-    const robots: ResourceMap = new Map([[Resource.Enum.ore, 1]]);
+    const robots: ResourceMap = new Map([[Resource.enum.ore, 1]]);
     const stores: ResourceMap = new Map();
     const scores = blueprints.slice(0, 3).map((blueprint, index) => {
         const id = index + 1;
