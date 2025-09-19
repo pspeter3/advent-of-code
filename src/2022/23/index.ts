@@ -1,11 +1,7 @@
 import { main } from "../../utils/host";
 
-enum Direction {
-    North = 0,
-    South = 1,
-    West = 2,
-    East = 3,
-}
+const Direction = { North: 0, South: 1, West: 2, East: 3 } as const;
+type Direction = (typeof Direction)[keyof typeof Direction];
 const DIRECTIONS = 4;
 
 const zigZag = (value: number): bigint => {
@@ -142,7 +138,7 @@ const propose = (
     direction: Direction,
 ): ProposedMove | null => {
     for (let i = 0; i < DIRECTIONS; i++) {
-        const d = (direction + i) % DIRECTIONS;
+        const d = ((direction + i) % DIRECTIONS) as Direction;
         if (Array.from(elf.adjacent(d)).every(({ id }) => !ids.has(id))) {
             return { source: elf, target: elf.move(d) };
         }

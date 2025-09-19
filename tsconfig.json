@@ -5,6 +5,7 @@
         "incremental": true,
         "noEmit": true,
         "noUncheckedIndexedAccess": false,
-        "pretty": true
+        "pretty": true,
+        "erasableSyntaxOnly": true
     }
 }

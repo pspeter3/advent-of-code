@@ -2,10 +2,8 @@ import z from "zod";
 import { main } from "../../utils/host";
 import { sum } from "../../common/itertools";
 
-enum Instruction {
-    Up = "(",
-    Down = ")",
-}
+const Instruction = { Up: "(", Down: ")" } as const;
+type Instruction = (typeof Instruction)[keyof typeof Instruction];
 
 type InstructionList = ReadonlyArray<Instruction>;
 

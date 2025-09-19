@@ -20,8 +20,8 @@ interface DistanceRecord {
 }
 
 function* turns(direction: CardinalDirection): Iterable<CardinalDirection> {
-    yield direction === 0 ? 3 : direction - 1;
-    yield (direction + 1) % 4;
+    yield (direction === 0 ? 3 : direction - 1) as CardinalDirection;
+    yield ((direction + 1) % 4) as CardinalDirection;
 }
 
 function distance(

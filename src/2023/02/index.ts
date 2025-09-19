@@ -2,11 +2,8 @@ import z from "zod";
 import { main } from "../../utils/host";
 import { IntSchema, LinesSchema } from "../../utils/schemas";
 
-enum CubeColor {
-    Red = "red",
-    Green = "green",
-    Blue = "blue",
-}
+const CubeColor = { Red: "red", Green: "green", Blue: "blue" } as const;
+type CubeColor = (typeof CubeColor)[keyof typeof CubeColor];
 
 type CubeSample = ReadonlyMap<CubeColor, number>;
 

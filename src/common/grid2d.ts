@@ -7,29 +7,33 @@ export interface GridVector2DRecord {
 
 export type GridVector2DTuple = readonly [q: number, r: number];
 
-export enum CardinalDirection {
-    North = 0,
-    East = 1,
-    South = 2,
-    West = 3,
-}
+export const CardinalDirection = {
+    North: 0,
+    East: 1,
+    South: 2,
+    West: 3,
+} as const;
+export type CardinalDirection =
+    (typeof CardinalDirection)[keyof typeof CardinalDirection];
 
-export enum DiagonalDirection {
-    NorthEast = 4,
-    SouthEast = 5,
-    SouthWest = 6,
-    NorthWest = 7,
-}
+export const DiagonalDirection = {
+    NorthEast: 4,
+    SouthEast: 5,
+    SouthWest: 6,
+    NorthWest: 7,
+} as const;
+export type DiagonalDirection =
+    (typeof DiagonalDirection)[keyof typeof DiagonalDirection];
 
 export function* cardinalDirections(): Generator<CardinalDirection> {
     for (let i = 0; i < 4; i++) {
-        yield i;
+        yield i as CardinalDirection;
     }
 }
 
 export function* diagonalDirections(): Generator<DiagonalDirection> {
     for (let i = 4; i < 8; i++) {
-        yield i;
+        yield i as DiagonalDirection;
     }
 }
 
@@ -37,7 +41,7 @@ export type GridDirection = CardinalDirection | DiagonalDirection;
 
 export function* gridDirections(): Generator<GridDirection> {
     for (let i = 0; i < 8; i++) {
-        yield i;
+        yield i as GridDirection;
     }
 }
 
@@ -51,12 +55,6 @@ export function isDiagonalDiection(
     direction: GridDirection,
 ): direction is DiagonalDirection {
     return direction >= 4;
-}
-
-export function debugDirection(direction: GridDirection): string {
-    return isCardinalDirection(direction)
-        ? CardinalDirection[direction]
-        : DiagonalDirection[direction];
 }
 
 export type GridNeighborEntry<T extends GridDirection> = readonly [
@@ -170,7 +168,7 @@ export function toGridDirection(delta: GridVector2DRecord): GridDirection {
     if (index === -1) {
         throw new Error("Invalid delta");
     }
-    return index;
+    return index as GridDirection;
 }
 
 export class GridBounds2D implements GridVector2DCodec, Iterable<GridVector2D> {

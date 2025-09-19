@@ -11,19 +11,17 @@ interface Element {
     readonly index: number;
 }
 
-enum Operation {
-    Explode,
-    Split,
-}
+const Operation = { Explode: 0, Split: 1 } as const;
+type Operation = (typeof Operation)[keyof typeof Operation];
 
 interface ExplodeAction {
-    readonly operation: Operation.Explode;
+    readonly operation: (typeof Operation)["Explode"];
     readonly index: number;
     readonly increments: ReadonlyMap<number, number>;
 }
 
 interface SplitAction {
-    readonly operation: Operation.Split;
+    readonly operation: (typeof Operation)["Split"];
     readonly index: number;
 }
 

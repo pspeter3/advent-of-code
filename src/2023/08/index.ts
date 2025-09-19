@@ -2,10 +2,8 @@ import z from "zod";
 import { main } from "../../utils/host";
 import { leastCommonMultiple } from "../../common/math";
 
-enum Instruction {
-    Left = "L",
-    Right = "R",
-}
+const Instruction = { Left: "L", Right: "R" } as const;
+type Instruction = (typeof Instruction)[keyof typeof Instruction];
 
 type Node = string;
 type NodeEdges = readonly [left: Node, right: Node];
