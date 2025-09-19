@@ -27,7 +27,7 @@ const CuboidSchema = z.preprocess(
 const schema = LinesSchema(
     z.preprocess(
         (line) => StringSchema.parse(line).trim().split(" "),
-        z.tuple([z.nativeEnum(Command), CuboidSchema]),
+        z.tuple([z.enum(Command), CuboidSchema]),
     ),
 );
 

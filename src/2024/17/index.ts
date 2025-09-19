@@ -31,7 +31,7 @@ const RegisterInitSchema = z
         const [, register, value] = match;
         return [register, value];
     })
-    .pipe(z.tuple([RegisterSchema, z.coerce.bigint()]));
+    .pipe(z.tuple([RegisterSchema, z.coerce.bigint<string>()]));
 const RegistersSchema = z
     .string()
     .transform((chunk) => chunk.split("\n"))
@@ -49,7 +49,7 @@ const ProgramSchema = z
             .split(",")
             .map((value) => parseInt(value, 10)),
     )
-    .pipe(z.array(z.nativeEnum(OpCode)));
+    .pipe(z.array(z.enum(OpCode)));
 
 const DebuggerSchema = z
     .string()

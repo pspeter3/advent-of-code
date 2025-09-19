@@ -32,7 +32,7 @@ interface System {
 
 const WorkflowFilterSchema = z.object({
     key: z.enum(["x", "m", "a", "s"]),
-    op: z.nativeEnum(WorkflowFilterOp),
+    op: z.enum(WorkflowFilterOp),
     value: IntSchema,
     target: z.string(),
 });

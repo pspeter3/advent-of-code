@@ -10,7 +10,7 @@ type InstructionList = ReadonlyArray<Instruction>;
 const InstructionListSchema = z
     .string()
     .transform((line) => line.trim().split(""))
-    .pipe(z.array(z.nativeEnum(Instruction)));
+    .pipe(z.array(z.enum(Instruction)));
 
 const parse = (input: string): InstructionList =>
     InstructionListSchema.parse(input);

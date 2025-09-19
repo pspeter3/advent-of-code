@@ -42,7 +42,7 @@ const InstructionSchema = z
     })
     .pipe(
         z.object({
-            command: z.nativeEnum(Command),
+            command: z.enum(Command),
             source: GridVector2DRecordSchema,
             target: GridVector2DRecordSchema,
         }),

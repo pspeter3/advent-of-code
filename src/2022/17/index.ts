@@ -136,7 +136,7 @@ class Shape {
     }
 }
 
-const schema = z.array(z.nativeEnum(Direction));
+const schema = z.array(z.enum(Direction));
 
 const parse = (input: string): ReadonlyArray<Direction> =>
     schema.parse(input.trim().split(""));

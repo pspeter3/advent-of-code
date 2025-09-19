@@ -14,7 +14,7 @@ interface CubeGame {
 
 type CubeGameList = ReadonlyArray<CubeGame>;
 
-const CubeColorSchema = z.nativeEnum(CubeColor);
+const CubeColorSchema = z.enum(CubeColor);
 const CubeEntrySchema = z
     .string()
     .transform((s) => s.split(" "))

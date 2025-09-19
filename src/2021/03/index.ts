@@ -14,7 +14,7 @@ const schema = LinesSchema(
         z.array(
             z.preprocess(
                 (char) => parseInt(StringSchema.parse(char)),
-                z.nativeEnum(Bit),
+                z.enum(Bit),
             ),
         ),
     ),

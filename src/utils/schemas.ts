@@ -1,17 +1,18 @@
-import { z, type ZodTypeAny } from "zod";
+import { z, type ZodType } from "zod";
 
 export const StringSchema = z.string();
-export const IntSchema = z.coerce.number().int();
-export const LinesSchema = <T extends ZodTypeAny>(schema: T) =>
+export const IntSchema = z.coerce.number<string>().int();
+
+export const LinesSchema = <T extends ZodType>(schema: T) =>
     z
         .string()
-        .transform((input) => input.trim().split("\n"))
+        .transform((input) => input.trim().split("\n") as z.input<T>[])
         .pipe(z.array(schema));
 
-export const MatrixSchema = <T extends ZodTypeAny>(schema: T) =>
+export const MatrixSchema = <T extends ZodType>(schema: T) =>
     LinesSchema(
         z
             .string()
-            .transform((line) => line.split(""))
+            .transform((line) => line.split("") as z.input<T>[])
             .pipe(z.array(schema)),
     );
