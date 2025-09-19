@@ -32,7 +32,7 @@ const PulseModuleRecordSchema = z
     .pipe(
         z.object({
             name: z.string(),
-            kind: z.nativeEnum(PulseModuleKind).optional(),
+            kind: z.enum(PulseModuleKind).optional(),
             outputs: z.array(z.string()),
         }),
     );

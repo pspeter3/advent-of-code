@@ -10,7 +10,7 @@ type Grid = ReadonlyArray<ReadonlyArray<Cell>>;
 const schema = LinesSchema(
     z.preprocess(
         (line) => StringSchema.parse(line).trim().split(""),
-        z.array(z.nativeEnum(Cell)),
+        z.array(z.enum(Cell)),
     ),
 );
 

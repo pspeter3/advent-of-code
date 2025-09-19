@@ -50,7 +50,7 @@ const GateSchema = z
     .pipe(
         z.object({
             lhs: z.string(),
-            op: z.nativeEnum(GateOp),
+            op: z.enum(GateOp),
             rhs: z.string(),
         }),
     );

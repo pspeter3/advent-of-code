@@ -7,7 +7,7 @@ type Facing = (typeof Facing)[keyof typeof Facing];
 
 const TileKind = { Open: ".", Wall: "#" } as const;
 type TileKind = (typeof TileKind)[keyof typeof TileKind];
-const TileKindSchema = z.nativeEnum(TileKind);
+const TileKindSchema = z.enum(TileKind);
 
 const Turn = { Left: "L", Right: "R" } as const;
 type Turn = (typeof Turn)[keyof typeof Turn];

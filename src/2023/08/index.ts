@@ -18,7 +18,7 @@ interface Network {
 const InstructionListSchema = z
     .string()
     .transform((line) => line.split(""))
-    .pipe(z.array(z.nativeEnum(Instruction)));
+    .pipe(z.array(z.enum(Instruction)));
 
 const NodeSchema = z.string().length(3);
 const NodeEdgesSchema = z

@@ -9,7 +9,7 @@ const schema = LinesSchema(
     z
         .string()
         .transform((line) => line.split(" "))
-        .pipe(z.tuple([z.nativeEnum(Direction), IntSchema])),
+        .pipe(z.tuple([z.enum(Direction), IntSchema])),
 );
 
 type Move = readonly [direction: Direction, amount: number];

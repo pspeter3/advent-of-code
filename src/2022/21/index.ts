@@ -8,7 +8,7 @@ type Operation = (typeof Operation)[keyof typeof Operation];
 const ExpressionSchema = z
     .string()
     .transform((text) => text.trim().split(" "))
-    .pipe(z.tuple([z.string(), z.nativeEnum(Operation), z.string()]));
+    .pipe(z.tuple([z.string(), z.enum(Operation), z.string()]));
 
 type Expression = readonly [lhs: string, op: Operation, rhs: string];
 

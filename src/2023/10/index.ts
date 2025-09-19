@@ -17,7 +17,7 @@ type TileMarker = GroundMarker | StartMarker | PipeMarker;
 type TileList = ReadonlyArray<TileMarker>;
 type TileGrid = ReadonlyArray<TileList>;
 
-const PipeMarkerSchema = z.nativeEnum(PipeMarker);
+const PipeMarkerSchema = z.enum(PipeMarker);
 const TileMarkerSchema = z.union([
     z.literal("."),
     z.literal("S"),

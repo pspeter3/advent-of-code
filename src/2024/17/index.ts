@@ -49,7 +49,7 @@ const ProgramSchema = z
             .split(",")
             .map((value) => parseInt(value, 10)),
     )
-    .pipe(z.array(z.nativeEnum(OpCode)));
+    .pipe(z.array(z.enum(OpCode)));
 
 const DebuggerSchema = z
     .string()

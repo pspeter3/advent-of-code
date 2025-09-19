@@ -12,7 +12,7 @@ const Bits: Readonly<Record<Pixel, 0 | 1>> = {
 
 const PixelListSchema = z.preprocess(
     (line) => StringSchema.parse(line).trim().split(""),
-    z.array(z.nativeEnum(Pixel)),
+    z.array(z.enum(Pixel)),
 );
 
 const schema = z.preprocess(

@@ -16,7 +16,7 @@ const schema = LinesSchema(
     z.preprocess(
         (line) => StringSchema.parse(line).split(" "),
         z.tuple([
-            z.nativeEnum(SubmarineCommand),
+            z.enum(SubmarineCommand),
             z.preprocess((value) => parseInt(value as string), z.number()),
         ]),
     ),
