@@ -31,7 +31,7 @@ const RegisterInitSchema = z
         const [, register, value] = match;
         return [register, value];
     })
-    .pipe(z.tuple([RegisterSchema, z.coerce.bigint()]));
+    .pipe(z.tuple([RegisterSchema, z.coerce.bigint<string>()]));
 const RegistersSchema = z
     .string()
     .transform((chunk) => chunk.split("\n"))
