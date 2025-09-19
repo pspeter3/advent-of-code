@@ -29,7 +29,7 @@
         // Recommended Options
         "strict": true,
         // "verbatimModuleSyntax": true,
-        // "isolatedModules": true,
+        "isolatedModules": true,
         "noUncheckedSideEffectImports": true,
         "moduleDetection": "force",
         "skipLibCheck": true,
