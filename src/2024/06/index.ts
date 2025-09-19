@@ -54,7 +54,8 @@ const isObstruction = (
     return bounds.includes(next) && obstructions.has(next);
 };
 
-const turnRight = (dir: CardinalDirection): CardinalDirection => (dir + 1) % 4;
+const turnRight = (dir: CardinalDirection): CardinalDirection =>
+    ((dir + 1) % 4) as CardinalDirection;
 
 const walk = ({
     bounds,
@@ -62,7 +63,7 @@ const walk = ({
     obstructions,
 }: Puzzle): GridVector2DMap<ReadonlySet<CardinalDirection>> => {
     let curr = guard;
-    let dir = CardinalDirection.North;
+    let dir: CardinalDirection = CardinalDirection.North;
     const visited = new GridVector2DMap<Set<CardinalDirection>>(bounds);
     const visit = (cell: GridVector2D, dir: CardinalDirection): void => {
         if (!visited.has(cell)) {

@@ -1,64 +1,65 @@
 {
-  "name": "advent-of-code",
-  "scripts": {
-    "fix": "prettier --cache --write '*.md' '.github/**/*.yml' '.vscode/**/*.json' 'src/**/*.ts'",
-    "start": "tsx",
-    "test": "wireit"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/pspeter3/advent-of-code.git"
-  },
-  "homepage": "https://github.com/pspeter3/advent-of-code#readme",
-  "dependencies": {
-    "heap-js": "^2.5.0",
-    "zod": "^3.23.8"
-  },
-  "devDependencies": {
-    "@tsconfig/node22": "^22.0.0",
-    "@types/node": "^22.9.0",
-    "prettier": "^3.3.3",
-    "tsx": "^4.19.2",
-    "typescript": "^5.6.3",
-    "wireit": "^0.14.0"
-  },
-  "prettier": {
-    "tabWidth": 4
-  },
-  "wireit": {
-    "test": {
-      "dependencies": [
-        "test:format",
-        "test:spec",
-        "test:types"
-      ]
+    "name": "advent-of-code",
+    "scripts": {
+        "fix": "prettier --cache --write '*.md' '.github/**/*.yml' '.vscode/**/*.json' 'src/**/*.ts'",
+        "start": "tsx",
+        "test": "wireit"
     },
-    "test:format": {
-      "command": "prettier --cache --check '*.md' '.github/**/*.yml' '.vscode/**/*.json' 'src/**/*.ts'",
-      "files": [
-        ".github/**/*.yml",
-        ".vscode/**/*.json",
-        "src/**/*.ts",
-        "*.md"
-      ],
-      "output": []
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/pspeter3/advent-of-code.git"
     },
-    "test:spec": {
-      "command": "tsx --test src/common/*.spec.ts",
-      "files": [
-        "src/common/**/*.ts"
-      ],
-      "output": []
+    "homepage": "https://github.com/pspeter3/advent-of-code#readme",
+    "dependencies": {
+        "@tsconfig/node24": "^24.0.1",
+        "heap-js": "^2.6.0",
+        "zod": "^3.23.8"
     },
-    "test:types": {
-      "command": "tsc",
-      "files": [
-        "src/**/*.ts",
-        "tsconfig.json"
-      ],
-      "output": [
-        "tsconfig.tsbuildinfo"
-      ]
+    "devDependencies": {
+        "@types/node": "^24.5.2",
+        "prettier": "^3.6.2",
+        "tsx": "^4.20.3",
+        "typescript": "^5.9.2",
+        "wireit": "^0.14.12"
+    },
+    "prettier": {
+        "tabWidth": 4
+    },
+    "wireit": {
+        "test": {
+            "dependencies": [
+                "test:format",
+                "test:spec",
+                "test:types"
+            ]
+        },
+        "test:format": {
+            "command": "prettier --cache --check '*.md' '.github/**/*.yml' '.vscode/**/*.json' 'src/**/*.ts'",
+            "files": [
+                ".github/**/*.yml",
+                ".vscode/**/*.json",
+                "src/**/*.ts",
+                "*.md"
+            ],
+            "output": []
+        },
+        "test:spec": {
+            "command": "tsx --test src/common/*.spec.ts",
+            "files": [
+                "src/common/**/*.ts"
+            ],
+            "output": []
+        },
+        "test:types": {
+            "command": "tsc",
+            "clean": "if-file-deleted",
+            "files": [
+                "src/**/*.ts",
+                "tsconfig.json"
+            ],
+            "output": [
+                "tsconfig.tsbuildinfo"
+            ]
+        }
     }
-  }
 }

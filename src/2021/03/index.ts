@@ -2,10 +2,8 @@ import { z } from "zod";
 import { main } from "../../utils/host";
 import { LinesSchema, StringSchema } from "../../utils/schemas";
 
-enum Bit {
-    Zero = 0,
-    One = 1,
-}
+const Bit = { Zero: 0, One: 1 } as const;
+type Bit = (typeof Bit)[keyof typeof Bit];
 
 type BitString = ReadonlyArray<Bit>;
 type Counter = [zero: number, one: number];

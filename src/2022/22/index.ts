@@ -2,23 +2,15 @@ import { z } from "zod";
 import { main } from "../../utils/host";
 import { IntSchema } from "../../utils/schemas";
 
-enum Facing {
-    Right = 0,
-    Down = 1,
-    Left = 2,
-    Up = 3,
-}
+const Facing = { Right: 0, Down: 1, Left: 2, Up: 3 } as const;
+type Facing = (typeof Facing)[keyof typeof Facing];
 
-enum TileKind {
-    Open = ".",
-    Wall = "#",
-}
+const TileKind = { Open: ".", Wall: "#" } as const;
+type TileKind = (typeof TileKind)[keyof typeof TileKind];
 const TileKindSchema = z.nativeEnum(TileKind);
 
-enum Turn {
-    Left = "L",
-    Right = "R",
-}
+const Turn = { Left: "L", Right: "R" } as const;
+type Turn = (typeof Turn)[keyof typeof Turn];
 
 type Instruction = number | Turn;
 type InstructionList = ReadonlyArray<Instruction>;
@@ -100,7 +92,7 @@ const score = ({ q, r }: Tile, facing: Facing): number =>
 const toAmount = (turn: Turn): number => (turn === Turn.Left ? 3 : 1);
 
 const rotate = (facing: Facing, amount: number): Facing =>
-    (facing + amount) % 4;
+    ((facing + amount) % 4) as Facing;
 
 const toId = (size: Tile, { q, r }: Tile): number => {
     if (q < 0 || q >= size.q || r < 0 || r >= size.r) {
@@ -318,9 +310,7 @@ class CubeGrid implements Cursor {
                         ?.get(this.#facing);
                     if (connection === undefined) {
                         throw new Error(
-                            `Undefined connection for ${this.#sideId} ${
-                                Facing[this.#facing]
-                            }`,
+                            `Undefined connection for ${this.#sideId} ${this.#facing}`,
                         );
                     }
                     nextFacing = connection.facing;

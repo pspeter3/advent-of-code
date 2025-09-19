@@ -3,11 +3,8 @@ import { main } from "../../utils/host";
 import { IntSchema, LinesSchema } from "../../utils/schemas";
 
 type WireValue = 0 | 1;
-enum GateOp {
-    AND = "AND",
-    OR = "OR",
-    XOR = "XOR",
-}
+const GateOp = { AND: "AND", OR: "OR", XOR: "XOR" } as const;
+type GateOp = (typeof GateOp)[keyof typeof GateOp];
 interface Gate {
     readonly lhs: string;
     readonly op: GateOp;

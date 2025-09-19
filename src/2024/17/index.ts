@@ -3,16 +3,17 @@ import { main } from "../../utils/host";
 
 type Register = "A" | "B" | "C";
 
-enum OpCode {
-    adv = 0,
-    bxl = 1,
-    bst = 2,
-    jnz = 3,
-    bxc = 4,
-    out = 5,
-    bdv = 6,
-    cdv = 7,
-}
+const OpCode = {
+    adv: 0,
+    bxl: 1,
+    bst: 2,
+    jnz: 3,
+    bxc: 4,
+    out: 5,
+    bdv: 6,
+    cdv: 7,
+} as const;
+type OpCode = (typeof OpCode)[keyof typeof OpCode];
 
 interface Debugger {
     readonly registers: Readonly<Record<Register, bigint>>;
@@ -63,31 +64,20 @@ class Computer {
     readonly #program: ReadonlyArray<OpCode>;
     #instruction = 0;
     readonly #out: number[] = [];
-    readonly #log: boolean;
 
     constructor(
         registers: Record<Register, bigint>,
         program: ReadonlyArray<OpCode>,
-        log: boolean = false,
     ) {
         this.#registers = registers;
         this.#program = program;
-        this.#log = log;
     }
 
     exec(): ReadonlyArray<number> {
         while (this.#instruction < this.#program.length) {
             const op = this.#program[this.#instruction];
             const value = this.#program[this.#instruction + 1];
-            if (this.#log) {
-                console.group(OpCode[op], value);
-                console.log(this.#instruction, this.#registers);
-            }
             this.#eval(op, value);
-            if (this.#log) {
-                console.log(this.#instruction, this.#registers);
-                console.groupEnd();
-            }
         }
         return this.#out;
     }
@@ -104,7 +94,7 @@ class Computer {
                 break;
             }
             case OpCode.bst: {
-                this.#registers.B = this.#combo(value) % 8n;
+                this.#registers.B = this.#combo(value as OpCode) % 8n;
                 this.#advance();
                 break;
             }
@@ -122,7 +112,7 @@ class Computer {
                 break;
             }
             case OpCode.out: {
-                this.#out.push(Number(this.#combo(value) % 8n));
+                this.#out.push(Number(this.#combo(value as OpCode) % 8n));
                 this.#advance();
                 break;
             }
@@ -162,7 +152,8 @@ class Computer {
     }
 
     #divide(register: Register, value: number): void {
-        this.#registers[register] = this.#registers.A >> this.#combo(value);
+        this.#registers[register] =
+            this.#registers.A >> this.#combo(value as OpCode);
         this.#advance();
     }
 }

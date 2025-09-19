@@ -1,10 +1,8 @@
 import { sum } from "../../common/itertools";
 import { main } from "../../utils/host";
 
-enum RockKind {
-    Round = "O",
-    Cube = "#",
-}
+const RockKind = { Round: "O", Cube: "#" } as const;
+type RockKind = (typeof RockKind)[keyof typeof RockKind];
 
 interface Rock {
     readonly kind: RockKind;

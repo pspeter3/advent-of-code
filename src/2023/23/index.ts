@@ -26,7 +26,7 @@ const isPath = (tile: Tile): tile is Path => tile === ".";
 const isSlope = (tile: Tile): tile is Slope => !isPath(tile) && !isForest(tile);
 
 const toCardinalDirection = (slope: Slope): CardinalDirection =>
-    SLOPES.indexOf(slope);
+    SLOPES.indexOf(slope) as CardinalDirection;
 
 const parse = (input: string): MatrixGrid<Tile> => Schema.parse(input);
 

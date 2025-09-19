@@ -1,10 +1,8 @@
 import { z } from "zod";
 import { main } from "../../utils/host";
 
-enum Direction {
-    Left = "<",
-    Right = ">",
-}
+const Direction = { Left: "<", Right: ">" } as const;
+type Direction = (typeof Direction)[keyof typeof Direction];
 
 class Grid {
     readonly width: number;

@@ -1,16 +1,17 @@
 import { main } from "../../utils/host";
 import { StringSchema } from "../../utils/schemas";
 
-enum PacketType {
-    Sum = 0,
-    Product = 1,
-    Minimum = 2,
-    Maximum = 3,
-    Literal = 4,
-    GreaterThan = 5,
-    LessThan = 6,
-    EqualTo = 7,
-}
+const PacketType = {
+    Sum: 0,
+    Product: 1,
+    Minimum: 2,
+    Maximum: 3,
+    Literal: 4,
+    GreaterThan: 5,
+    LessThan: 6,
+    EqualTo: 7,
+} as const;
+type PacketType = (typeof PacketType)[keyof typeof PacketType];
 
 interface Header {
     readonly version: number;
@@ -22,7 +23,7 @@ interface Packet extends Header {
 }
 
 interface Literal extends Packet {
-    readonly typeID: PacketType.Literal;
+    readonly typeID: (typeof PacketType)["Literal"];
     readonly value: number;
 }
 
@@ -36,7 +37,7 @@ const binary = (bits: string): number => parseInt(bits, 2);
 
 const decodeHeader = (bits: string): Header => {
     const version = binary(bits.slice(0, 3));
-    const typeID = binary(bits.slice(3, 6));
+    const typeID = binary(bits.slice(3, 6)) as PacketType;
     return { version, typeID };
 };
 
@@ -64,7 +65,7 @@ const decodeLiteral = (
 
 const decodeWrapper = (
     version: number,
-    typeID: number,
+    typeID: PacketType,
     bits: string,
 ): Wrapper => {
     const index = 7;

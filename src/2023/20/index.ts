@@ -3,15 +3,11 @@ import { main } from "../../utils/host";
 import { LinesSchema } from "../../utils/schemas";
 import { leastCommonMultiple } from "../../common/math";
 
-enum Pulse {
-    Low = 0,
-    High = 1,
-}
+const Pulse = { Low: 0, High: 1 } as const;
+type Pulse = (typeof Pulse)[keyof typeof Pulse];
 
-enum PulseModuleKind {
-    FlipFlop = "%",
-    Conjuction = "&",
-}
+const PulseModuleKind = { FlipFlop: "%", Conjuction: "&" } as const;
+type PulseModuleKind = (typeof PulseModuleKind)[keyof typeof PulseModuleKind];
 
 interface PulseModuleRecord {
     readonly name: string;
