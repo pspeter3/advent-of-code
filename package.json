@@ -42,7 +42,7 @@
             "output": []
         },
         "test:spec": {
-            "command": "tsx --test src/common/*.spec.ts",
+            "command": "node --test",
             "files": [
                 "src/common/**/*.ts"
             ],
