@@ -10,11 +10,12 @@ import { main } from "../../utils/host";
 import { IntSchema, LinesSchema } from "../../utils/schemas";
 import { sum } from "../../common/itertools";
 
-enum Command {
-    TurnOn = "turn on",
-    Toggle = "toggle",
-    TurnOff = "turn off",
-}
+const Command = {
+    TurnOn: "turn on",
+    Toggle: "toggle",
+    TurnOff: "turn off",
+} as const;
+type Command = (typeof Command)[keyof typeof Command];
 
 export interface Instruction {
     readonly command: Command;
