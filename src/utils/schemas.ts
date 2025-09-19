@@ -1,7 +1,7 @@
 import { z, type ZodType } from "zod";
 
 export const StringSchema = z.string();
-export const IntSchema = z.coerce.number().int();
+export const IntSchema = z.coerce.number<string>().int();
 
 export const LinesSchema = <T extends ZodType>(schema: T) =>
     z
