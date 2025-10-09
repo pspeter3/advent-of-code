@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const template = `import { main } from "../../utils/host.ts";
 
@@ -12,6 +13,7 @@ const part2 = (input: unknown): number => 0;
 await main(import.meta, parse, part1, part2);
 `;
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const year = process.argv[2] ?? new Date().getFullYear().toString();
 const dirnames = await fs.readdir(path.join(__dirname, "..", year));
 const days = dirnames

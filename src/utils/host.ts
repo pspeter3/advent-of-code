@@ -14,8 +14,8 @@ export async function main<T>(
     parse: Parser<T>,
     ...solutions: Solution<T>[]
 ): Promise<void> {
-    exec("Example", meta, parse, solutions);
-    exec("Input", meta, parse, solutions);
+    await exec("Example", meta, parse, solutions);
+    await exec("Input", meta, parse, solutions);
 }
 
 async function exec<T>(
@@ -29,12 +29,12 @@ async function exec<T>(
         return;
     }
     console.group(group);
-    console.time("Load");
+    console.time(`Load ${group}`);
     const input = await fs.readFile(filename, "utf8");
-    console.timeEnd("Load");
-    console.time("Parse");
+    console.timeEnd(`Load ${group}`);
+    console.time(`Parse ${group}`);
     const data = parse(input);
-    console.timeEnd("Parse");
+    console.timeEnd(`Parse ${group}`);
     for (const [index, solution] of solutions.entries()) {
         const label = `Part ${index + 1}`;
         console.time(label);
