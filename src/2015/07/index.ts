@@ -1,6 +1,6 @@
 import z from "zod";
 import { main } from "../../utils/host.ts";
-import { IntSchema, LinesSchema } from "../../utils/schemas.ts";
+import { LinesSchema } from "../../utils/schemas.ts";
 
 const Command = {
     AND: "AND",
