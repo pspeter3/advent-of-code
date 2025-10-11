@@ -90,3 +90,22 @@ export function* count(start: number = 0, step: number = 1): Generator<number> {
         current += step;
     }
 }
+
+/**
+ * Generate all permutations of a list.
+ * @param list The list to permute
+ */
+export function* permutations<T>(
+    list: ReadonlyArray<T>,
+): Generator<ReadonlyArray<T>> {
+    if (list.length === 0) {
+        yield [];
+    } else {
+        for (let i = 0; i < list.length; i++) {
+            const rest = [...list.slice(0, i), ...list.slice(i + 1)];
+            for (const perm of permutations(rest)) {
+                yield [list[i], ...perm];
+            }
+        }
+    }
+}
