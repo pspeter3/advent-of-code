@@ -1,6 +1,14 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { enumerate, len, max, min, sum, zip } from "./itertools.ts";
+import {
+    enumerate,
+    len,
+    max,
+    min,
+    permutations,
+    sum,
+    zip,
+} from "./itertools.ts";
 
 describe("sum", () => {
     it("should calculate the sum of numbers", () => {
@@ -43,5 +51,22 @@ describe("enumerate", () => {
 describe("len", () => {
     it("should count the length", () => {
         assert.equal(len("foo"), 3);
+    });
+});
+
+describe("permutations", () => {
+    it("should handle an empty list", () => {
+        assert.deepEqual(Array.from(permutations([])), [[]]);
+    });
+
+    it("should generate permutations", () => {
+        assert.deepEqual(Array.from(permutations([1, 2, 3])), [
+            [1, 2, 3],
+            [1, 3, 2],
+            [2, 1, 3],
+            [2, 3, 1],
+            [3, 1, 2],
+            [3, 2, 1],
+        ]);
     });
 });
