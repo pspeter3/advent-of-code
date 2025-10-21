@@ -1,4 +1,3 @@
-import { is } from "zod/locales";
 import { main } from "../../utils/host.ts";
 
 const ILLEGAL_CHARACTERS = /[iol]/;
