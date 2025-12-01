@@ -98,3 +98,7 @@ export function chineseRemainderTheorem(
     const result = (a * y * mb + b * x * ma) % (ma * mb);
     return result < 0 ? result + ma * mb : result;
 }
+
+export function mod(n: number, m: number): number {
+    return ((n % m) + m) % m;
+}
