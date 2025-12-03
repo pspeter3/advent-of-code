@@ -61,9 +61,13 @@ export class NumberRange implements NumberRangeRecord, Iterable<number> {
         return this.min === min && this.max === max;
     }
 
-    *[Symbol.iterator](): Iterator<number> {
+    *[Symbol.iterator](): Generator<number> {
         for (let i = this.min; i < this.max; i++) {
             yield i;
         }
+    }
+
+    values(): Generator<number> {
+        return this[Symbol.iterator]();
     }
 }
