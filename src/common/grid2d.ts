@@ -146,6 +146,17 @@ export class GridVector2D implements GridVector2DRecord {
         yield [DiagonalDirection.SouthWest, this.southWest()];
         yield [DiagonalDirection.NorthWest, this.northWest()];
     }
+
+    *allNeighbors(): Generator<GridNeighborEntry<GridDirection>> {
+        yield [CardinalDirection.North, this.north()];
+        yield [DiagonalDirection.NorthEast, this.northEast()];
+        yield [CardinalDirection.East, this.east()];
+        yield [DiagonalDirection.SouthEast, this.southEast()];
+        yield [CardinalDirection.South, this.south()];
+        yield [DiagonalDirection.SouthWest, this.southWest()];
+        yield [CardinalDirection.West, this.west()];
+        yield [DiagonalDirection.NorthWest, this.northWest()];
+    }
 }
 
 const DELTAS: ReadonlyArray<GridVector2D> = [
