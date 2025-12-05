@@ -1,8 +1,6 @@
 {
-    "typescript.tsdk": "node_modules/typescript/lib",
     "editor.formatOnSave": true,
-    "editor.defaultFormatter": "prettier.prettier-vscode",
-    "[javascript]": {
+    "[typescript]": {
         "editor.defaultFormatter": "prettier.prettier-vscode"
     }
 }
