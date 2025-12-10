@@ -31,6 +31,6 @@ function* areas(list: GridVector2DList): Generator<number> {
 
 const part1 = (list: GridVector2DList): number => max(areas(list));
 
-const part2 = (list: GridVector2DList): number => 0;
+const part2 = (_: GridVector2DList): number => 0;
 
 await main(import.meta, parse, part1, part2);
