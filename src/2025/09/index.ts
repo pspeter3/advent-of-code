@@ -23,7 +23,7 @@ function* areas(list: GridVector2DList): Generator<number> {
         for (let j = i + 1; j < list.length; j++) {
             yield keys
                 .values()
-                .map((k) => Math.abs(list[i][k] - list[j][k] + 1))
+                .map((k) => Math.abs(list[i][k] - list[j][k]) + 1)
                 .reduce((a, e) => a * e);
         }
     }
