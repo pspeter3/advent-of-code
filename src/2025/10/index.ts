@@ -2,6 +2,7 @@ import z from "zod";
 import { main } from "../../utils/host.ts";
 import { IntSchema } from "../../utils/schemas.ts";
 import { sum } from "../../common/itertools.ts";
+import { equalTo, solve, type Constraint, type Model } from "yalps";
 
 interface Machine {
     readonly target: number;
@@ -74,12 +75,36 @@ const findTarget = ({ target, buttons, joltages }: Machine): number => {
     return value;
 };
 
+const findJoltage = ({ buttons, joltages }: Machine): number => {
+    const model: Model = {
+        direction: "minimize",
+        objective: "presses",
+        constraints: joltages
+            .values()
+            .map((joltage, index) => [`c${index}`, equalTo(joltage)]),
+        variables: buttons.values().map((button, index) => [
+            `b${index}`,
+            {
+                presses: 1,
+                ...Object.fromEntries(button.values().map((b) => [`c${b}`, 1])),
+            },
+        ]),
+        integers: true,
+    };
+    const solution = solve(model);
+    if (solution.status !== "optimal") {
+        throw new Error("Invalid solution");
+    }
+    return solution.result;
+};
+
 const parse = (input: string): MachineList =>
     input.trim().split("\n").map(parseMachine);
 
 const part1 = (machines: MachineList): number =>
     sum(machines.values().map(findTarget));
 
-const part2 = (_: MachineList): number => 0;
+const part2 = (machines: MachineList): number =>
+    sum(machines.values().map(findJoltage));
 
 await main(import.meta, parse, part1, part2);
