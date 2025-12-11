@@ -2,7 +2,7 @@ import z from "zod";
 import { main } from "../../utils/host.ts";
 import { IntSchema } from "../../utils/schemas.ts";
 import { sum } from "../../common/itertools.ts";
-import { equalTo, solve, type Constraint, type Model } from "yalps";
+import { equalTo, solve, type Model } from "yalps";
 
 interface Machine {
     readonly target: number;
