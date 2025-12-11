@@ -109,3 +109,13 @@ export function* permutations<T>(
         }
     }
 }
+
+export type Pair<T> = readonly [a: T, b: T];
+
+export function* pairs<T>(list: ReadonlyArray<T>): Generator<Pair<T>> {
+    for (let i = 0; i < list.length; i++) {
+        for (let j = i + 1; j < list.length; j++) {
+            yield [list[i], list[j]];
+        }
+    }
+}

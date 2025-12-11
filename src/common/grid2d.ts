@@ -190,6 +190,18 @@ export class GridBounds2D implements GridVector2DCodec, Iterable<GridVector2D> {
         return new GridBounds2D(GridVector2D.ORIGIN, dimensions);
     }
 
+    static inclusive(
+        a: GridVector2DRecord,
+        b: GridVector2DRecord,
+    ): GridBounds2D {
+        const min = new GridVector2D(Math.min(a.q, b.q), Math.min(a.r, b.r));
+        const max = new GridVector2D(
+            Math.max(a.q, b.q) + 1,
+            Math.max(a.r, b.r) + 1,
+        );
+        return new GridBounds2D(min, max);
+    }
+
     constructor(a: GridVector2DRecord, b: GridVector2DRecord) {
         this.min = new GridVector2D(Math.min(a.q, b.q), Math.min(a.r, b.r));
         this.max = new GridVector2D(Math.max(a.q, b.q), Math.max(a.r, b.r));
@@ -201,6 +213,10 @@ export class GridBounds2D implements GridVector2DCodec, Iterable<GridVector2D> {
 
     get rows(): number {
         return this.max.r - this.min.r;
+    }
+
+    get area(): number {
+        return this.cols * this.rows;
     }
 
     assert(vector: GridVector2DRecord): void {
