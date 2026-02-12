@@ -2,7 +2,6 @@
     "name": "advent-of-code",
     "type": "module",
     "scripts": {
-        "fix": "prettier --cache --write '*.md' '.github/**/*.yml' '.vscode/**/*.json' 'src/**/*.ts'",
         "test": "wireit"
     },
     "repository": {
@@ -18,30 +17,15 @@
     "devDependencies": {
         "@types/node": "^24.9.1",
         "oxfmt": "^0.32.0",
-        "prettier": "^3.6.2",
         "typescript": "^5.9.3",
         "wireit": "^0.14.12"
-    },
-    "prettier": {
-        "tabWidth": 4
     },
     "wireit": {
         "test": {
             "dependencies": [
-                "test:format",
                 "test:spec",
                 "test:types"
             ]
-        },
-        "test:format": {
-            "command": "prettier --cache --check '*.md' '.github/**/*.yml' '.vscode/**/*.json' 'src/**/*.ts'",
-            "files": [
-                ".github/**/*.yml",
-                ".vscode/**/*.json",
-                "src/**/*.ts",
-                "*.md"
-            ],
-            "output": []
         },
         "test:spec": {
             "command": "node --test",
