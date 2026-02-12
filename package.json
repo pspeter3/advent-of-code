@@ -24,9 +24,22 @@
   "wireit": {
     "test": {
       "dependencies": [
+        "test:format",
         "test:spec",
         "test:types"
       ]
+    },
+    "test:format": {
+      "command": "oxfmt --check",
+      "files": [
+        ".github/**/*.yml",
+        ".vscode/**/*.json",
+        "*.md",
+        "package.json",
+        "src/**/*.ts",
+        "tsconfig.json"
+      ],
+      "output": []
     },
     "test:spec": {
       "command": "node --test",
