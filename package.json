@@ -1,49 +1,50 @@
 {
-    "name": "advent-of-code",
-    "type": "module",
-    "scripts": {
-        "test": "wireit"
+  "name": "advent-of-code",
+  "homepage": "https://github.com/pspeter3/advent-of-code#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pspeter3/advent-of-code.git"
+  },
+  "type": "module",
+  "scripts": {
+    "fix": "oxfmt --write",
+    "test": "wireit"
+  },
+  "dependencies": {
+    "heap-js": "^2.7.1",
+    "yalps": "^0.6.3",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@types/node": "^24.9.1",
+    "oxfmt": "^0.32.0",
+    "typescript": "^5.9.3",
+    "wireit": "^0.14.12"
+  },
+  "wireit": {
+    "test": {
+      "dependencies": [
+        "test:spec",
+        "test:types"
+      ]
     },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/pspeter3/advent-of-code.git"
+    "test:spec": {
+      "command": "node --test",
+      "files": [
+        "src/common/**/*.ts"
+      ],
+      "output": []
     },
-    "homepage": "https://github.com/pspeter3/advent-of-code#readme",
-    "dependencies": {
-        "heap-js": "^2.7.1",
-        "yalps": "^0.6.3",
-        "zod": "^4.1.12"
-    },
-    "devDependencies": {
-        "@types/node": "^24.9.1",
-        "oxfmt": "^0.32.0",
-        "typescript": "^5.9.3",
-        "wireit": "^0.14.12"
-    },
-    "wireit": {
-        "test": {
-            "dependencies": [
-                "test:spec",
-                "test:types"
-            ]
-        },
-        "test:spec": {
-            "command": "node --test",
-            "files": [
-                "src/common/**/*.ts"
-            ],
-            "output": []
-        },
-        "test:types": {
-            "command": "tsc",
-            "clean": "if-file-deleted",
-            "files": [
-                "src/**/*.ts",
-                "tsconfig.json"
-            ],
-            "output": [
-                "tsconfig.tsbuildinfo"
-            ]
-        }
+    "test:types": {
+      "command": "tsc",
+      "clean": "if-file-deleted",
+      "files": [
+        "src/**/*.ts",
+        "tsconfig.json"
+      ],
+      "output": [
+        "tsconfig.tsbuildinfo"
+      ]
     }
+  }
 }

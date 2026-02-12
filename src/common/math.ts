@@ -4,7 +4,7 @@
  * @returns The triangle number
  */
 export function toTriangle(value: number): number {
-    return 0.5 * value * (value + 1);
+  return 0.5 * value * (value + 1);
 }
 
 /**
@@ -14,7 +14,7 @@ export function toTriangle(value: number): number {
  * @returns The cantor id
  */
 export function toCantor(x: number, y: number): number {
-    return (x * x + x + 2 * x * y + 3 * y + y * y) / 2;
+  return (x * x + x + 2 * x * y + 3 * y + y * y) / 2;
 }
 
 /**
@@ -23,11 +23,11 @@ export function toCantor(x: number, y: number): number {
  * @returns The x,y pair
  */
 export function fromCantor(z: number): readonly [x: number, y: number] {
-    const w = Math.floor((Math.sqrt(8 * z + 1) - 1) / 2);
-    const t = toTriangle(w);
-    const y = z - t;
-    const x = w - y;
-    return [x, y];
+  const w = Math.floor((Math.sqrt(8 * z + 1) - 1) / 2);
+  const t = toTriangle(w);
+  const y = z - t;
+  const x = w - y;
+  return [x, y];
 }
 
 /**
@@ -36,7 +36,7 @@ export function fromCantor(z: number): readonly [x: number, y: number] {
  * @returns The zig zag value
  */
 export function toZigZag(value: number): number {
-    return value < 0 ? -2 * value - 1 : 2 * value;
+  return value < 0 ? -2 * value - 1 : 2 * value;
 }
 
 /**
@@ -45,8 +45,8 @@ export function toZigZag(value: number): number {
  * @returns The initial value
  */
 export function fromZigZag(value: number): number {
-    const result = Math.ceil(value / 2);
-    return value % 2 === 1 ? -result : result;
+  const result = Math.ceil(value / 2);
+  return value % 2 === 1 ? -result : result;
 }
 
 /**
@@ -56,10 +56,10 @@ export function fromZigZag(value: number): number {
  * @returns The great common divisor
  */
 export function greatestCommonDivisor(a: number, b: number): number {
-    if (b === 0) {
-        return a;
-    }
-    return greatestCommonDivisor(b, a % b);
+  if (b === 0) {
+    return a;
+  }
+  return greatestCommonDivisor(b, a % b);
 }
 
 /**
@@ -69,36 +69,28 @@ export function greatestCommonDivisor(a: number, b: number): number {
  * @returns The least common multiple.
  */
 export function leastCommonMultiple(a: number, b: number): number {
-    return Math.abs(a) * (Math.abs(b) / greatestCommonDivisor(a, b));
+  return Math.abs(a) * (Math.abs(b) / greatestCommonDivisor(a, b));
 }
 
-function extendedGreatestCommonDivisor(
-    a: number,
-    b: number,
-): readonly [number, number, number] {
-    if (b === 0) {
-        return [a, 1, 0];
-    }
-    const [gcd, x1, y1] = extendedGreatestCommonDivisor(b, a % b);
-    const x = y1;
-    const y = x1 - Math.floor(a / b) * y1;
-    return [gcd, x, y];
+function extendedGreatestCommonDivisor(a: number, b: number): readonly [number, number, number] {
+  if (b === 0) {
+    return [a, 1, 0];
+  }
+  const [gcd, x1, y1] = extendedGreatestCommonDivisor(b, a % b);
+  const x = y1;
+  const y = x1 - Math.floor(a / b) * y1;
+  return [gcd, x, y];
 }
 
-export function chineseRemainderTheorem(
-    a: number,
-    ma: number,
-    b: number,
-    mb: number,
-): number {
-    const [gcd, x, y] = extendedGreatestCommonDivisor(ma, mb);
-    if (gcd !== 1) {
-        throw new Error("The moduli are not coprime.");
-    }
-    const result = (a * y * mb + b * x * ma) % (ma * mb);
-    return result < 0 ? result + ma * mb : result;
+export function chineseRemainderTheorem(a: number, ma: number, b: number, mb: number): number {
+  const [gcd, x, y] = extendedGreatestCommonDivisor(ma, mb);
+  if (gcd !== 1) {
+    throw new Error("The moduli are not coprime.");
+  }
+  const result = (a * y * mb + b * x * ma) % (ma * mb);
+  return result < 0 ? result + ma * mb : result;
 }
 
 export function mod(n: number, m: number): number {
-    return ((n % m) + m) % m;
+  return ((n % m) + m) % m;
 }
