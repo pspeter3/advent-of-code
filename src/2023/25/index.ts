@@ -1,48 +1,42 @@
 import z from "zod";
 import { main } from "../../utils/host.ts";
 import { LinesSchema } from "../../utils/schemas.ts";
-import {
-    type Graph,
-    minCut,
-    type WeightedMatrixGraph,
-} from "../../common/graph.ts";
+import { type Graph, minCut, type WeightedMatrixGraph } from "../../common/graph.ts";
 
 const EdgeListSchema = z
-    .string()
-    .transform((line) => {
-        const [key, rest] = line.split(/:\s+/);
-        return [key, new Set(rest.split(/\s+/g))];
-    })
-    .pipe(z.tuple([z.string(), z.set(z.string())]));
+  .string()
+  .transform((line) => {
+    const [key, rest] = line.split(/:\s+/);
+    return [key, new Set(rest.split(/\s+/g))];
+  })
+  .pipe(z.tuple([z.string(), z.set(z.string())]));
 
 const GraphSchema = LinesSchema(EdgeListSchema).transform((entries) => {
-    const graph = new Map(entries);
-    for (const [key, edges] of graph) {
-        for (const edge of edges) {
-            if (!graph.has(edge)) {
-                graph.set(edge, new Set());
-            }
-            graph.get(edge)!.add(key);
-        }
+  const graph = new Map(entries);
+  for (const [key, edges] of graph) {
+    for (const edge of edges) {
+      if (!graph.has(edge)) {
+        graph.set(edge, new Set());
+      }
+      graph.get(edge)!.add(key);
     }
-    return graph;
+  }
+  return graph;
 });
 
 function toMatrixGraph<T>(graph: Graph<T>): WeightedMatrixGraph<T> {
-    const nodes = new Set(graph.keys());
-    const matrix = Array.from(nodes, (i) =>
-        Array.from(nodes, (j) => (graph.get(i)!.has(j) ? 1 : 0)),
-    );
-    return { nodes, matrix };
+  const nodes = new Set(graph.keys());
+  const matrix = Array.from(nodes, (i) => Array.from(nodes, (j) => (graph.get(i)!.has(j) ? 1 : 0)));
+  return { nodes, matrix };
 }
 
 const parse = (input: string): Graph<string> => GraphSchema.parse(input);
 
 const part1 = (graph: Graph<string>): number => {
-    const { nodes } = minCut(toMatrixGraph(graph));
-    const s = nodes.size;
-    const t = graph.size - s;
-    return s * t;
+  const { nodes } = minCut(toMatrixGraph(graph));
+  const s = nodes.size;
+  const t = graph.size - s;
+  return s * t;
 };
 
 const part2 = (_: unknown): number => 0;

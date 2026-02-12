@@ -9,48 +9,47 @@ const VectorSchema = z.tuple([IntSchema, IntSchema]);
 const SegmentSchema = z.tuple([VectorSchema, VectorSchema]);
 
 const schema = LinesSchema(
-    z.preprocess(
-        (line) =>
-            StringSchema.parse(line)
-                .split(" -> ")
-                .map((part) => part.split(",")),
-        SegmentSchema,
-    ),
+  z.preprocess(
+    (line) =>
+      StringSchema.parse(line)
+        .split(" -> ")
+        .map((part) => part.split(",")),
+    SegmentSchema,
+  ),
 );
 
-const isGridLine = ([[x1, y1], [x2, y2]]: Segment): boolean =>
-    x1 === x2 || y1 === y2;
+const isGridLine = ([[x1, y1], [x2, y2]]: Segment): boolean => x1 === x2 || y1 === y2;
 
 const interpolate = ([[x1, y1], [x2, y2]]: Segment): ReadonlyArray<Vector> => {
-    const delta = [x2 - x1, y2 - y1];
-    const length = Math.max(...delta.map((value) => Math.abs(value)));
-    const [dx, dy] = delta.map((value) => Math.sign(value));
-    const vectors: Vector[] = [];
-    for (let i = 0; i <= length; i++) {
-        vectors.push([x1 + i * dx, y1 + i * dy]);
-    }
-    return vectors;
+  const delta = [x2 - x1, y2 - y1];
+  const length = Math.max(...delta.map((value) => Math.abs(value)));
+  const [dx, dy] = delta.map((value) => Math.sign(value));
+  const vectors: Vector[] = [];
+  for (let i = 0; i <= length; i++) {
+    vectors.push([x1 + i * dx, y1 + i * dy]);
+  }
+  return vectors;
 };
 
 const intersections = (segments: ReadonlyArray<Segment>): number => {
-    const vents = new Map<string, number>();
-    for (const segment of segments) {
-        for (const vector of interpolate(segment)) {
-            const key = vector.join(",");
-            vents.set(key, (vents.get(key) ?? 0) + 1);
-        }
+  const vents = new Map<string, number>();
+  for (const segment of segments) {
+    for (const vector of interpolate(segment)) {
+      const key = vector.join(",");
+      vents.set(key, (vents.get(key) ?? 0) + 1);
     }
-    let count = 0;
-    for (const value of vents.values()) {
-        if (value >= 2) {
-            count++;
-        }
+  }
+  let count = 0;
+  for (const value of vents.values()) {
+    if (value >= 2) {
+      count++;
     }
-    return count;
+  }
+  return count;
 };
 
 const part1 = (segments: ReadonlyArray<Segment>): number =>
-    intersections(segments.filter(isGridLine));
+  intersections(segments.filter(isGridLine));
 
 const part2 = intersections;
 
