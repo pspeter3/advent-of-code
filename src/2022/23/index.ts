@@ -133,7 +133,7 @@ interface ProposedMove {
 }
 
 const propose = (
-  ids: ReadonlySet<BigInt>,
+  ids: ReadonlySet<bigint>,
   elf: GridTile,
   direction: Direction,
 ): ProposedMove | null => {

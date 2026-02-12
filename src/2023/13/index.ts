@@ -6,7 +6,7 @@ import { sum, zip } from "../../common/itertools.ts";
 type Pattern = ReadonlyArray<string>;
 type PatternList = ReadonlyArray<Pattern>;
 
-const PatternSchema = LinesSchema(z.string().regex(/^[\.#]+$/));
+const PatternSchema = LinesSchema(z.string().regex(/^[.#]+$/));
 const PatternListSchema = z
   .string()
   .transform((input) => input.trim().split("\n\n"))

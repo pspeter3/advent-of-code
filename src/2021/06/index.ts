@@ -10,7 +10,7 @@ const schema = z.preprocess(
 const LIFECYCLE = 6;
 const GESTATION = 8;
 
-const forecast = (fish: ReadonlyArray<number>, days: number): BigInt => {
+const forecast = (fish: ReadonlyArray<number>, days: number): bigint => {
   const cache = new BigUint64Array(GESTATION + 1);
   for (const timer of fish) {
     cache[timer]++;
@@ -26,7 +26,7 @@ const forecast = (fish: ReadonlyArray<number>, days: number): BigInt => {
   return cache.reduce((a, e) => a + e);
 };
 
-const part1 = (fish: ReadonlyArray<number>): BigInt => forecast(fish, 80);
-const part2 = (fish: ReadonlyArray<number>): BigInt => forecast(fish, 256);
+const part1 = (fish: ReadonlyArray<number>): bigint => forecast(fish, 80);
+const part2 = (fish: ReadonlyArray<number>): bigint => forecast(fish, 256);
 
 await main(import.meta, (input) => schema.parse(input), part1, part2);

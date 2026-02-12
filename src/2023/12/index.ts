@@ -7,7 +7,7 @@ type NumberList = ReadonlyArray<number>;
 type SpringRow = readonly [status: string, groups: NumberList];
 type SpringRowList = ReadonlyArray<SpringRow>;
 
-const SpringStatusSchema = z.string().regex(/^[\.#\?]+$/);
+const SpringStatusSchema = z.string().regex(/^[.#?]+$/);
 const NumberListSchema = z
   .string()
   .transform((chunk) => chunk.split(","))
@@ -41,7 +41,7 @@ const count = memoize((status: string, groups: NumberList): number => {
       if (status.length > group && status.at(group) === "#") {
         return 0;
       }
-      if (status.match(new RegExp(`^[#\?]{${group}}`)) === null) {
+      if (status.match(new RegExp(`^[#?]{${group}}`)) === null) {
         return 0;
       }
       return count(status.slice(group + 1), remaining);

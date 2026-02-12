@@ -116,7 +116,7 @@ class Grid implements Cursor {
     const rowMax: number[] = Array.from({ length: size.q }, () => -Infinity);
     const entries: Array<readonly [id: number, kind: TileKind]> = [];
     for (const [r, line] of lines.entries()) {
-      const match = line.match(/^(\s*)([\.#]+)$/);
+      const match = line.match(/^(\s*)([.#]+)$/);
       if (match === null) {
         throw new Error(`Invalid line (${line})`);
       }
@@ -221,7 +221,7 @@ class CubeGrid implements Cursor {
   #connections: Map<SideId, Map<Facing, Connection>>;
 
   constructor(section: string) {
-    const scale = Math.sqrt((section.match(/[\.#]/g)?.length ?? 0) / 6);
+    const scale = Math.sqrt((section.match(/[.#]/g)?.length ?? 0) / 6);
     const lines = section.split("\n");
     const size = new Tile(
       lines.reduce((current, line) => Math.max(current, line.length), -Infinity),

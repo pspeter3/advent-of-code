@@ -7,7 +7,7 @@
   },
   "type": "module",
   "scripts": {
-    "fix": "oxfmt --write",
+    "fix": "wireit",
     "test": "wireit"
   },
   "dependencies": {
@@ -18,13 +18,27 @@
   "devDependencies": {
     "@types/node": "^24.9.1",
     "oxfmt": "^0.32.0",
+    "oxlint": "^1.47.0",
     "typescript": "^5.9.3",
     "wireit": "^0.14.12"
   },
   "wireit": {
+    "fix": {
+      "dependencies": [
+        "fix:format",
+        "fix:lint"
+      ]
+    },
+    "fix:format": {
+      "command": "oxfmt --write"
+    },
+    "fix:lint": {
+      "command": "oxlint --fix"
+    },
     "test": {
       "dependencies": [
         "test:format",
+        "test:lint",
         "test:spec",
         "test:types"
       ]
@@ -38,6 +52,13 @@
         "package.json",
         "src/**/*.ts",
         "tsconfig.json"
+      ],
+      "output": []
+    },
+    "test:lint": {
+      "command": "oxlint",
+      "files": [
+        "src/**/*.ts"
       ],
       "output": []
     },
