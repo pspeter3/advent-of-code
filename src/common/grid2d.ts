@@ -165,7 +165,7 @@ const DELTAS: ReadonlyArray<GridVector2D> = [
 ];
 
 export function toGridDelta(direction: GridDirection): GridVector2D {
-  return DELTAS[direction];
+  return DELTAS[direction]!;
 }
 
 export function toGridDirection(delta: GridVector2DRecord): GridDirection {
@@ -271,14 +271,14 @@ export class MatrixGrid<T> implements Iterable<MatrixGridEntry<T>> {
   constructor(matrix: ReadonlyArray<ReadonlyArray<T>>) {
     this.matrix = matrix;
     this.bounds = GridBounds2D.fromOrigin({
-      q: matrix[0].length,
+      q: matrix[0]?.length ?? 0,
       r: matrix.length,
     });
   }
 
   at(vector: GridVector2DRecord): T {
     this.bounds.assert(vector);
-    return this.matrix[vector.r][vector.q];
+    return this.matrix[vector.r]![vector.q]!;
   }
 
   keys(): Generator<GridVector2D> {

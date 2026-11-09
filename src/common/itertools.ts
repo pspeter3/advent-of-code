@@ -88,10 +88,10 @@ export function* permutations<T>(list: ReadonlyArray<T>): Generator<ReadonlyArra
   if (list.length === 0) {
     yield [];
   } else {
-    for (let i = 0; i < list.length; i++) {
+    for (const [i, item] of list.entries()) {
       const rest = [...list.slice(0, i), ...list.slice(i + 1)];
       for (const perm of permutations(rest)) {
-        yield [list[i], ...perm];
+        yield [item, ...perm];
       }
     }
   }
@@ -100,9 +100,9 @@ export function* permutations<T>(list: ReadonlyArray<T>): Generator<ReadonlyArra
 export type Pair<T> = readonly [a: T, b: T];
 
 export function* pairs<T>(list: ReadonlyArray<T>): Generator<Pair<T>> {
-  for (let i = 0; i < list.length; i++) {
-    for (let j = i + 1; j < list.length; j++) {
-      yield [list[i], list[j]];
+  for (const [i, a] of list.entries()) {
+    for (const b of list.slice(i + 1)) {
+      yield [a, b];
     }
   }
 }
