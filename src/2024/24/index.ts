@@ -203,7 +203,7 @@ const part2 = ({ gates }: Puzzle): string => {
         }
         if (
           connections.get(out) !== "ANDXOR" ||
-          [lhs, rhs, out].every((k) => !prefixes.has(k[0]))
+          [lhs, rhs, out].every((k) => !prefixes.has(k[0]!))
         ) {
           wrong.add(out);
           break;

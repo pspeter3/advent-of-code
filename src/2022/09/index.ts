@@ -80,7 +80,7 @@ const chase = (head: GridCell, tail: GridCell): GridCell => {
       return cell;
     }
     case 1: {
-      const [direction, amount] = moves[0];
+      const [direction, amount] = moves[0]!;
       switch (amount) {
         case 1: {
           return cell;
@@ -132,14 +132,14 @@ const part1 = (moves: MoveList): number => {
 const part2 = (moves: MoveList): number => {
   const knots = Array.from({ length: 10 }, () => new GridCell(0, 0));
   const tail = knots.length - 1;
-  const cells = new Set<bigint>([knots[tail].id]);
+  const cells = new Set<bigint>([knots[tail]!.id]);
   for (const [direction, amount] of moves) {
     for (let i = 0; i < amount; i++) {
-      knots[0] = knots[0].move(direction);
+      knots[0] = knots[0]!.move(direction);
       for (let k = 1; k < knots.length; k++) {
-        knots[k] = chase(knots[k - 1], knots[k]);
+        knots[k] = chase(knots[k - 1]!, knots[k]!);
       }
-      cells.add(knots[tail].id);
+      cells.add(knots[tail]!.id);
     }
   }
   return cells.size;

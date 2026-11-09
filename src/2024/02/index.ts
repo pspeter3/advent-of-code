@@ -15,7 +15,7 @@ const ReportListSchema = LinesSchema(ReportSchema);
 function isSafe(report: Report): boolean {
   let sign: number | null = null;
   for (let i = 1; i < report.length; i++) {
-    const delta = report[i] - report[i - 1];
+    const delta = report[i]! - report[i - 1]!;
     if (delta === 0 || Math.abs(delta) > 3) {
       return false;
     }

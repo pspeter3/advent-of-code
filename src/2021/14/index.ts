@@ -53,7 +53,7 @@ const replace = (
 const count = (tokens: ReadonlyMap<string, number>): ReadonlyArray<number> => {
   const counts = new Map<string, number>();
   for (const [token, count] of tokens) {
-    increment(counts, token[1], count);
+    increment(counts, token[1]!, count);
   }
   return Array.from(counts.values());
 };

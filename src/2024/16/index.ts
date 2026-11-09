@@ -135,15 +135,15 @@ const parse = (input: string): MazeResult => {
     .split("\n")
     .map((line) => line.split(""));
   const bounds = GridBounds2D.fromOrigin({
-    q: matrix[0].length,
+    q: matrix[0]!.length,
     r: matrix.length,
   });
   const walls = new GridVector2DSet(
     bounds,
-    bounds.values().filter((v) => matrix[v.r][v.q] === "#"),
+    bounds.values().filter((v) => matrix[v.r]![v.q] === "#"),
   );
-  const start = bounds.values().find((v) => matrix[v.r][v.q] === "S")!;
-  const end = bounds.values().find((v) => matrix[v.r][v.q] === "E")!;
+  const start = bounds.values().find((v) => matrix[v.r]![v.q] === "S")!;
+  const end = bounds.values().find((v) => matrix[v.r]![v.q] === "E")!;
   const visitor = new MazeVisitor({ bounds, walls, start, end });
   return visitor.solve();
 };

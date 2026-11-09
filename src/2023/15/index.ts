@@ -28,7 +28,7 @@ function toOperation(step: string): Operation {
     };
   }
   const [label, value] = step.split(ADD);
-  return { kind: ADD, label, focal: parseInt(value, 10) };
+  return { kind: ADD, label: label!, focal: parseInt(value!, 10) };
 }
 
 function* toPower(boxes: ReadonlyArray<ReadonlyMap<string, number>>): Iterable<number> {
@@ -48,7 +48,7 @@ const part2 = (sequence: ReadonlyArray<string>): number => {
   for (const step of sequence) {
     const op = toOperation(step);
     const index = hash(op.label);
-    const box = boxes[index];
+    const box = boxes[index]!;
     switch (op.kind) {
       case REMOVE: {
         box.delete(op.label);

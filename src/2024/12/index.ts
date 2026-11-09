@@ -63,7 +63,7 @@ const parse = (input: string): RegionList => {
         }
         if (tiles.length === 2) {
           const [a, b] = tiles;
-          const diagonal = a.neighbors().every(([_, n]) => !n.equals(b));
+          const diagonal = a!.neighbors().every(([_, n]) => !n.equals(b!));
           if (diagonal) {
             corners.add(corner);
             doubles.add(corner);

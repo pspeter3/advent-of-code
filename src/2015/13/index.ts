@@ -6,8 +6,8 @@ const PATTERN = /^(\w+) would (gain|lose) (\d+) happiness units by sitting next 
 
 function* pairs(names: ReadonlyArray<string>): Generator<readonly [string, string]> {
   for (let i = 0; i < names.length; i++) {
-    const a = names[i];
-    const b = names[(i + 1) % names.length];
+    const a = names[i]!;
+    const b = names[(i + 1) % names.length]!;
     yield [a, b] as const;
     yield [b, a] as const;
   }
@@ -21,11 +21,11 @@ const parse = (input: string): WeightedGraph<string> => {
       throw new Error(`Invalid line: ${line}`);
     }
     const [_, source, sign, amount, target] = match;
-    const value = parseInt(amount, 10) * (sign === "gain" ? 1 : -1);
-    if (!graph.has(source)) {
-      graph.set(source, new Map());
+    const value = parseInt(amount!, 10) * (sign === "gain" ? 1 : -1);
+    if (!graph.has(source!)) {
+      graph.set(source!, new Map());
     }
-    graph.get(source)!.set(target, value);
+    graph.get(source!)!.set(target!, value);
   }
   return graph;
 };

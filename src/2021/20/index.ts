@@ -52,25 +52,25 @@ const enhance = (enhancement: PixelList, pixels: PixelList): Pixel => {
   if (index < 0 || index >= enhancement.length) {
     throw new Error("Invalid index");
   }
-  return enhancement[index];
+  return enhancement[index]!;
 };
 
 const contains = (grid: PixelGrid, [row, col]: Cell): boolean =>
-  row >= 0 && col >= 0 && row < grid.length && col < grid[0].length;
+  row >= 0 && col >= 0 && row < grid.length && col < grid[0]!.length;
 
 const valueOf = (grid: PixelGrid, cell: Cell, none: Pixel): Pixel => {
   if (!contains(grid, cell)) {
     return none;
   }
   const [row, col] = cell;
-  return grid[row][col];
+  return grid[row]![col]!;
 };
 
 const evolve = (enhancement: PixelList, { none, grid }: PixelMap): PixelMap => {
   const next: Pixel[][] = [];
   for (let r = -1; r <= grid.length; r++) {
     const row: Pixel[] = [];
-    for (let c = -1; c <= grid[0].length; c++) {
+    for (let c = -1; c <= grid[0]!.length; c++) {
       row.push(
         enhance(
           enhancement,

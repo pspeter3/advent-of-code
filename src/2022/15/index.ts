@@ -40,8 +40,8 @@ const parse = (input: string): ReadonlyMap<Tile, number> =>
           throw new Error(`Invalid line: ${line}`);
         }
         const [sx, sy, bx, by] = match.slice(1).map((value) => toInt(value));
-        const sensor = new Tile(sx, sy);
-        return [sensor, sensor.distance(new Tile(bx, by))];
+        const sensor = new Tile(sx!, sy!);
+        return [sensor, sensor.distance(new Tile(bx!, by!))];
       }),
   );
 

@@ -120,20 +120,20 @@ class Grid implements Cursor {
       if (match === null) {
         throw new Error(`Invalid line (${line})`);
       }
-      const offset = match[1].length;
-      for (const [i, char] of Array.from(match[2]).entries()) {
+      const offset = match[1]!.length;
+      for (const [i, char] of Array.from(match[2]!).entries()) {
         const q = offset + i;
         const kind = TileKindSchema.parse(char);
         const tile = new Tile(q, r);
         entries.push([toId(size, tile), kind]);
-        rowMin[q] = Math.min(rowMin[q], r);
-        rowMax[q] = Math.max(rowMax[q], r);
+        rowMin[q] = Math.min(rowMin[q]!, r);
+        rowMax[q] = Math.max(rowMax[q]!, r);
       }
       cols.push(new Bounds(offset, line.length - 1));
     }
     this.#size = size;
     this.#cols = cols;
-    this.#rows = rowMin.map((min, index) => new Bounds(min, rowMax[index]));
+    this.#rows = rowMin.map((min, index) => new Bounds(min, rowMax[index]!));
     this.#data = new Map(entries);
     this.#tile = this.#start();
     this.#facing = Facing.Right;
@@ -167,7 +167,7 @@ class Grid implements Cursor {
 
   #start(): Tile {
     const r = 0;
-    for (const q of this.#cols[r]) {
+    for (const q of this.#cols[r]!) {
       const tile = new Tile(q, r);
       if (this.#kind(tile) === TileKind.Open) {
         return tile;
@@ -179,16 +179,16 @@ class Grid implements Cursor {
   #step({ q, r }: Tile, facing: Facing): Tile {
     switch (facing) {
       case Facing.Right: {
-        return new Tile(this.#cols[r].step(q, 1), r);
+        return new Tile(this.#cols[r]!.step(q, 1), r);
       }
       case Facing.Down: {
-        return new Tile(q, this.#rows[q].step(r, 1));
+        return new Tile(q, this.#rows[q]!.step(r, 1));
       }
       case Facing.Left: {
-        return new Tile(this.#cols[r].step(q, -1), r);
+        return new Tile(this.#cols[r]!.step(q, -1), r);
       }
       case Facing.Up: {
-        return new Tile(q, this.#rows[q].step(r, -1));
+        return new Tile(q, this.#rows[q]!.step(r, -1));
       }
     }
   }
@@ -233,7 +233,7 @@ class CubeGrid implements Cursor {
     for (let r = 0; r < scaledSize.r; r++) {
       const chars: string[] = [];
       const row = r * scale;
-      const line = lines[row];
+      const line = lines[row]!;
       for (let q = 0; q < scaledSize.q; q++) {
         const col = q * scale;
         if (col >= line.length || line[col] === " ") {
@@ -251,7 +251,7 @@ class CubeGrid implements Cursor {
     }
     const sideId = 0;
     const r = 0;
-    const q = tiles[sideId][r].indexOf(TileKind.Open);
+    const q = tiles[sideId]![r]!.indexOf(TileKind.Open);
     if (q === -1) {
       throw new Error("Cannot find start");
     }
@@ -274,7 +274,7 @@ class CubeGrid implements Cursor {
       let nextSideId = this.#sideId;
       let nextTile = this.#tile.neighbor(this.#facing);
       if (!this.#inBounds(nextTile)) {
-        const neighbor = this.#sides[this.#sideId].neighbor(this.#facing);
+        const neighbor = this.#sides[this.#sideId]!.neighbor(this.#facing);
         const index = this.#sides.findIndex((tile) => tile.equals(neighbor));
         if (index !== -1) {
           nextSideId = index as SideId;
@@ -299,7 +299,7 @@ class CubeGrid implements Cursor {
   }
 
   score(): number {
-    const { q, r } = this.#sides[this.#sideId];
+    const { q, r } = this.#sides[this.#sideId]!;
     return score(
       new Tile(q * this.scale + this.#tile.q, r * this.scale + this.#tile.r),
       this.#facing,
@@ -318,7 +318,7 @@ class CubeGrid implements Cursor {
   }
 
   #isWall(sideId: SideId, { q, r }: Tile): boolean {
-    return this.#tiles[sideId][r][q] === TileKind.Wall;
+    return this.#tiles[sideId]![r]![q] === TileKind.Wall;
   }
 }
 
@@ -359,8 +359,8 @@ function* parseInstructions(line: string): IterableIterator<Instruction> {
 const parse = (input: string): ForceField => {
   const sections = input.split("\n\n");
   const section = sections[0];
-  const instructions = Array.from(parseInstructions(sections[1]));
-  return { section, instructions };
+  const instructions = Array.from(parseInstructions(sections[1]!));
+  return { section: section!, instructions };
 };
 
 const part1 = ({ section, instructions }: ForceField): number =>

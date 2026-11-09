@@ -21,7 +21,7 @@ function findMaxBatteryInRange(bank: BatteryBank, start: number, end: number): n
   let max = 0;
   let index = -1;
   for (let i = start; i < end; i++) {
-    const battery = bank[i];
+    const battery = bank[i]!;
     if (battery > max) {
       max = battery;
       index = i;
@@ -39,7 +39,7 @@ function findJolts(bank: BatteryBank, digits: number): number {
   for (let i = 1; i <= digits; i++) {
     const index = findMaxBatteryInRange(bank, curr, bank.length - (digits - i));
     curr = index + 1;
-    batteries.push(bank[index]);
+    batteries.push(bank[index]!);
   }
   return batteries.reduce(
     (result, battery, index) => result + battery * Math.pow(10, digits - index - 1),

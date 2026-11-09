@@ -28,10 +28,10 @@ const parseButton = (chunk: string): Set<number> => new Set(parseList(chunk));
 
 const parseMachine = (line: string): Machine => {
   const chunks = line.split(" ");
-  const indicator = unwrap(chunks[0]);
+  const indicator = unwrap(chunks[0]!);
   const target = parseIndicator(indicator);
   const buttons = chunks.slice(1, chunks.length - 1).map(parseButton);
-  const joltages = parseList(chunks[chunks.length - 1]);
+  const joltages = parseList(chunks[chunks.length - 1]!);
   if (joltages.length !== indicator.length) {
     throw new Error("Mismatched joltages");
   }

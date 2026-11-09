@@ -54,28 +54,28 @@ function createSlices(grid: CharGrid): ReadonlyArray<DigitCharSlice> {
 }
 
 function toValue(grid: CharGrid, { row, start, end }: DigitCharSlice): number {
-  return parseInt(grid[row].slice(start, end).join(""), 10);
+  return parseInt(grid[row]!.slice(start, end).join(""), 10);
 }
 
 function* neighbors(grid: CharGrid, { row, start, end }: DigitCharSlice): Iterable<Char> {
   const rows = grid.length;
-  const cols = grid[0].length;
+  const cols = grid[0]!.length;
   let min = Math.max(0, start - 1);
   let max = Math.min(cols - 1, end);
   if (min !== start) {
-    yield grid[row][min];
+    yield grid[row]![min]!;
   }
   if (max === end) {
-    yield grid[row][max];
+    yield grid[row]![max]!;
   }
   if (row - 1 >= 0) {
     for (let col = min; col <= max; col++) {
-      yield grid[row - 1][col];
+      yield grid[row - 1]![col]!;
     }
   }
   if (row + 1 < rows) {
     for (let col = min; col <= max; col++) {
-      yield grid[row + 1][col];
+      yield grid[row + 1]![col]!;
     }
   }
 }

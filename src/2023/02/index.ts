@@ -30,8 +30,8 @@ const CubeGameSchema = z
   .transform((s) => {
     const parts = s.split(": ");
     return {
-      id: parts[0].replace("Game ", ""),
-      samples: parts[1].split("; "),
+      id: parts[0]!.replace("Game ", ""),
+      samples: parts[1]!.split("; "),
     };
   })
   .pipe(

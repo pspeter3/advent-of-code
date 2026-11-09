@@ -67,8 +67,8 @@ function drop(bricks: BrickList): BrickGraph {
       .get(base)!
       .values()
       .filter(([i]) => i !== -1)) {
-      depends[index].add(i);
-      supports[i].add(index);
+      depends[index]!.add(i);
+      supports[i]!.add(index);
     }
   }
   return { depends, supports };
@@ -77,11 +77,11 @@ function drop(bricks: BrickList): BrickGraph {
 function chain({ depends, supports }: BrickGraph, index: number): number {
   const queue = new Set([index]);
   for (const id of queue) {
-    for (const n of supports[id]) {
+    for (const n of supports[id]!) {
       if (queue.has(n)) {
         continue;
       }
-      if (depends[n].values().some((i) => !queue.has(i))) {
+      if (depends[n]!.values().some((i) => !queue.has(i))) {
         continue;
       }
       queue.add(n);

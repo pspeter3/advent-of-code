@@ -57,7 +57,7 @@ const toGraph = (valves: ValveMap, start: string): ValveGraph => {
   const keys = Array.from(result.keys());
   for (const [i, source] of keys.entries()) {
     for (let j = i + 1; j < keys.length; j++) {
-      const target = keys[j];
+      const target = keys[j]!;
       const d = distance(valves, source, target);
       result.get(source)!.set(target, d);
       result.get(target)!.set(source, d);
@@ -136,13 +136,13 @@ const doubleTraverse = (
   let max = 0;
   if (arriving.length === 2) {
     const loop = new Set();
-    for (const [a, aTime] of graph.get(arriving[0])!) {
+    for (const [a, aTime] of graph.get(arriving[0]!)!) {
       const aNext = minute + aTime + 1;
       if (aNext >= limit || opened.has(a)) {
         continue;
       }
       loop.add(a);
-      for (const [b, bTime] of graph.get(arriving[1])!) {
+      for (const [b, bTime] of graph.get(arriving[1]!)!) {
         const bNext = minute + bTime + 1;
         if (bNext >= limit || opened.has(b) || loop.has(b)) {
           continue;
@@ -163,7 +163,7 @@ const doubleTraverse = (
       }
     }
   } else {
-    const current = arriving[0];
+    const current = arriving[0]!;
     const transit = team.find(([label, _]) => label !== current)!;
     const [label, arrive] = transit;
     let count = 0;

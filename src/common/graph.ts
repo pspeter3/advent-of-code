@@ -27,8 +27,9 @@ export function minCut<T>(graph: WeightedMatrixGraph<T>): WeightedGraphCutResult
   const size = graph.nodes.size;
   const partitions = Array.from({ length: size }, (_, i) => new Set([i]));
   const matrix = structuredClone(graph.matrix) as number[][];
+  const row = (index: number): number[] => matrix[index]!;
   for (let phase = 1; phase < size; phase++) {
-    const weights = Array.from(matrix[0]);
+    const weights = Array.from(row(0));
     let s = 0,
       t = 0;
     for (let iteration = 0; iteration < size - phase; iteration++) {
@@ -44,22 +45,22 @@ export function minCut<T>(graph: WeightedMatrixGraph<T>): WeightedGraphCutResult
       }
       t = index!;
       for (let i = 0; i < size; i++) {
-        weights[i] += matrix[t][i];
+        weights[i]! += row(t)[i]!;
       }
     }
-    const cuts = weights[t] - matrix[t][t];
+    const cuts = weights[t]! - row(t)[t]!;
     if (cuts < best.cuts) {
       best = {
         cuts,
-        nodes: new Set(partitions[t].values().map((index) => nodes[index])),
+        nodes: new Set(partitions[t]!.values().map((index) => nodes[index]!)),
       };
     }
-    for (const id of partitions[t]) {
-      partitions[s].add(id);
+    for (const id of partitions[t]!) {
+      partitions[s]!.add(id);
     }
-    for (let i = 0; i < size; i++) matrix[s][i] += matrix[t][i];
-    for (let i = 0; i < size; i++) matrix[i][s] = matrix[s][i];
-    matrix[0][t] = -Infinity;
+    for (let i = 0; i < size; i++) row(s)[i]! += row(t)[i]!;
+    for (let i = 0; i < size; i++) row(i)[s] = row(s)[i]!;
+    row(0)[t] = -Infinity;
   }
 
   return best;

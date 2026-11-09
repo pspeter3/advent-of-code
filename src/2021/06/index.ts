@@ -13,15 +13,15 @@ const GESTATION = 8;
 const forecast = (fish: ReadonlyArray<number>, days: number): bigint => {
   const cache = new BigUint64Array(GESTATION + 1);
   for (const timer of fish) {
-    cache[timer]++;
+    cache[timer]!++;
   }
   for (let day = 0; day < days; day++) {
-    const parents = cache[0];
+    const parents = cache[0]!;
     for (let i = 0; i < GESTATION; i++) {
-      cache[i] = cache[i + 1];
+      cache[i] = cache[i + 1]!;
     }
     cache[GESTATION] = parents;
-    cache[LIFECYCLE] += parents;
+    cache[LIFECYCLE]! += parents;
   }
   return cache.reduce((a, e) => a + e);
 };

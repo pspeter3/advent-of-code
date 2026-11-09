@@ -16,8 +16,7 @@ const toInt = (value: string): number => parseInt(value, 10);
 const parseStacks = (section: string): ReadonlyMap<number, ReadonlyArray<string>> => {
   const stacks = new Map<number, string[]>();
   const lines = section.split("\n");
-  const keys = lines[lines.length - 1]
-    .trim()
+  const keys = lines[lines.length - 1]!.trim()
     .split(/\s+/)
     .map((key) => toInt(key));
   const inventory = lines.slice(0, lines.length - 1).reverse();
@@ -41,16 +40,16 @@ const parseMoves = (section: string): ReadonlyArray<MoveOperation> =>
     if (match === null) {
       throw new Error(`Invalid move "${line}"`);
     }
-    const source = toInt(match[2]);
-    const amount = toInt(match[1]);
-    const target = toInt(match[3]);
+    const source = toInt(match[2]!);
+    const amount = toInt(match[1]!);
+    const target = toInt(match[3]!);
     return { amount, source, target };
   });
 
 const parse = (input: string): Input => {
   const sections = input.trimEnd().split("\n\n");
-  const stacks = parseStacks(sections[0]);
-  const moves = parseMoves(sections[1]);
+  const stacks = parseStacks(sections[0]!);
+  const moves = parseMoves(sections[1]!);
   return { stacks, moves };
 };
 

@@ -92,7 +92,7 @@ const part2 = (lines: ReadonlyArray<ReadonlyArray<Character>>): number => {
       );
     }
   }
-  return scores.sort((a, b) => a - b)[Math.floor(scores.length / 2)];
+  return scores.sort((a, b) => a - b)[Math.floor(scores.length / 2)]!;
 };
 
 await main(import.meta, (input) => schema.parse(input), part1, part2);

@@ -25,7 +25,7 @@ function compareList(left: Packet, right: Packet): boolean | null {
     if (index >= right.length) {
       return false;
     }
-    const result = compareValue(item, right[index]);
+    const result = compareValue(item, right[index]!);
     if (result !== null) {
       return result;
     }

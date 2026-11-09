@@ -50,7 +50,7 @@ const WorkflowEntrySchema = z
   .string()
   .transform((line) => {
     const [key, value] = line.replace("}", "").split("{");
-    return [key, value.split(",")];
+    return [key, value!.split(",")];
   })
   .pipe(z.tuple([z.string(), z.array(WorkflowRuleSchema)]));
 const WorkflowMapSchema = LinesSchema(WorkflowEntrySchema).transform((entries) => new Map(entries));

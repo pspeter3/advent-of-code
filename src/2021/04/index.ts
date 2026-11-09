@@ -38,8 +38,8 @@ const isBingo = (marked: MarkedBoard): boolean => {
     let row = true;
     let col = true;
     for (let j = 0; j < size; j++) {
-      row = row && marked[i][j];
-      col = col && marked[j][i];
+      row = row && marked[i]![j]!;
+      col = col && marked[j]![i]!;
     }
     if (row || col) {
       return true;
@@ -50,7 +50,8 @@ const isBingo = (marked: MarkedBoard): boolean => {
 
 const score = (draw: number, board: Board, marked: MarkedBoard): number =>
   board.reduce(
-    (sum, cells, row) => cells.reduce((sum, cell, col) => sum + (marked[row][col] ? 0 : cell), sum),
+    (sum, cells, row) =>
+      cells.reduce((sum, cell, col) => sum + (marked[row]![col] ? 0 : cell), sum),
     0,
   ) * draw;
 
@@ -60,7 +61,7 @@ const part1 = ({ draws, boards }: Bingo): number | null => {
     for (const board of boards) {
       const marked = mark(candidates, board);
       if (isBingo(marked)) {
-        return score(draws[draw - 1], board, marked);
+        return score(draws[draw - 1]!, board, marked);
       }
     }
   }
@@ -72,10 +73,10 @@ const part2 = ({ draws, boards }: Bingo): number | null => {
   for (let draw = 1; draw <= draws.length; draw++) {
     const candidates = new Set(draws.slice(0, draw));
     if (options.length === 1) {
-      const board = options[0];
+      const board = options[0]!;
       const marked = mark(candidates, board);
       if (isBingo(marked)) {
-        return score(draws[draw - 1], board, marked);
+        return score(draws[draw - 1]!, board, marked);
       }
     }
     options = options.filter((board) => !isBingo(mark(candidates, board)));

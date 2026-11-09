@@ -18,10 +18,10 @@ const schema = LinesSchema(
 const decimal = (bits: BitString): number => parseInt(bits.join(""), 2);
 
 const part1 = (input: ReadonlyArray<BitString>): number => {
-  const counters: ReadonlyArray<Counter> = Array.from({ length: input[0].length }, () => [0, 0]);
+  const counters: ReadonlyArray<Counter> = Array.from({ length: input[0]!.length }, () => [0, 0]);
   for (const line of input) {
     for (const [index, bit] of line.entries()) {
-      counters[index][bit]++;
+      counters[index]![bit]++;
     }
   }
   const gamma = decimal(counters.map((counter) => counter.indexOf(Math.max(...counter)) as Bit));
@@ -35,11 +35,11 @@ const seek = (
   fallback: Bit,
 ): number => {
   let valid = input;
-  const max = input[0].length;
+  const max = input[0]!.length;
   for (let index = 0; index < max; index++) {
     const counter: Counter = [0, 0];
     for (const line of valid) {
-      counter[line[index]]++;
+      counter[line[index]!]++;
     }
     let bit = counter.indexOf(callback(...counter));
     if (counter[0] === counter[1]) {
@@ -47,7 +47,7 @@ const seek = (
     }
     valid = valid.filter((line) => line[index] === bit);
     if (valid.length === 1) {
-      return decimal(valid[0]);
+      return decimal(valid[0]!);
     }
   }
   throw new Error("Could not find valid option");

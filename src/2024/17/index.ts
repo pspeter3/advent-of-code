@@ -42,7 +42,7 @@ const ProgramSchema = z
   .string()
   .transform((line) =>
     line
-      .split(": ")[1]
+      .split(": ")[1]!
       .trim()
       .split(",")
       .map((value) => parseInt(value, 10)),
@@ -70,8 +70,8 @@ class Computer {
 
   exec(): ReadonlyArray<number> {
     while (this.#instruction < this.#program.length) {
-      const op = this.#program[this.#instruction];
-      const value = this.#program[this.#instruction + 1];
+      const op = this.#program[this.#instruction]!;
+      const value = this.#program[this.#instruction + 1]!;
       this.#eval(op, value);
     }
     return this.#out;

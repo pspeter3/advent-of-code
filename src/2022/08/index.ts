@@ -21,10 +21,10 @@ function pair(a: number, b: number): bigint {
 const part1 = (grid: Grid): number => {
   const visibile = new Set<bigint>();
   for (let r = 0; r < grid.length; r++) {
-    const row = grid[r];
+    const row = grid[r]!;
     let min = -1;
     for (let q = 0; q < row.length; q++) {
-      const tree = grid[r][q];
+      const tree = grid[r]![q]!;
       if (tree > min) {
         min = tree;
         visibile.add(pair(q, r));
@@ -32,17 +32,17 @@ const part1 = (grid: Grid): number => {
     }
     min = -1;
     for (let q = row.length - 1; q >= 0; q--) {
-      const tree = grid[r][q];
+      const tree = grid[r]![q]!;
       if (tree > min) {
         min = tree;
         visibile.add(pair(q, r));
       }
     }
   }
-  for (let q = 0; q < grid[0].length; q++) {
+  for (let q = 0; q < grid[0]!.length; q++) {
     let min = -1;
     for (let r = 0; r < grid.length; r++) {
-      const tree = grid[r][q];
+      const tree = grid[r]![q]!;
       if (tree > min) {
         min = tree;
         visibile.add(pair(q, r));
@@ -50,7 +50,7 @@ const part1 = (grid: Grid): number => {
     }
     min = -1;
     for (let r = grid.length - 1; r >= 0; r--) {
-      const tree = grid[r][q];
+      const tree = grid[r]![q]!;
       if (tree > min) {
         min = tree;
         visibile.add(pair(q, r));
@@ -65,28 +65,28 @@ function search(grid: Grid, col: number, row: number, cols: number, rows: number
   let down = 0;
   let right = 0;
   let left = 0;
-  const tree = grid[row][col];
+  const tree = grid[row]![col]!;
   for (let r = row - 1; r >= 0; r--) {
     up++;
-    if (grid[r][col] >= tree) {
+    if (grid[r]![col]! >= tree) {
       break;
     }
   }
   for (let r = row + 1; r < rows; r++) {
     down++;
-    if (grid[r][col] >= tree) {
+    if (grid[r]![col]! >= tree) {
       break;
     }
   }
   for (let q = col - 1; q >= 0; q--) {
     left++;
-    if (grid[row][q] >= tree) {
+    if (grid[row]![q]! >= tree) {
       break;
     }
   }
   for (let q = col + 1; q < cols; q++) {
     right++;
-    if (grid[row][q] >= tree) {
+    if (grid[row]![q]! >= tree) {
       break;
     }
   }
@@ -94,7 +94,7 @@ function search(grid: Grid, col: number, row: number, cols: number, rows: number
 }
 
 const part2 = (grid: Grid): number => {
-  const cols = grid[0].length;
+  const cols = grid[0]!.length;
   const rows = grid.length;
   let result = 0;
   for (let r = 0; r < rows; r++) {

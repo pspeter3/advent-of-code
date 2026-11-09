@@ -7,7 +7,7 @@ const EdgeListSchema = z
   .string()
   .transform((line) => {
     const [key, rest] = line.split(/:\s+/);
-    return [key, new Set(rest.split(/\s+/g))];
+    return [key, new Set(rest!.split(/\s+/g))];
   })
   .pipe(z.tuple([z.string(), z.set(z.string())]));
 

@@ -44,8 +44,8 @@ const parse = (input: string): Puzzle => {
     .split("\n")
     .map((line) => {
       const [pair, rest] = line.split(": ");
-      const size = GridVector2D.fromTuple(IntTupleSchema.parse(pair.split("x")));
-      const list = IntListSchema.parse(rest.split(" "));
+      const size = GridVector2D.fromTuple(IntTupleSchema.parse(pair!.split("x")));
+      const list = IntListSchema.parse(rest!.split(" "));
       return { size, list };
     });
   return { presents, regions };
@@ -59,7 +59,7 @@ const part1 = ({ presents, regions }: Puzzle): number =>
       .values()
       .filter(
         ({ size, list }) =>
-          toArea(size) >= sum(list.values().map((count, index) => count * presents[index])),
+          toArea(size) >= sum(list.values().map((count, index) => count * presents[index]!)),
       ),
   );
 

@@ -39,7 +39,7 @@ const InstructionPairSchema = z
   .string()
   .transform((line) => {
     const [instruction, id] = line.split(" -> ");
-    return [id, instruction.split(" ")];
+    return [id, instruction!.split(" ")];
   })
   .pipe(z.tuple([z.string(), InstructionSchema]));
 

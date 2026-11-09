@@ -15,7 +15,7 @@
     "noEmit": true,
 
     // Stricter Typechecking Options
-    // "noUncheckedIndexedAccess": true,
+    "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
 
     // Style Options

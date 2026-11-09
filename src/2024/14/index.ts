@@ -27,7 +27,7 @@ const RobotSchema = z
         .values()
         .map((part) => {
           const [key, value] = part.split("=");
-          const [x, y] = value.split(",");
+          const [x, y] = value!.split(",");
           return [key, { x, y }];
         }),
     ),

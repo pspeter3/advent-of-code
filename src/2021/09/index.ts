@@ -50,12 +50,12 @@ const size = (uphill: ReadonlyMap<number, ReadonlySet<number>>, basin: number): 
 
 const part1 = (data: ReadonlyArray<ReadonlyArray<number>>): number => {
   let risks: number[] = [];
-  const bounds: Position = [data.length, data[0].length];
+  const bounds: Position = [data.length, data[0]!.length];
   for (const [row, cells] of data.entries()) {
     for (const [col, cell] of cells.entries()) {
       let valid = true;
       for (const [r, c] of neighbors(bounds, [row, col])) {
-        valid = valid && cell < data[r][c];
+        valid = valid && cell < data[r]![c]!;
       }
       if (valid) {
         risks.push(cell + 1);
@@ -66,7 +66,7 @@ const part1 = (data: ReadonlyArray<ReadonlyArray<number>>): number => {
 };
 
 const part2 = (data: ReadonlyArray<ReadonlyArray<number>>): number => {
-  const bounds: Position = [data.length, data[0].length];
+  const bounds: Position = [data.length, data[0]!.length];
   const basins: number[] = [];
   const flow: Map<number, number> = new Map();
   for (const [row, cells] of data.entries()) {
@@ -78,7 +78,7 @@ const part2 = (data: ReadonlyArray<ReadonlyArray<number>>): number => {
       let sink: number | null = null;
       let min = cell;
       for (const [r, c] of neighbors(bounds, [row, col])) {
-        const value = data[r][c];
+        const value = data[r]![c]!;
         if (value < min) {
           sink = toID(bounds, [r, c]);
           min = value;

@@ -21,7 +21,7 @@ const LineSchema = z
   .pipe(z.array(z.enum([".", "#"])));
 const CosmosSchema = LinesSchema(LineSchema).transform((grid) => {
   const rows = grid.length;
-  const cols = grid[0].length;
+  const cols = grid[0]!.length;
   const galaxies: Galaxy[] = [];
   for (const [r, row] of grid.entries()) {
     for (const [q, tile] of row.entries()) {
@@ -67,7 +67,7 @@ function sumDistances({ galaxies }: Cosmos): number {
   const size = galaxies.length;
   for (let i = 0; i < size; i++) {
     for (let j = i + 1; j < size; j++) {
-      sum += distance(galaxies[i], galaxies[j]);
+      sum += distance(galaxies[i]!, galaxies[j]!);
     }
   }
   return sum;

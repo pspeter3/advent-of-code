@@ -65,7 +65,7 @@ const fold = (dots: Dots, fold: Fold): Dots => {
   return next;
 };
 
-const part1 = ([vectors, folds]: Input): number => fold(toDots(vectors), folds[0]).size;
+const part1 = ([vectors, folds]: Input): number => fold(toDots(vectors), folds[0]!).size;
 
 const part2 = ([vectors, folds]: Input): string => {
   let dots = toDots(vectors);

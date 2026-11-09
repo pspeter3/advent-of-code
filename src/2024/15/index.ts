@@ -22,18 +22,18 @@ const parse = (input: string): Warehouse => {
   if (chunks.length !== 2) {
     throw new Error("Invalid input");
   }
-  const matrix = chunks[0].split("\n").map((line) => line.split(""));
+  const matrix = chunks[0]!.split("\n").map((line) => line.split(""));
   const bounds = GridBounds2D.fromOrigin({
-    q: matrix[0].length,
+    q: matrix[0]!.length,
     r: matrix.length,
   });
   const walls = new GridVector2DSet(bounds);
   const boxes = new GridVector2DSet(bounds);
   let robot: GridVector2D | undefined;
   for (let r = 0; r < matrix.length; r++) {
-    for (let q = 0; q < matrix[r].length; q++) {
+    for (let q = 0; q < matrix[r]!.length; q++) {
       const cell = new GridVector2D(q, r);
-      switch (matrix[r][q]) {
+      switch (matrix[r]![q]) {
         case "#":
           walls.add(cell);
           break;
@@ -49,7 +49,7 @@ const parse = (input: string): Warehouse => {
   if (robot === undefined) {
     throw new Error("Robot not found");
   }
-  const moves = chunks[1].split("\n").flatMap((line) =>
+  const moves = chunks[1]!.split("\n").flatMap((line) =>
     line
       .trim()
       .split("")

@@ -11,8 +11,8 @@ const parse = (input: string): Graph<string> =>
       .values()
       .map((line) => {
         const [key, list] = line.split(": ");
-        const value = new Set(list.split(" "));
-        return [key, value];
+        const value = new Set(list!.split(" "));
+        return [key!, value];
       }),
   );
 

@@ -14,7 +14,7 @@ const increment = (password: string): string => {
   const chars = password.split("");
   for (let i = chars.length - 1; i >= 0; i--) {
     if (chars[i] !== "z") {
-      chars[i] = String.fromCharCode(chars[i].charCodeAt(0) + 1);
+      chars[i] = String.fromCharCode(chars[i]!.charCodeAt(0) + 1);
       break;
     }
     chars[i] = "a";

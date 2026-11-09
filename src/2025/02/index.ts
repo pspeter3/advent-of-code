@@ -8,7 +8,7 @@ const parse = (input: string): ReadonlyArray<NumberRange> =>
     .split(",")
     .map((chunk) => {
       const [a, b] = chunk.split("-");
-      return NumberRange.inclusive(parseInt(a, 10), parseInt(b, 10));
+      return NumberRange.inclusive(parseInt(a!, 10), parseInt(b!, 10));
     });
 
 const findInvalidIds = (range: NumberRange, pattern: RegExp): Iterable<number> =>
