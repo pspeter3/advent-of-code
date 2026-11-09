@@ -69,7 +69,11 @@ const part1 = (instructions: InstructionList): number => {
             break;
           }
           case Command.Toggle: {
-            lights.has(cell) ? lights.delete(cell) : lights.add(cell);
+            if (lights.has(cell)) {
+              lights.delete(cell);
+            } else {
+              lights.add(cell);
+            }
             break;
           }
         }

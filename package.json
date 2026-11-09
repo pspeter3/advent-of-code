@@ -10,18 +10,6 @@
     "fix": "wireit",
     "test": "wireit"
   },
-  "dependencies": {
-    "heap-js": "^2.7.1",
-    "yalps": "^0.6.3",
-    "zod": "^4.1.12"
-  },
-  "devDependencies": {
-    "@types/node": "^24.9.1",
-    "oxfmt": "^0.32.0",
-    "oxlint": "^1.47.0",
-    "typescript": "^5.9.3",
-    "wireit": "^0.14.12"
-  },
   "wireit": {
     "fix": {
       "dependencies": [
@@ -46,9 +34,11 @@
     "test:format": {
       "command": "oxfmt --check",
       "files": [
-        ".github/**/*.yml",
-        ".vscode/**/*.json",
         "*.md",
+        ".github/**/*.yml",
+        ".oxfmtrc.json",
+        ".oxlintrc.json",
+        ".vscode/**/*.json",
         "package.json",
         "src/**/*.ts",
         "tsconfig.json"
@@ -58,7 +48,8 @@
     "test:lint": {
       "command": "oxlint",
       "files": [
-        "src/**/*.ts"
+        "src/**/*.ts",
+        ".oxlintrc.json"
       ],
       "output": []
     },
@@ -80,5 +71,17 @@
         "tsconfig.tsbuildinfo"
       ]
     }
+  },
+  "dependencies": {
+    "heap-js": "^2.7.1",
+    "yalps": "^0.6.4",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "oxfmt": "^0.78.0",
+    "oxlint": "^1.93.0",
+    "typescript": "^7.0.2",
+    "wireit": "^0.15.0"
   }
 }
