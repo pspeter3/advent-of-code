@@ -54,10 +54,8 @@ class Polygon {
       const b = curr[valueKey];
       map.getOrInsertComputed(key, () => []).push([Math.min(a, b), Math.max(a, b)]);
     }
-    for (const map of [horizontal, vertical]) {
-      for (const list of map.values()) {
-        list.sort((a, b) => a[0] - b[0]);
-      }
+    for (const list of Iterator.concat(horizontal.values(), vertical.values())) {
+      list.sort((a, b) => a[0] - b[0]);
     }
     this.horizontal = horizontal;
     this.vertical = vertical;
