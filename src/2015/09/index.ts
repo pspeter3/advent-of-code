@@ -14,14 +14,8 @@ const parse = (input: string): WeightedGraph<string> => {
     const [prefix, d] = line.split(" = ");
     const [from, to] = prefix.split(" to ");
     const dist = Number(d);
-    if (!graph.has(from)) {
-      graph.set(from, new Map());
-    }
-    if (!graph.has(to)) {
-      graph.set(to, new Map());
-    }
-    graph.get(from)!.set(to, dist);
-    graph.get(to)!.set(from, dist);
+    graph.getOrInsertComputed(from, () => new Map()).set(to, dist);
+    graph.getOrInsertComputed(to, () => new Map()).set(from, dist);
   }
   return graph;
 };

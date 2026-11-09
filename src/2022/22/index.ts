@@ -307,10 +307,7 @@ class CubeGrid implements Cursor {
   }
 
   connect(source: SideId, facing: Facing, connection: Connection): void {
-    if (!this.#connections.has(source)) {
-      this.#connections.set(source, new Map());
-    }
-    this.#connections.get(source)!.set(facing, connection);
+    this.#connections.getOrInsertComputed(source, () => new Map()).set(facing, connection);
   }
 
   #inBounds({ q, r }: Tile): boolean {

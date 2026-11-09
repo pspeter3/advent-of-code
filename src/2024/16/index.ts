@@ -84,10 +84,7 @@ class MazeVisitor {
       }
       return this;
     }
-    if (!this.#cost.has(pos)) {
-      this.#cost.set(pos, new Map());
-    }
-    this.#cost.get(pos)!.set(dir, cost);
+    this.#cost.getOrInsertComputed(pos, () => new Map()).set(dir, cost);
     this.#heap.push(step);
     this.#track(from, step);
     return this;
@@ -106,13 +103,10 @@ class MazeVisitor {
       return;
     }
     const [pos, dir] = step;
-    if (!this.#from.has(pos)) {
-      this.#from.set(pos, new Map());
-    }
-    if (!this.#from.get(pos)!.has(dir)) {
-      this.#from.get(pos)!.set(dir, []);
-    }
-    this.#from.get(pos)!.get(dir)!.push(from);
+    this.#from
+      .getOrInsertComputed(pos, () => new Map())
+      .getOrInsertComputed(dir, () => [])
+      .push(from);
   }
 
   #tiles(step: MazeStep): GridVector2DSet {

@@ -50,12 +50,9 @@ class Polygon {
       const map = isHorizontal ? horizontal : vertical;
       const key = curr[isHorizontal ? "r" : "q"];
       const valueKey = isHorizontal ? "q" : "r";
-      if (!map.has(key)) {
-        map.set(key, []);
-      }
       const a = prev[valueKey];
       const b = curr[valueKey];
-      map.get(key)!.push([Math.min(a, b), Math.max(a, b)]);
+      map.getOrInsertComputed(key, () => []).push([Math.min(a, b), Math.max(a, b)]);
     }
     for (const map of [horizontal, vertical]) {
       for (const list of map.values()) {
