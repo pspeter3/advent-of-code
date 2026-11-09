@@ -1,9 +1,8 @@
 import z from "zod";
-
-import { len, sum } from "../../common/itertools.ts";
-import { NumberRange } from "../../common/number-range.ts";
 import { main } from "../../utils/host.ts";
 import { IntSchema, LinesSchema } from "../../utils/schemas.ts";
+import { NumberRange } from "../../common/number-range.ts";
+import { len, sum } from "../../common/itertools.ts";
 
 interface Vector2D {
   readonly x: number;

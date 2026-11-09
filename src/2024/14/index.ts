@@ -1,9 +1,8 @@
 import z from "zod";
-
-import { DiagonalDirection } from "../../common/grid2d.ts";
-import { chineseRemainderTheorem } from "../../common/math.ts";
 import { main } from "../../utils/host.ts";
 import { IntSchema, LinesSchema } from "../../utils/schemas.ts";
+import { DiagonalDirection } from "../../common/grid2d.ts";
+import { chineseRemainderTheorem } from "../../common/math.ts";
 
 interface Vector2DRecord {
   readonly x: number;

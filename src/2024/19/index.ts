@@ -1,9 +1,8 @@
 import z from "zod";
-
-import { memoize } from "../../common/functools.ts";
-import { len, sum } from "../../common/itertools.ts";
 import { main } from "../../utils/host.ts";
 import { LinesSchema } from "../../utils/schemas.ts";
+import { len, sum } from "../../common/itertools.ts";
+import { memoize } from "../../common/functools.ts";
 
 interface Puzzle {
   readonly towels: ReadonlyArray<string>;

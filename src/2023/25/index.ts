@@ -1,8 +1,7 @@
 import z from "zod";
-
-import { type Graph, minCut, type WeightedMatrixGraph } from "../../common/graph.ts";
 import { main } from "../../utils/host.ts";
 import { LinesSchema } from "../../utils/schemas.ts";
+import { type Graph, minCut, type WeightedMatrixGraph } from "../../common/graph.ts";
 
 const EdgeListSchema = z
   .string()

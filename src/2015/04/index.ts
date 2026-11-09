@@ -1,5 +1,4 @@
 import crypto from "node:crypto";
-
 import { main } from "../../utils/host.ts";
 
 function mine(key: string, size: number): number {

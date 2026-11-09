@@ -1,7 +1,6 @@
 import z from "zod";
-
-import { CardinalDirection, GridVector2D, toGridDelta } from "../../common/grid2d.ts";
 import { main } from "../../utils/host.ts";
+import { CardinalDirection, GridVector2D, toGridDelta } from "../../common/grid2d.ts";
 import { IntSchema, LinesSchema } from "../../utils/schemas.ts";
 
 interface Trench {

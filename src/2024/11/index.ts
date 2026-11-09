@@ -1,9 +1,8 @@
 import z from "zod";
-
-import { memoize } from "../../common/functools.ts";
-import { sum } from "../../common/itertools.ts";
 import { main } from "../../utils/host.ts";
 import { IntSchema } from "../../utils/schemas.ts";
+import { sum } from "../../common/itertools.ts";
+import { memoize } from "../../common/functools.ts";
 
 type StoneList = ReadonlyArray<number>;
 

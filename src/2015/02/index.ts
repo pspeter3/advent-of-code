@@ -1,8 +1,7 @@
 import z from "zod";
-
-import { min, sum } from "../../common/itertools.ts";
 import { main } from "../../utils/host.ts";
 import { IntSchema, LinesSchema } from "../../utils/schemas.ts";
+import { min, sum } from "../../common/itertools.ts";
 
 type Box = readonly [l: number, w: number, h: number];
 type BoxList = ReadonlyArray<Box>;

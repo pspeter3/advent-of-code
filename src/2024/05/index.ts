@@ -1,8 +1,7 @@
 import z from "zod";
-
-import { sum } from "../../common/itertools.ts";
 import { main } from "../../utils/host.ts";
 import { IntSchema, LinesSchema } from "../../utils/schemas.ts";
+import { sum } from "../../common/itertools.ts";
 
 type Update = ReadonlyArray<number>;
 type Rules = ReadonlyMap<number, ReadonlySet<number>>;

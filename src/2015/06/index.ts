@@ -1,5 +1,4 @@
 import z from "zod";
-
 import {
   GridBounds2D,
   GridVector2D,
@@ -7,9 +6,9 @@ import {
   type GridVector2DRecord,
   GridVector2DSet,
 } from "../../common/grid2d.ts";
-import { sum } from "../../common/itertools.ts";
 import { main } from "../../utils/host.ts";
 import { IntSchema, LinesSchema } from "../../utils/schemas.ts";
+import { sum } from "../../common/itertools.ts";
 
 const Command = {
   TurnOn: "turn on",

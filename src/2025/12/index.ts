@@ -1,9 +1,8 @@
 import z from "zod";
-
 import { GridVector2D, type GridVector2DRecord } from "../../common/grid2d.ts";
-import { len, sum } from "../../common/itertools.ts";
 import { main } from "../../utils/host.ts";
 import { IntSchema } from "../../utils/schemas.ts";
+import { len, sum } from "../../common/itertools.ts";
 
 interface Region {
   readonly size: GridVector2D;

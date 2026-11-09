@@ -1,5 +1,4 @@
 import { z } from "zod";
-
 import { main } from "../../utils/host.ts";
 import { IntSchema } from "../../utils/schemas.ts";
 

@@ -1,9 +1,8 @@
 import z from "zod";
-
-import { len, sum } from "../../common/itertools.ts";
 import { NumberRange } from "../../common/number-range.ts";
 import { main } from "../../utils/host.ts";
 import { IntSchema } from "../../utils/schemas.ts";
+import { len, sum } from "../../common/itertools.ts";
 
 interface Inventory {
   readonly fresh: ReadonlyArray<NumberRange>;

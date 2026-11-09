@@ -1,8 +1,7 @@
 import z from "zod";
-
-import { mod } from "../../common/math.ts";
 import { main } from "../../utils/host.ts";
 import { IntSchema } from "../../utils/schemas.ts";
+import { mod } from "../../common/math.ts";
 
 const Direction = {
   Left: "L",

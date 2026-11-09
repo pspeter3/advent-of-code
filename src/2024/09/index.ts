@@ -1,8 +1,7 @@
 import z from "zod";
-
-import { enumerate, sum } from "../../common/itertools.ts";
 import { main } from "../../utils/host.ts";
 import { IntSchema } from "../../utils/schemas.ts";
+import { enumerate, sum } from "../../common/itertools.ts";
 
 type DiskMap = ReadonlyArray<number>;
 

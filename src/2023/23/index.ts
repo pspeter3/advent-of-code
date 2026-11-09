@@ -1,9 +1,8 @@
 import z from "zod";
-
-import { CardinalDirection, GridVector2D, MatrixGrid } from "../../common/grid2d.ts";
-import { max } from "../../common/itertools.ts";
 import { main } from "../../utils/host.ts";
 import { LinesSchema } from "../../utils/schemas.ts";
+import { CardinalDirection, GridVector2D, MatrixGrid } from "../../common/grid2d.ts";
+import { max } from "../../common/itertools.ts";
 
 const SLOPES = ["^", ">", "v", "<"] as const;
 type Slope = (typeof SLOPES)[number];

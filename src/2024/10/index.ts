@@ -1,9 +1,8 @@
 import z from "zod";
-
-import { GridVector2D, GridVector2DSet, MatrixGrid } from "../../common/grid2d.ts";
-import { len, sum } from "../../common/itertools.ts";
 import { main } from "../../utils/host.ts";
 import { IntSchema, LinesSchema } from "../../utils/schemas.ts";
+import { GridVector2D, GridVector2DSet, MatrixGrid } from "../../common/grid2d.ts";
+import { len, sum } from "../../common/itertools.ts";
 
 const GridSchema = LinesSchema(
   z

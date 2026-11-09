@@ -1,5 +1,7 @@
 import z from "zod";
-
+import { main } from "../../utils/host.ts";
+import { LinesSchema } from "../../utils/schemas.ts";
+import { max } from "../../common/itertools.ts";
 import {
   CardinalDirection,
   GridBounds2D,
@@ -9,9 +11,6 @@ import {
   toGridDelta,
   toGridDirection,
 } from "../../common/grid2d.ts";
-import { max } from "../../common/itertools.ts";
-import { main } from "../../utils/host.ts";
-import { LinesSchema } from "../../utils/schemas.ts";
 
 type Mirror = "\\" | "/";
 type Splitter = "|" | "-";

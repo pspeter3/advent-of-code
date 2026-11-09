@@ -1,8 +1,7 @@
 import z from "zod";
-
-import { sum, zip } from "../../common/itertools.ts";
 import { main } from "../../utils/host.ts";
 import { LinesSchema } from "../../utils/schemas.ts";
+import { sum, zip } from "../../common/itertools.ts";
 
 type Pattern = ReadonlyArray<string>;
 type PatternList = ReadonlyArray<Pattern>;
