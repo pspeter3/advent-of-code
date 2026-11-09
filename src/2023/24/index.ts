@@ -60,7 +60,7 @@ type Pair<T> = readonly [a: T, b: T];
 function* pairs<T>(list: ReadonlyArray<T>): Generator<Pair<T>> {
   for (let i = 0; i < list.length; i++) {
     for (let j = i + 1; j < list.length; j++) {
-      yield [list[i]!, list[j]!];
+      yield [list[i], list[j]];
     }
   }
 }
@@ -100,7 +100,7 @@ function findComponentVelocity(components: ReadonlyMap<number, ReadonlyArray<num
   if (result.size !== 1) {
     throw new Error("Invalid velocity set");
   }
-  return Array.from(result)[0]!;
+  return Array.from(result)[0];
 }
 
 const findVelocity = (rays: ReadonlyArray<Ray3D>): Vector3D => ({
@@ -109,11 +109,7 @@ const findVelocity = (rays: ReadonlyArray<Ray3D>): Vector3D => ({
   z: findComponentVelocity(findComponents(rays, "z")),
 });
 
-function findPosition(rays: ReadonlyArray<Ray3D>, velocity: Vector3D): Vector3D {
-  const [a, b] = rays;
-  if (a === undefined || b === undefined) {
-    throw new Error("Expected at least two rays");
-  }
+function findPosition([a, b]: ReadonlyArray<Ray3D>, velocity: Vector3D): Vector3D {
   const mA = (a.velocity.y - velocity.y) / (a.velocity.x - velocity.x);
   const mB = (b.velocity.y - velocity.y) / (b.velocity.x - velocity.x);
   const cA = a.position.y - mA * a.position.x;

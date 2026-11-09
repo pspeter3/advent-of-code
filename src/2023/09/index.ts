@@ -12,14 +12,14 @@ const HistorySchema = z
 const ReportSchema = LinesSchema(HistorySchema);
 
 const toDeltas = (history: History): History =>
-  Array.from({ length: history.length - 1 }, (_, i) => history[i + 1]! - history[i]!);
+  Array.from({ length: history.length - 1 }, (_, i) => history[i + 1] - history[i]);
 
 const isFinal = (history: History): boolean => history.every((value) => value === 0);
 
 function createDeltaQueue(history: History): ReadonlyArray<History> {
   const deltas: Array<History> = [history];
-  while (!isFinal(deltas[0]!)) {
-    deltas.unshift(toDeltas(deltas[0]!));
+  while (!isFinal(deltas[0])) {
+    deltas.unshift(toDeltas(deltas[0]));
   }
   return deltas;
 }

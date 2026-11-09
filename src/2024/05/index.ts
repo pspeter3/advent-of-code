@@ -50,7 +50,7 @@ const isValid = (update: Update, rules: Rules): boolean => {
   return true;
 };
 
-const middle = (update: Update): number => update[Math.floor(update.length / 2)]!;
+const middle = (update: Update): number => update[Math.floor(update.length / 2)];
 
 const part1 = ({ rules, updates }: Puzzle): number =>
   sum(

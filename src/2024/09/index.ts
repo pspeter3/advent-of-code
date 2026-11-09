@@ -121,8 +121,8 @@ const defragBlocks = (disk: ReadonlyArray<DiskChunk>): ReadonlyArray<DiskChunk> 
   let open = 1;
   let file = disk.length - 1;
   while (open < file) {
-    const openChunk = disk[open]!;
-    const fileChunk = disk[file]!;
+    const openChunk = disk[open];
+    const fileChunk = disk[file];
     if (openChunk.isFull()) {
       open += 2;
       continue;
@@ -144,10 +144,10 @@ function* range(size: number): Generator<number> {
 
 const defragFiles = (disk: ReadonlyArray<DiskChunk>): ReadonlyArray<DiskChunk> => {
   for (let file = disk.length - 1; file > 0; file -= 2) {
-    const fileChunk = disk[file]!;
+    const fileChunk = disk[file];
     const chunk = range(file)
       .map((id) => disk[id])
-      .find((chunk) => chunk!.canMoveFile(fileChunk));
+      .find((chunk) => chunk.canMoveFile(fileChunk));
     if (chunk !== undefined) {
       chunk.moveFile(fileChunk);
     }

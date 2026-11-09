@@ -38,8 +38,8 @@ const part2 = (directions: CardinalDirectionList): number => {
   positions.add(santa);
   positions.add(robot);
   for (let i = 0; i < directions.length; i += 2) {
-    santa = santa.neighbor(directions[i]!);
-    robot = robot.neighbor(directions[i + 1]!);
+    santa = santa.neighbor(directions[i]);
+    robot = robot.neighbor(directions[i + 1]);
     positions.add(santa);
     positions.add(robot);
   }

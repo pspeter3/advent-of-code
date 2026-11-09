@@ -28,7 +28,7 @@ const schema = LinesSchema(
     .transform((line) =>
       Object.fromEntries(
         line
-          .split(": ")[1]!
+          .split(": ")[1]
           .split(". ")
           .map((part) => {
             const match = part.trim().match(/^Each (.+) robot costs (.+?)\.?$/);
@@ -39,7 +39,7 @@ const schema = LinesSchema(
             return [
               match[1],
               new Map(
-                match[2]!.split(" and ").map((cost) => {
+                match[2].split(" and ").map((cost) => {
                   const [amount, resource] = cost.split(" ");
                   return [resource, amount];
                 }),
@@ -129,11 +129,11 @@ class Context {
   }
 
   value(time: number, key: string): number | undefined {
-    return this.#caches[this.#duration - time]!.get(key);
+    return this.#caches[this.#duration - time].get(key);
   }
 
   record(time: number, key: string, value: number): number {
-    this.#caches[this.#duration - time]!.set(key, value);
+    this.#caches[this.#duration - time].set(key, value);
     this.#max = Math.max(this.#max, value);
     return value;
   }

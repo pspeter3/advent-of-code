@@ -11,7 +11,7 @@ interface Garden {
 const parse = (input: string): Garden => {
   const lines = input.trim().split("\n");
   const bounds = GridBounds2D.fromOrigin({
-    q: lines[0]!.length,
+    q: lines[0].length,
     r: lines.length,
   });
   const rocks = new Set<number>();

@@ -56,7 +56,7 @@ const part2 = (commands: CommandList): string => {
     const r = Math.floor((cycle - 1) / 40) % 6;
     const q = (cycle - 1) % 40;
     const pixel = Math.abs(register - q) <= 1 ? Pixel.Lit : Pixel.Dark;
-    pixels[r]![q] = pixel;
+    pixels[r][q] = pixel;
   };
   for (const command of commands) {
     if (command === "noop") {

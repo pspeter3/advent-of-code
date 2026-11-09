@@ -81,7 +81,7 @@ class Shape {
   static create(grid: Grid, index: number, base: number): Shape {
     return new Shape(
       grid,
-      Shape.Templates[index % Shape.Templates.length]!.map(({ x, y }) => {
+      Shape.Templates[index % Shape.Templates.length].map(({ x, y }) => {
         const id = grid.id(x, y + base);
         if (id === null) {
           throw new Error("Invalid template");
@@ -169,7 +169,7 @@ class JetStream implements Iterator<Direction> {
 
   next(): IteratorYieldResult<Direction> {
     return {
-      value: this.directions[this.i++ % this.directions.length]!,
+      value: this.directions[this.i++ % this.directions.length],
     };
   }
 }
@@ -214,7 +214,7 @@ const part2 = (directions: ReadonlyArray<Direction>): number => {
     for (const rock of shape.rocks) {
       const x = grid.x(rock);
       const y = grid.y(rock) + 1;
-      columns[x] = Math.max(columns[x]!, y);
+      columns[x] = Math.max(columns[x], y);
       rocks.add(rock);
     }
     const max = Math.max(...columns);

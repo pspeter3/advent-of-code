@@ -10,7 +10,7 @@ interface Problem {
 const parse = (input: string): Problem => {
   const lines = input.trim().split("\n");
   const bounds = GridBounds2D.fromOrigin({
-    q: lines[0]!.length,
+    q: lines[0].length,
     r: lines.length,
   });
   const rolls = new GridVector2DSet(bounds);

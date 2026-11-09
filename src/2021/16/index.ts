@@ -61,7 +61,7 @@ const decodeLiteral = (version: number, typeID: number, bits: string): Literal =
 
 const decodeWrapper = (version: number, typeID: PacketType, bits: string): Wrapper => {
   const index = 7;
-  const lengthTypeID = binary(bits[6]!);
+  const lengthTypeID = binary(bits[6]);
   if (lengthTypeID === 0) {
     const offset = index + 15;
     const length = binary(bits.slice(index, offset));
@@ -147,13 +147,13 @@ const evaluate = (packet: Packet): number => {
       return Math.max(...values);
     }
     case PacketType.Literal: {
-      return values[0]!;
+      return values[0];
     }
     case PacketType.GreaterThan: {
-      return Number(values[0]! > values[1]!);
+      return Number(values[0] > values[1]);
     }
     case PacketType.LessThan: {
-      return Number(values[0]! < values[1]!);
+      return Number(values[0] < values[1]);
     }
     case PacketType.EqualTo: {
       return Number(values[0] === values[1]);
@@ -169,6 +169,6 @@ const toBits = (data: string): string =>
 
 const part1 = (data: string): number => sum(decode(toBits(data)).map(versionSum));
 
-const part2 = (data: string): number => evaluate(decode(toBits(data))[0]!);
+const part2 = (data: string): number => evaluate(decode(toBits(data))[0]);
 
 await main(import.meta, (input) => schema.parse(input), part1, part2);

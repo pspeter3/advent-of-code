@@ -19,7 +19,7 @@ const parse = (input: string): Puzzle => {
     .split("\n")
     .map((line) => line.trim().split(""));
   const bounds = GridBounds2D.fromOrigin({
-    q: matrix[0]!.length,
+    q: matrix[0].length,
     r: matrix.length,
   });
   let guard: GridVector2D | null = null;

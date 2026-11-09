@@ -22,12 +22,12 @@ function* shortestDistances(boxes: BoxMap): Generator<BoxPair> {
   const distances: Array<Readonly<{ pair: BoxPair; d: number }>> = [];
   const keys = Array.from(boxes.keys());
   for (let i = 0; i < keys.length; i++) {
-    const a = keys[i]!;
+    const a = keys[i];
     const iv = boxes.get(a)!;
     for (let j = i + 1; j < keys.length; j++) {
-      const b = keys[j]!;
+      const b = keys[j];
       const jv = boxes.get(b)!;
-      const d = Math.hypot(...iv.map((v, k) => v - jv[k]!));
+      const d = Math.hypot(...iv.map((v, k) => v - jv[k]));
       distances.push({ pair: [a, b], d });
     }
   }

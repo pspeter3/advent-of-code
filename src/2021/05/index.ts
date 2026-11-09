@@ -26,7 +26,7 @@ const interpolate = ([[x1, y1], [x2, y2]]: Segment): ReadonlyArray<Vector> => {
   const [dx, dy] = delta.map((value) => Math.sign(value));
   const vectors: Vector[] = [];
   for (let i = 0; i <= length; i++) {
-    vectors.push([x1 + i * dx!, y1 + i * dy!]);
+    vectors.push([x1 + i * dx, y1 + i * dy]);
   }
   return vectors;
 };

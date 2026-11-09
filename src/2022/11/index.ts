@@ -37,9 +37,9 @@ const parseTest = (denominatorLine: string, successLine: string, failureLine: st
     throw new Error("Invalid test");
   }
   return {
-    denominator: toInt(denominatorMatch[1]!),
-    success: toInt(successMatch[1]!),
-    failure: toInt(failureMatch[1]!),
+    denominator: toInt(denominatorMatch[1]),
+    success: toInt(successMatch[1]),
+    failure: toInt(failureMatch[1]),
   };
 };
 
@@ -52,11 +52,11 @@ const OperationSchema = z.tuple([
 ]);
 
 const parseMonkey = (group: string): Monkey => {
-  const lines = group.split("\n").map((line) => line.split(":")[1]!.trim());
+  const lines = group.split("\n").map((line) => line.split(":")[1].trim());
   return {
-    start: parseStart(lines[1]!),
-    operation: OperationSchema.parse(lines[2]!.split(" = ")[1]!.split(" ")),
-    test: parseTest(lines[3]!, lines[4]!, lines[5]!),
+    start: parseStart(lines[1]),
+    operation: OperationSchema.parse(lines[2].split(" = ")[1].split(" ")),
+    test: parseTest(lines[3], lines[4], lines[5]),
   };
 };
 
@@ -79,17 +79,17 @@ const track = (
   for (let i = 0; i < limit; i++) {
     for (const [index, inventory] of inventories.entries()) {
       while (inventory.length > 0) {
-        const { operation, test } = monkeys[index]!;
-        counts[index]!++;
+        const { operation, test } = monkeys[index];
+        counts[index]++;
         const item = inventory.shift()!;
         const next = manage(evaluate(item, operation));
         const target = next % test.denominator === 0 ? test.success : test.failure;
-        inventories[target]!.push(next);
+        inventories[target].push(next);
       }
     }
   }
   counts.sort((a, b) => b - a);
-  return counts[0]! * counts[1]!;
+  return counts[0] * counts[1];
 };
 
 const part1 = (monkeys: ReadonlyArray<Monkey>): number =>

@@ -36,23 +36,23 @@ const evolve = (grid: Grid): readonly [next: Grid, flashes: number] => {
       return result;
     }),
   );
-  const bounds: Cell = [grid.length, grid[0]!.length];
+  const bounds: Cell = [grid.length, grid[0].length];
   let index = 0;
   let flashes = 0;
   while (index < queue.length) {
-    const curr = queue[index]!;
+    const curr = queue[index];
     flashes++;
     index++;
     for (const neighbor of neighbors(bounds, curr)) {
       const [row, col] = neighbor;
-      next[row]![col]!++;
-      if (next[row]![col] === FLASH) {
+      next[row][col]++;
+      if (next[row][col] === FLASH) {
         queue.push(neighbor);
       }
     }
   }
   for (const [row, col] of queue) {
-    next[row]![col] = 0;
+    next[row][col] = 0;
   }
   return [next, flashes];
 };

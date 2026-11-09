@@ -190,7 +190,7 @@ const part1 = (elves: ReadonlyArray<GridTile>): number => {
     }
     for (const proposals of proposed.values()) {
       if (proposals.length === 1) {
-        next.push(proposals[0]!.target);
+        next.push(proposals[0].target);
       } else {
         for (const { source } of proposals) {
           next.push(source);
@@ -258,7 +258,7 @@ const part2 = (elves: ReadonlyArray<GridTile>): number => {
     for (const proposals of proposed.values()) {
       if (proposals.length === 1) {
         moved = true;
-        next.push(proposals[0]!.target);
+        next.push(proposals[0].target);
       } else {
         for (const { source } of proposals) {
           next.push(source);

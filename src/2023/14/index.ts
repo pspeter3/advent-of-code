@@ -142,7 +142,7 @@ const load = ({ rows, rocks }: Platform): number =>
 
 const parse = (input: string): Platform => {
   const lines = input.trim().split("\n");
-  const cols = lines[0]!.length;
+  const cols = lines[0].length;
   const rows = lines.length;
   const rocks: Rock[] = [];
   for (const [r, line] of lines.entries()) {
@@ -161,7 +161,7 @@ const part1 = (platform: Platform): number => load(tiltNorth(platform));
 const part2 = (platform: Platform): number => {
   const { offset, period, platforms } = findCycle(platform);
   const index = (1_000_000_000 - offset) % period;
-  return load(platforms[index]!);
+  return load(platforms[index]);
 };
 
 await main(import.meta, parse, part1, part2);

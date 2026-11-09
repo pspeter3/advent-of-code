@@ -22,8 +22,8 @@ const ScratchCardSchema = z
   .string()
   .transform((line) => {
     const [card, numbers] = line.split(/:\s+/);
-    const [winning, options] = numbers!.split(/\s+\|\s+/);
-    const id = card!.replace(/^Card\s+/, "");
+    const [winning, options] = numbers.split(/\s+\|\s+/);
+    const id = card.replace(/^Card\s+/, "");
     return { id, winning, options };
   })
   .pipe(
@@ -62,10 +62,10 @@ const part1 = (cards: ScratchCardList): number => {
 const part2 = (cards: ScratchCardList): number => {
   const copies = Array.from({ length: cards.length }, () => 1);
   for (const [index, card] of cards.entries()) {
-    const count = copies[index]!;
+    const count = copies[index];
     const matches = countMatches(card);
     for (let i = index + 1; i <= index + matches; i++) {
-      copies[i]! += count;
+      copies[i] += count;
     }
   }
   return copies.reduce((sum, count) => sum + count);

@@ -99,10 +99,10 @@ class Forecast {
     }
     const { q, r } = tile;
     return (
-      this.blizzards[Blizzard.Right][r]!.has(modulo(q - time, board.q)) ||
-      this.blizzards[Blizzard.Left][r]!.has(modulo(q + time, board.q)) ||
-      this.blizzards[Blizzard.Down][q]!.has(modulo(r - time, board.r)) ||
-      this.blizzards[Blizzard.Up][q]!.has(modulo(r + time, board.r))
+      this.blizzards[Blizzard.Right][r].has(modulo(q - time, board.q)) ||
+      this.blizzards[Blizzard.Left][r].has(modulo(q + time, board.q)) ||
+      this.blizzards[Blizzard.Down][q].has(modulo(r - time, board.r)) ||
+      this.blizzards[Blizzard.Up][q].has(modulo(r + time, board.r))
     );
   }
 }
@@ -144,7 +144,7 @@ interface Input {
 
 const parse = (input: string): Input => {
   const lines = input.trim().split("\n");
-  const q = lines[0]!.length;
+  const q = lines[0].length;
   const r = lines.length;
   const board = new Tile(q - 2, r - 2);
   const elf = board.source();
@@ -162,7 +162,7 @@ const parse = (input: string): Input => {
         const isVertical = char === Blizzard.Up || char === Blizzard.Down;
         const index = isVertical ? x : y;
         const value = isVertical ? y : x;
-        blizzards[char][index]!.add(value);
+        blizzards[char][index].add(value);
       }
     }
   }

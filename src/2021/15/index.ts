@@ -12,7 +12,7 @@ type Grid = ReadonlyArray<ReadonlyArray<number>>;
 const toID = ([_, cols]: Cell, [row, col]: Cell): number => row * cols + col;
 const fromID = ([_, cols]: Cell, id: number): Cell => [Math.floor(id / cols), id % cols];
 
-const toBounds = (grid: Grid): Cell => [grid.length, grid[0]!.length];
+const toBounds = (grid: Grid): Cell => [grid.length, grid[0].length];
 
 const equals = (a: Cell, b: Cell): boolean => a[0] === b[0] && a[1] === b[1];
 
@@ -60,7 +60,7 @@ const seek = (grid: Grid, start: Cell, target: Cell): number => {
     for (const n of neighbors(bounds, fromID(bounds, id))) {
       const i = toID(bounds, n);
       const [row, col] = n;
-      const delta = grid[row]![col]!;
+      const delta = grid[row][col];
       const sum = cost + delta;
       if (!visited.has(i) && sum < (queue.get(i) ?? Infinity)) {
         queue.set(i, sum);
@@ -77,7 +77,7 @@ const scale = (grid: Grid, factor: number): Grid => {
       const r = row % rows;
       const c = col % cols;
       const d = Math.floor(row / rows) + Math.floor(col / cols);
-      return ((grid[r]![c]! + d - 1) % 9) + 1;
+      return ((grid[r][c] + d - 1) % 9) + 1;
     }),
   );
 };

@@ -42,7 +42,7 @@ const overlap = ([aMin, aMax]: Range, [bMin, bMax]: Range): Range | null => {
 };
 
 const intersect = (a: Cuboid, b: Cuboid): Cuboid | null => {
-  const next = a.map((range, index) => overlap(range, b[index]!));
+  const next = a.map((range, index) => overlap(range, b[index]));
   if (next.includes(null)) {
     return null;
   }

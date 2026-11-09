@@ -15,13 +15,13 @@ const parse = (input: string): City => {
     .split("\n")
     .map((line) => line.trim().split(""));
   const bounds = GridBounds2D.fromOrigin({
-    q: grid[0]!.length,
+    q: grid[0].length,
     r: grid.length,
   });
   const frequencies = new Map<Antenna, GridVector2D[]>();
   for (let r = 0; r < grid.length; r++) {
-    for (let q = 0; q < grid[r]!.length; q++) {
-      const cell = grid[r]![q]!;
+    for (let q = 0; q < grid[r].length; q++) {
+      const cell = grid[r][q];
       if (cell === ".") {
         continue;
       }
@@ -37,7 +37,7 @@ const parse = (input: string): City => {
 function* pairs<T>(items: ReadonlyArray<T>): Generator<readonly [T, T]> {
   for (let i = 0; i < items.length; i++) {
     for (let j = i + 1; j < items.length; j++) {
-      yield [items[i]!, items[j]!];
+      yield [items[i], items[j]];
     }
   }
 }

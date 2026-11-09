@@ -20,7 +20,7 @@ const next = (index: number, max: number): number => (index + 1) % max;
 
 const evolve = (grid: Grid): Grid => {
   const rows = grid.length;
-  const cols = grid[0]!.length;
+  const cols = grid[0].length;
   const east = grid.map((row) =>
     row.map((cell, index) => {
       switch (cell) {
@@ -43,10 +43,10 @@ const evolve = (grid: Grid): Grid => {
           return cell;
         }
         case Cell.South: {
-          return east[next(r, rows)]![c] === Cell.Empty ? Cell.Empty : cell;
+          return east[next(r, rows)][c] === Cell.Empty ? Cell.Empty : cell;
         }
         case Cell.Empty: {
-          return east[prev(r, rows)]![c] === Cell.South ? Cell.South : cell;
+          return east[prev(r, rows)][c] === Cell.South ? Cell.South : cell;
         }
       }
     }),

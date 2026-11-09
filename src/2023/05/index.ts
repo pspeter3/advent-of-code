@@ -24,7 +24,7 @@ const AlmanacMapSchema = z
   .string()
   .transform((chunk) => {
     const [title, ...ranges] = chunk.trim().split("\n");
-    const match = title!.match(/^(\w+)-to-(\w+) map:$/);
+    const match = title.match(/^(\w+)-to-(\w+) map:$/);
     if (match === null) {
       throw new Error("Invalid AlmanacMap title");
     }
@@ -88,7 +88,7 @@ class NumericRange {
   static fromSeeds(seeds: ReadonlyArray<number>): ReadonlyArray<NumericRange> {
     return Array.from({ length: seeds.length / 2 }, (_, i) => {
       const offset = 2 * i;
-      return new NumericRange(seeds[offset]!, seeds[offset + 1]!);
+      return new NumericRange(seeds[offset], seeds[offset + 1]);
     });
   }
 
@@ -119,7 +119,7 @@ class NumericRange {
     const result: NumericRange[] = [ranges.shift()!];
     for (const range of ranges) {
       const index = result.length - 1;
-      const current = result[index]!;
+      const current = result[index];
       if (range.start < current.end) {
         result[index] = new NumericRange(current.start, range.end - current.start);
       } else {

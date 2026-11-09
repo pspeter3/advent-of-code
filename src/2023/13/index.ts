@@ -23,7 +23,7 @@ const diffPattern = (pattern: Pattern, index: number): number =>
   sum(pattern.values().map((line) => diffLine(line, index)));
 
 function findIndex(pattern: Pattern, delta: number): number {
-  for (let i = 1; i < pattern[0]!.length; i++) {
+  for (let i = 1; i < pattern[0].length; i++) {
     if (diffPattern(pattern, i) === delta) {
       return i;
     }
@@ -35,7 +35,7 @@ const score = (pattern: Pattern, delta: number): number =>
   findIndex(pattern, delta) + 100 * findIndex(rotate(pattern), delta);
 
 const rotate = (pattern: Pattern): Pattern =>
-  Array.from({ length: pattern[0]!.length }, (_, q) => pattern.map((line) => line[q]).join(""));
+  Array.from({ length: pattern[0].length }, (_, q) => pattern.map((line) => line[q]).join(""));
 
 const parse = (input: string): PatternList => PatternListSchema.parse(input);
 

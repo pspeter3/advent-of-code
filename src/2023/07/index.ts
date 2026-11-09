@@ -40,7 +40,7 @@ const CamelRoundSchema = z
   .string()
   .transform((line) => {
     const [cards, bid] = line.split(/\s+/);
-    const hand = Array.from(cards!);
+    const hand = Array.from(cards);
     return { hand, bid };
   })
   .pipe(z.object({ hand: CamelHandSchema, bid: IntSchema }));
@@ -119,7 +119,7 @@ const createRoundSorter =
       return a.type - b.type;
     }
     for (const [index, aCard] of a.hand.entries()) {
-      const bCard = b.hand[index]!;
+      const bCard = b.hand[index];
       const aRank = ranker(aCard);
       const bRank = ranker(bCard);
       if (aRank !== bRank) {

@@ -78,7 +78,7 @@ const traverse = (lines: ReadonlyArray<string>): DirectoryInfo => {
       const cmd = parts[1];
       switch (cmd) {
         case "cd": {
-          const dirname = parts[2]!;
+          const dirname = parts[2];
           switch (dirname) {
             case "/": {
               if (root === null) {
@@ -118,8 +118,8 @@ const traverse = (lines: ReadonlyArray<string>): DirectoryInfo => {
       const parts = line.split(" ");
       const child =
         parts[0] === "dir"
-          ? new DirectoryInfo(parts[1]!, cwd)
-          : new FileInfo(parts[1]!, parseInt(parts[0]!, 10));
+          ? new DirectoryInfo(parts[1], cwd)
+          : new FileInfo(parts[1], parseInt(parts[0], 10));
       cwd.addChild(child);
     }
   }
@@ -148,7 +148,7 @@ const part2 = (root: DirectoryInfo): number => {
   const delta = need - available;
   return Array.from(root.directories())
     .filter((dir) => dir.size >= delta)
-    .sort((a, b) => a.size - b.size)[0]!.size;
+    .sort((a, b) => a.size - b.size)[0].size;
 };
 
 await main(import.meta, parse, part1, part2);

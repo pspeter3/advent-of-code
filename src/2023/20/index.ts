@@ -26,7 +26,7 @@ const PulseModuleRecordSchema = z
   .string()
   .transform((line) => {
     const [key, list] = line.split(/\s+->\s+/);
-    return { ...parseKey(key!), outputs: list!.split(/,\s+/g) };
+    return { ...parseKey(key), outputs: list.split(/,\s+/g) };
   })
   .pipe(
     z.object({
@@ -184,7 +184,7 @@ const part2 = (records: PulseModuleRecordList): number => {
   if (targetInputs.size !== 1) {
     throw new Error("Invalid target input set");
   }
-  const target = Array.from(targetInputs)[0]!;
+  const target = Array.from(targetInputs)[0];
   if (records.find(({ name }) => name === target)?.kind !== PulseModuleKind.Conjuction) {
     throw new Error("Invalid target");
   }

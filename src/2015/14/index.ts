@@ -29,10 +29,10 @@ const parse = (input: string): ReindeerList =>
       if (!match) throw new Error(`Invalid line: ${line}`);
       const [, name, speed, fly, rest] = match;
       return {
-        name: name!,
-        speed: parseInt(speed!, 10),
-        fly: parseInt(fly!, 10),
-        rest: parseInt(rest!, 10),
+        name,
+        speed: parseInt(speed, 10),
+        fly: parseInt(fly, 10),
+        rest: parseInt(rest, 10),
       };
     });
 

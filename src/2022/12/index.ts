@@ -22,7 +22,7 @@ class Grid {
   readonly end: GridTile;
 
   constructor(data: ReadonlyArray<ReadonlyArray<string>>) {
-    this.cols = data[0]!.length;
+    this.cols = data[0].length;
     this.rows = data.length;
     this.tiles = data
       .map((chars, r) => chars.map((char, q) => new GridTile(this, char, q, r)))
@@ -35,7 +35,7 @@ class Grid {
     if (q < 0 || q >= this.cols || r < 0 || r >= this.rows) {
       return null;
     }
-    return this.tiles[r * this.cols + q]!;
+    return this.tiles[r * this.cols + q];
   }
 }
 

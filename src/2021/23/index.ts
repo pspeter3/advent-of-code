@@ -40,16 +40,16 @@ const swap = (grid: Grid, [al, an]: Cell, [bl, bn]: Cell): Grid =>
   grid.map((line, l) =>
     line.map((node, n) => {
       if (l === al && n === an) {
-        return grid[bl]![bn]!;
+        return grid[bl][bn];
       }
       if (l === bl && n == bn) {
-        return grid[al]![an]!;
+        return grid[al][an];
       }
       return node;
     }),
   );
 
-const toNode = (grid: Grid, [line, node]: Cell): Node => grid[line]![node]!;
+const toNode = (grid: Grid, [line, node]: Cell): Node => grid[line][node];
 
 const hasPath = (line: Line, a: number, b: number): boolean => {
   const sign = Math.sign(b - a);
@@ -65,7 +65,7 @@ const toHall = ([line, node]: Cell): readonly [node: number, cost: number] => {
   if (line === HALL) {
     return [node, 0];
   }
-  return [DOORS[line]!, node + 1];
+  return [DOORS[line], node + 1];
 };
 
 const distance = (a: Cell, b: Cell): number => {
@@ -116,7 +116,7 @@ const toEntry = (grid: Grid, a: Cell, b: Cell, cost: number): Entry => [
 
 const edges = (grid: Grid): ReadonlyMap<string, number> => {
   const entries: Entry[] = [];
-  const hall = grid[HALL]!;
+  const hall = grid[HALL];
   const rooms = grid.slice(0, HALL);
   const [moves, slots] = findOptions(rooms);
   for (const move of moves) {
@@ -129,9 +129,9 @@ const edges = (grid: Grid): ReadonlyMap<string, number> => {
     }
     const cost = COSTS[node];
     const room = ROOMS[node];
-    const slot = slots[room]!;
-    const door = DOORS[move[0]]!;
-    if (slot !== null && hasPath(hall, door, DOORS[room]!)) {
+    const slot = slots[room];
+    const door = DOORS[move[0]];
+    if (slot !== null && hasPath(hall, door, DOORS[room])) {
       entries.push(toEntry(grid, move, slot, cost));
       continue;
     }
@@ -146,11 +146,11 @@ const edges = (grid: Grid): ReadonlyMap<string, number> => {
       continue;
     }
     const room = ROOMS[node];
-    const slot = slots[room]!;
+    const slot = slots[room];
     if (slot === null) {
       continue;
     }
-    if (hasPath(hall, index, DOORS[room]!)) {
+    if (hasPath(hall, index, DOORS[room])) {
       entries.push(toEntry(grid, [HALL, index], slot, COSTS[node]));
     }
   }
@@ -206,7 +206,7 @@ const schema = z.preprocess(
       .trim()
       .split("\n")
       .map((line) => line.split(""));
-    return [...DOORS.map((door) => [data[2]![door + 1], data[3]![door + 1]]), createHall()];
+    return [...DOORS.map((door) => [data[2][door + 1], data[3][door + 1]]), createHall()];
   },
   z.array(z.array(z.enum(["A", "B", "C", "D"]).nullable())),
 );
@@ -223,10 +223,10 @@ const part2 = (grid: Grid): number => {
   const rooms = grid.slice(0, HALL);
   const input: Grid = [
     ...rooms.map((room, index) => {
-      const extension = extensions[index]!;
-      return [room[0]!, extension[0]!, extension[1]!, room[1]!];
+      const extension = extensions[index];
+      return [room[0], extension[0], extension[1], room[1]];
     }),
-    grid[HALL]!,
+    grid[HALL],
   ];
   return seek(input, createFinal(4));
 };

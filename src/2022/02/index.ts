@@ -53,7 +53,7 @@ const toMove = (opponent: Opponent, player: Player): Player => {
       }
     }
   })();
-  return PLAYER[move]!;
+  return PLAYER[move];
 };
 
 const part1 = (strategy: Strategy): number =>

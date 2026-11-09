@@ -47,7 +47,7 @@ class GridPosition {
   }
 
   toId(grid: ReadonlyArray<ReadonlyArray<unknown>>): number {
-    const cols = grid[0]!.length;
+    const cols = grid[0].length;
     return cols * this.r + this.q;
   }
 
@@ -93,12 +93,12 @@ function findStart(grid: TileGrid): GridPosition {
 
 function hasPosition(grid: TileGrid, { q, r }: GridPosition): boolean {
   const rows = grid.length;
-  const cols = grid[0]!.length;
+  const cols = grid[0].length;
   return q >= 0 && q < cols && r >= 0 && r < rows;
 }
 
 function toMarker(grid: TileGrid, position: GridPosition): TileMarker {
-  return grid[position.r]![position.q]!;
+  return grid[position.r][position.q];
 }
 
 type PipeConnection = readonly [GridPosition, GridPosition];
@@ -190,9 +190,6 @@ const part1 = (grid: TileGrid): number => {
   const [a, b] = findStartConnections(grid, start).map(
     (next) => new Map(walkLoop(grid, start, next) as ReadonlyMap<number, number>),
   );
-  if (a === undefined || b === undefined) {
-    throw new Error("Invalid start connections");
-  }
   let max = -Infinity;
   for (const [id, count] of a) {
     const other = b.get(id);

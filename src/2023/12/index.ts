@@ -38,13 +38,13 @@ const count = memoize((status: string, groups: NumberList): number => {
     }
     case "#": {
       const [group, ...remaining] = groups;
-      if (status.length > group! && status.at(group!) === "#") {
+      if (status.length > group && status.at(group) === "#") {
         return 0;
       }
       if (status.match(new RegExp(`^[#?]{${group}}`)) === null) {
         return 0;
       }
-      return count(status.slice(group! + 1), remaining);
+      return count(status.slice(group + 1), remaining);
     }
     case "?": {
       const next = status.slice(1);

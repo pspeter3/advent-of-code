@@ -5,7 +5,7 @@ const schema = LinesSchema(IntSchema);
 
 const increasing = (values: ReadonlyArray<number>): number =>
   values.reduce((sum, value, index) => {
-    if (index > 0 && value > values[index - 1]!) {
+    if (index > 0 && value > values[index - 1]) {
       sum += 1;
     }
     return sum;
@@ -22,7 +22,7 @@ const part2 = (depths: ReadonlyArray<number>): number =>
       (_, index) => {
         let sum = 0;
         for (let i = 0; i < 3; i++) {
-          sum += depths[index + i]!;
+          sum += depths[index + i];
         }
         return sum;
       },

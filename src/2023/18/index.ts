@@ -49,8 +49,8 @@ function parseColor({ color }: Trench): Trench {
   if (match === null) {
     throw new Error("Invalid color");
   }
-  const chars = match[1]!;
-  const direction = ((parseInt(chars[5]!, 16) + 1) % 4) as CardinalDirection;
+  const chars = match[1];
+  const direction = ((parseInt(chars[5], 16) + 1) % 4) as CardinalDirection;
   const amount = parseInt(chars.slice(0, 5), 16);
   return { direction, amount, color };
 }

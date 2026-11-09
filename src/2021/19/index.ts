@@ -47,9 +47,9 @@ const ROTATIONS: ReadonlyArray<Rotation> = FACINGS.map((facing) =>
 const serialize = (vector: Vector): string => vector.join(",");
 
 const apply = (vector: Vector, [[i, j, k], [a, b, c]]: Rotation): Vector => [
-  vector[i]! * a,
-  vector[j]! * b,
-  vector[k]! * c,
+  vector[i] * a,
+  vector[j] * b,
+  vector[k] * c,
 ];
 
 const delta = ([x1, y1, z1]: Vector, [x2, y2, z2]: Vector): Vector => [x1 - x2, y1 - y2, z1 - z2];
@@ -73,7 +73,7 @@ const align = (
           return [
             position,
             new Set(
-              sensor.map((vector) => serialize(delta(apply(vector, ROTATIONS[r]!), position))),
+              sensor.map((vector) => serialize(delta(apply(vector, ROTATIONS[r]), position))),
             ),
           ];
         }
@@ -90,13 +90,13 @@ const absolute = (
     ROTATIONS.map((rotation) => sensor.map((vector) => apply(vector, rotation))),
   );
   const positions = new Map<number, Vector>([[0, [0, 0, 0]]]);
-  const beacons = new Set(sensors[0]!.map(serialize));
+  const beacons = new Set(sensors[0].map(serialize));
   while (positions.size < sensors.length) {
     for (const [index, sensor] of sensors.entries()) {
       if (positions.has(index)) {
         continue;
       }
-      const match = align(sensor, rotations[index]!, beacons);
+      const match = align(sensor, rotations[index], beacons);
       if (match === null) {
         continue;
       }

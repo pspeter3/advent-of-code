@@ -26,7 +26,7 @@ const parse = (input: string): Worksheet => {
   const operations: Operation[] = [];
   const ranges: NumberRange[] = [];
   let curr: number | null = null;
-  for (const [index, char] of enumerate(lines[last]!)) {
+  for (const [index, char] of enumerate(lines[last])) {
     if (isOperation(char)) {
       if (curr !== null) {
         ranges.push(new NumberRange(curr, index - 1));
@@ -38,10 +38,10 @@ const parse = (input: string): Worksheet => {
   if (curr === null) {
     throw new Error("No operations found");
   }
-  ranges.push(new NumberRange(curr, lines[last]!.length + 1));
+  ranges.push(new NumberRange(curr, lines[last].length + 1));
   for (let r = 0; r < last; r++) {
     const row: string[] = [];
-    const line = lines[r]!;
+    const line = lines[r];
     for (const range of ranges) {
       row.push(line.slice(range.min, range.max));
     }
@@ -57,16 +57,16 @@ const toEvaluator = (op: Operation): OperationEvaluator => (op === Operation.Add
 
 function* column(values: IntMatrix, q: number): Generator<number> {
   for (let r = 0; r < values.length; r++) {
-    yield parseInt(values[r]![q]!.trim(), 10);
+    yield parseInt(values[r][q].trim(), 10);
   }
 }
 
 function* cephalopod(values: IntMatrix, q: number): Generator<number> {
   const col = Array.from(values, (row) => row[q]);
-  const maxLength = col[0]!.length;
+  const maxLength = col[0].length;
   for (let i = maxLength - 1; i >= 0; i--) {
     const digits = col
-      .map((row) => row![i])
+      .map((row) => row[i])
       .join("")
       .trimEnd()
       .replaceAll(" ", "0");

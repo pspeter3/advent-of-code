@@ -23,7 +23,7 @@ const BoatRaceListSchema = z
     }
     return Array.from(times, (time, i) => ({
       time,
-      distance: distances[i]!,
+      distance: distances[i],
     }));
   });
 

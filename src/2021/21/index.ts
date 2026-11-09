@@ -19,7 +19,7 @@ const set = (pair: Pair, index: number, value: number): Pair =>
   pair.map((v, i) => (i === index ? value : v)) as unknown as Pair;
 
 const increment = (pair: Pair, index: number, value: number): Pair =>
-  set(pair, index, pair[index]! + value);
+  set(pair, index, pair[index] + value);
 
 const move = (position: number, delta: number): number => ((position + delta - 1) % 10) + 1;
 
@@ -32,8 +32,8 @@ const part1 = (positions: Pair): number => {
     const delta = Array.from({ length: 3 }, (_, v) => ((3 * turn + v) % 100) + 1).reduce(
       (sum, value) => sum + value,
     );
-    current[index] = move(current[index]!, delta);
-    scores[index]! += current[index];
+    current[index] = move(current[index], delta);
+    scores[index] += current[index];
     turn++;
   }
   return Math.min(...scores) * (3 * turn);
@@ -44,8 +44,8 @@ const parse = (key: string): Game => JSON.parse(key);
 
 const evolve = (turn: number, [positions, scores]: Game, delta: number): string => {
   const index = turn % positions.length;
-  const p = set(positions, index, move(positions[index]!, delta));
-  const s = increment(scores, index, p[index]!);
+  const p = set(positions, index, move(positions[index], delta));
+  const s = increment(scores, index, p[index]);
   return serialize([p, s]);
 };
 

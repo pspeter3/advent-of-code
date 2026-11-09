@@ -80,11 +80,11 @@ const parse = (input: string): WallList =>
     .map((line) => {
       const vectors = line.split(" -> ").map((pair) => {
         const [x, y] = pair.split(",").map((item) => parseInt(item));
-        return new Tile(x!, y!);
+        return new Tile(x, y);
       });
       const segments: Segment[] = [];
       for (let i = 1; i < vectors.length; i++) {
-        segments.push(new Segment(vectors[i - 1]!, vectors[i]!));
+        segments.push(new Segment(vectors[i - 1], vectors[i]));
       }
       return segments;
     });

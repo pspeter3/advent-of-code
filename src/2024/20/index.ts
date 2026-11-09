@@ -39,15 +39,15 @@ const parse = (input: string): RaceTrack => {
     .split("\n")
     .map((line) => line.split(""));
   const bounds = GridBounds2D.fromOrigin({
-    q: matrix[0]!.length,
+    q: matrix[0].length,
     r: matrix.length,
   });
   const walls = new GridVector2DSet(
     bounds,
-    bounds.values().filter((v) => matrix[v.r]![v.q] === "#"),
+    bounds.values().filter((v) => matrix[v.r][v.q] === "#"),
   );
-  const start = bounds.values().find((v) => matrix[v.r]![v.q] === "S")!;
-  const end = bounds.values().find((v) => matrix[v.r]![v.q] === "E")!;
+  const start = bounds.values().find((v) => matrix[v.r][v.q] === "S")!;
+  const end = bounds.values().find((v) => matrix[v.r][v.q] === "E")!;
   console.log(start, end);
   const path = new GridVector2DMap(bounds, [[start, 0]]);
   for (const [tile, cost] of path) {
@@ -62,7 +62,7 @@ const parse = (input: string): RaceTrack => {
     if (neighbors.length !== 1) {
       throw new Error("Invalid path");
     }
-    path.set(neighbors[0]!, cost + 1);
+    path.set(neighbors[0], cost + 1);
   }
   return { bounds, path };
 };

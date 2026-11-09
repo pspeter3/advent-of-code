@@ -11,7 +11,7 @@ const part1 = (input: string): number => {
   return sum(
     match.values().map((m) => {
       const [, a, b] = m.match(/mul\((\d{1,3}),(\d{1,3})\)/)!;
-      return parseInt(a!, 10) * parseInt(b!, 10);
+      return parseInt(a, 10) * parseInt(b, 10);
     }),
   );
 };
@@ -36,7 +36,7 @@ const part2 = (input: string): number => {
       default: {
         if (enabled) {
           const [, a, b] = m.match(/mul\((\d{1,3}),(\d{1,3})\)/)!;
-          result += parseInt(a!, 10) * parseInt(b!, 10);
+          result += parseInt(a, 10) * parseInt(b, 10);
         }
       }
     }

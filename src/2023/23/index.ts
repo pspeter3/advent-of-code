@@ -62,7 +62,7 @@ function walk(
     if (options.length !== 1) {
       return [grid.bounds.toId(curr), queue.length - 1];
     }
-    queue.push(options[0]!);
+    queue.push(options[0]);
   }
   return null;
 }

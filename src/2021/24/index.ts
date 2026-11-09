@@ -30,7 +30,7 @@ const groupBy = (
     if (isGroup(command)) {
       groups.push([]);
     }
-    groups[groups.length - 1]!.push(command);
+    groups[groups.length - 1].push(command);
   }
   return groups;
 };
@@ -39,7 +39,7 @@ type Group = readonly [a: number, b: number, c: number];
 
 const scan = (commands: ReadonlyArray<Command>, a: number, b: number): number => {
   const groups = groupBy(commands, isInput).map(
-    (group) => [group[4]![2], group[5]![2], group[15]![2]] as Group,
+    (group) => [group[4][2], group[5][2], group[15][2]] as Group,
   );
   const deps = new Map<number, number>();
   const stack: number[] = [];
@@ -68,7 +68,7 @@ const scan = (commands: ReadonlyArray<Command>, a: number, b: number): number =>
   for (const key of keys) {
     const next = deps.get(key)!;
     for (let i = a; i !== b + sign; i += sign) {
-      const value = i + groups[key]![2] + groups[next]![1];
+      const value = i + groups[key][2] + groups[next][1];
       if (1 <= value && value <= 9) {
         digits[key] = i;
         digits[next] = value;

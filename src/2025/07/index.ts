@@ -9,9 +9,9 @@ export interface TachyonManifold {
 
 const parse = (input: string): TachyonManifold => {
   const lines = input.trim().split("\n");
-  const cols = lines[0]!.length;
+  const cols = lines[0].length;
   let start: number | null = null;
-  for (const [index, char] of lines[0]!.split("").entries()) {
+  for (const [index, char] of lines[0].split("").entries()) {
     switch (char) {
       case "S": {
         if (start !== null) {

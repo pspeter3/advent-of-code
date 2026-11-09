@@ -15,7 +15,12 @@
     "noEmit": true,
 
     // Stricter Typechecking Options
-    "noUncheckedIndexedAccess": true,
+    // noUncheckedIndexedAccess is intentionally disabled. Solutions index
+    // heavily into well-formed puzzle input (grids, regex groups, split
+    // results), so enabling it produced ~400 errors, none of them real bugs,
+    // and the fix was almost entirely non-null assertions that add noise
+    // without adding safety.
+    // "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
 
     // Style Options

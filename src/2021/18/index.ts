@@ -99,10 +99,10 @@ const findExplode = (elements: ReadonlyArray<Element>): ExplodeAction | null => 
   const r = count;
   const increments = new Map<number, number>();
   if (l >= 0) {
-    increments.set(indices[l]!, toNumber(left));
+    increments.set(indices[l], toNumber(left));
   }
   if (r < indices.length) {
-    increments.set(indices[r]!, toNumber(right));
+    increments.set(indices[r], toNumber(right));
   }
   return {
     operation: Operation.Explode,
