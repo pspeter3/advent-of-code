@@ -7,6 +7,7 @@ const part1 = (input: ReadonlyArray<string>): number => {
   let memory = 0;
   for (const line of input) {
     code += line.length;
+    // oxlint-disable-next-line no-eval -- Input is a JS string literal with \x escapes JSON.parse rejects.
     memory += eval(line).length;
   }
   return code - memory;
