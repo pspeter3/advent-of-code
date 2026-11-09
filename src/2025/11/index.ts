@@ -23,23 +23,26 @@ const part1 = (graph: Graph<string>): number => {
 };
 
 const part2 = (graph: Graph<string>): number => {
-  const search = memoize((key: string, dac: boolean, fft: boolean): number => {
-    if (key == "out") {
-      return dac && fft ? 1 : 0;
-    }
-    if (key === "dac") {
-      dac = true;
-    }
-    if (key === "fft") {
-      fft = true;
-    }
-    return sum(
-      graph
-        .get(key)!
-        .values()
-        .map((k) => search(k, dac, fft)),
-    );
-  });
+  const search = memoize(
+    (key: string, dac: boolean, fft: boolean): number => {
+      if (key == "out") {
+        return dac && fft ? 1 : 0;
+      }
+      if (key === "dac") {
+        dac = true;
+      }
+      if (key === "fft") {
+        fft = true;
+      }
+      return sum(
+        graph
+          .get(key)!
+          .values()
+          .map((k) => search(k, dac, fft)),
+      );
+    },
+    (key, dac, fft) => `${key}:${+dac}${+fft}`,
+  );
   return search("svr", false, false);
 };
 
