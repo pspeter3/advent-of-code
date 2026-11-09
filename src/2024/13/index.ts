@@ -1,7 +1,8 @@
 import z from "zod";
+
+import { sum } from "../../common/itertools.ts";
 import { main } from "../../utils/host.ts";
 import { IntSchema } from "../../utils/schemas.ts";
-import { sum } from "../../common/itertools.ts";
 
 interface Vector2DRecord {
   readonly x: number;

@@ -1,7 +1,8 @@
 import z from "zod";
+
+import { max, sum } from "../../common/itertools.ts";
 import { main } from "../../utils/host.ts";
 import { IntSchema, LinesSchema } from "../../utils/schemas.ts";
-import { max, sum } from "../../common/itertools.ts";
 
 interface Vector3D {
   readonly x: number;

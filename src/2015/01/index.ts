@@ -1,6 +1,7 @@
 import z from "zod";
-import { main } from "../../utils/host.ts";
+
 import { sum } from "../../common/itertools.ts";
+import { main } from "../../utils/host.ts";
 
 const Instruction = { Up: "(", Down: ")" } as const;
 type Instruction = (typeof Instruction)[keyof typeof Instruction];

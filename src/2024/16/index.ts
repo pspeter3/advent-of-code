@@ -1,4 +1,5 @@
 import { Heap } from "heap-js";
+
 import {
   CardinalDirection,
   GridBounds2D,

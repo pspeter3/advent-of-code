@@ -1,7 +1,8 @@
 import z from "zod";
+
+import { len } from "../../common/itertools.ts";
 import { main } from "../../utils/host.ts";
 import { IntSchema, LinesSchema } from "../../utils/schemas.ts";
-import { len } from "../../common/itertools.ts";
 
 type Report = ReadonlyArray<number>;
 type ReportList = ReadonlyArray<Report>;

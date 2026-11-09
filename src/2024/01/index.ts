@@ -1,7 +1,8 @@
 import z from "zod";
+
+import { sum, zip } from "../../common/itertools.ts";
 import { main } from "../../utils/host.ts";
 import { IntSchema, LinesSchema } from "../../utils/schemas.ts";
-import { sum, zip } from "../../common/itertools.ts";
 
 const PairSchema = z
   .string()

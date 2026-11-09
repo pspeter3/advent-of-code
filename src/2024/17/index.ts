@@ -1,4 +1,5 @@
 import z from "zod";
+
 import { main } from "../../utils/host.ts";
 
 type Register = "A" | "B" | "C";

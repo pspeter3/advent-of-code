@@ -1,8 +1,9 @@
 import z from "zod";
+
 import { GridBounds2D, GridVector2D, type GridVector2DRecord } from "../../common/grid2d.ts";
+import { max, pairs, type Pair } from "../../common/itertools.ts";
 import { main } from "../../utils/host.ts";
 import { IntSchema } from "../../utils/schemas.ts";
-import { max, pairs, type Pair } from "../../common/itertools.ts";
 
 const Vector2DTupleSchema = z.tuple([IntSchema, IntSchema]);
 

@@ -1,6 +1,6 @@
-import { main } from "../../utils/host.ts";
 import { enumerate, sum } from "../../common/itertools.ts";
 import { NumberRange } from "../../common/number-range.ts";
+import { main } from "../../utils/host.ts";
 
 const Operation = {
   Add: "+",
