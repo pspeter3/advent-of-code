@@ -455,18 +455,11 @@ export class GridVector2DMap<T> implements Map<GridVector2D, T> {
   }
 
   getOrInsert(key: GridVector2D, value: T): T {
-    return this.getOrInsertComputed(key, () => value);
+    return this.#data.getOrInsert(this.#codec.toId(key), value);
   }
 
   getOrInsertComputed(key: GridVector2D, callback: (key: GridVector2D) => T): T {
-    // Implemented manually since not every supported runtime ships Map upsert yet.
-    const id = this.#codec.toId(key);
-    if (this.#data.has(id)) {
-      return this.#data.get(id)!;
-    }
-    const value = callback(key);
-    this.#data.set(id, value);
-    return value;
+    return this.#data.getOrInsertComputed(this.#codec.toId(key), () => callback(key));
   }
 
   get size(): number {
