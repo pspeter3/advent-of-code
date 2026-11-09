@@ -62,16 +62,13 @@ class CircuitEmulator {
   }
 
   evaluate(id: string): number {
-    if (this.#cache.has(id)) {
-      return this.#cache.get(id)!;
-    }
-    const instruction = this.#circuit.get(id);
-    if (instruction === undefined) {
-      throw new Error(`Unknown wire: ${id}`);
-    }
-    const result = this.#resolve(instruction) & 0xffff;
-    this.#cache.set(id, result);
-    return result;
+    return this.#cache.getOrInsertComputed(id, () => {
+      const instruction = this.#circuit.get(id);
+      if (instruction === undefined) {
+        throw new Error(`Unknown wire: ${id}`);
+      }
+      return this.#resolve(instruction) & 0xffff;
+    });
   }
 
   #resolve(instruction: Instruction): number {

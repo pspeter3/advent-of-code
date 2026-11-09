@@ -22,10 +22,7 @@ const parse = (input: string): WeightedGraph<string> => {
     }
     const [_, source, sign, amount, target] = match;
     const value = parseInt(amount, 10) * (sign === "gain" ? 1 : -1);
-    if (!graph.has(source)) {
-      graph.set(source, new Map());
-    }
-    graph.get(source)!.set(target, value);
+    graph.getOrInsertComputed(source, () => new Map()).set(target, value);
   }
   return graph;
 };

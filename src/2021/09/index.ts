@@ -93,10 +93,7 @@ const part2 = (data: ReadonlyArray<ReadonlyArray<number>>): number => {
   }
   const uphill: Map<number, Set<number>> = new Map();
   for (const [from, to] of flow.entries()) {
-    if (!uphill.has(to)) {
-      uphill.set(to, new Set());
-    }
-    uphill.get(to)!.add(from);
+    uphill.getOrInsertComputed(to, () => new Set()).add(from);
   }
   const results = basins.map((basin) => size(uphill, basin)).sort((a, b) => b - a);
   return results.slice(0, 3).reduce((product, value) => product * value);

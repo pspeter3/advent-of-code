@@ -85,10 +85,7 @@ export function createDirectedGraph<T>(edges: ReadonlyArray<GraphEdge<T>>): Grap
 }
 
 function addEdge<T>(graph: Map<T, Set<T>>, source: T, target: T) {
-  if (!graph.has(source)) {
-    graph.set(source, new Set());
-  }
-  graph.get(source)!.add(target);
+  graph.getOrInsertComputed(source, () => new Set()).add(target);
 }
 
 export function bronKerbosch<T>(

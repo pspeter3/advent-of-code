@@ -112,23 +112,18 @@ class Circuit {
   }
 
   #value(id: string, path: ReadonlySet<string>): WireValue {
-    if (this.#values.has(id)) {
-      return this.#values.get(id)!;
-    }
-    if (path.has(id)) {
-      throw new Error("Circuit contains a cycle");
-    }
-    const gate = this.#gates.get(id);
-    if (gate === undefined) {
-      throw new Error(`Unknown wire: ${id}`);
-    }
+    return this.#values.getOrInsertComputed(id, () => {
+      if (path.has(id)) {
+        throw new Error("Circuit contains a cycle");
+      }
+      const gate = this.#gates.get(id);
+      if (gate === undefined) {
+        throw new Error(`Unknown wire: ${id}`);
+      }
 
-    const next = new Set(path).add(id);
-    this.#values.set(
-      id,
-      Circuit.#evaluate(gate.op, this.#value(gate.lhs, next), this.#value(gate.rhs, next)),
-    );
-    return this.#values.get(id)!;
+      const next = new Set(path).add(id);
+      return Circuit.#evaluate(gate.op, this.#value(gate.lhs, next), this.#value(gate.rhs, next));
+    });
   }
 
   [Symbol.iterator](): MapIterator<[string, WireValue]> {
@@ -161,14 +156,8 @@ const part1 = (puzzle: Puzzle): number => {
 const createConnections = (gates: ReadonlyMap<string, Gate>): ReadonlyMap<string, string> => {
   const inputs = new Map<string, string[]>();
   for (const { lhs, op, rhs } of gates.values()) {
-    if (!inputs.has(lhs)) {
-      inputs.set(lhs, []);
-    }
-    if (!inputs.has(rhs)) {
-      inputs.set(rhs, []);
-    }
-    inputs.get(lhs)!.push(op);
-    inputs.get(rhs)!.push(op);
+    inputs.getOrInsertComputed(lhs, () => []).push(op);
+    inputs.getOrInsertComputed(rhs, () => []).push(op);
   }
   return new Map(inputs.entries().map(([k, v]) => [k, v.sort().join("")]));
 };

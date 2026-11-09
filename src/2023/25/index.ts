@@ -15,10 +15,7 @@ const GraphSchema = LinesSchema(EdgeListSchema).transform((entries) => {
   const graph = new Map(entries);
   for (const [key, edges] of graph) {
     for (const edge of edges) {
-      if (!graph.has(edge)) {
-        graph.set(edge, new Set());
-      }
-      graph.get(edge)!.add(key);
+      graph.getOrInsertComputed(edge, () => new Set()).add(key);
     }
   }
   return graph;

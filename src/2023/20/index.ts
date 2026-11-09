@@ -96,10 +96,7 @@ class PulseSystem {
     const inputs = new Map<string, Set<string>>();
     for (const { name, outputs } of records) {
       for (const output of outputs) {
-        if (!inputs.has(output)) {
-          inputs.set(output, new Set());
-        }
-        inputs.get(output)!.add(name);
+        inputs.getOrInsertComputed(output, () => new Set()).add(name);
       }
     }
     return inputs;

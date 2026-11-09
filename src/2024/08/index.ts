@@ -25,10 +25,7 @@ const parse = (input: string): City => {
       if (cell === ".") {
         continue;
       }
-      if (!frequencies.has(cell)) {
-        frequencies.set(cell, []);
-      }
-      frequencies.get(cell)!.push(new GridVector2D(q, r));
+      frequencies.getOrInsertComputed(cell, () => []).push(new GridVector2D(q, r));
     }
   }
   return { bounds, frequencies };

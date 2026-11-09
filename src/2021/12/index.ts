@@ -20,10 +20,7 @@ const isLarge = (cave: Node) => cave.toUpperCase() === cave;
 const isSmall = (cave: Node) => !isLarge(cave);
 
 const add = (graph: Graph, src: Node, dest: Node): void => {
-  if (!graph.has(src)) {
-    graph.set(src, new Set());
-  }
-  graph.get(src)!.add(dest);
+  graph.getOrInsertComputed(src, () => new Set()).add(dest);
 };
 
 const toGraph = (edges: ReadonlyArray<Edge>): Graph => {

@@ -183,10 +183,7 @@ const part1 = (elves: ReadonlyArray<GridTile>): number => {
         continue;
       }
       const key = proposal.target.id;
-      if (!proposed.has(key)) {
-        proposed.set(key, []);
-      }
-      proposed.get(key)!.push(proposal);
+      proposed.getOrInsertComputed(key, () => []).push(proposal);
     }
     for (const proposals of proposed.values()) {
       if (proposals.length === 1) {
@@ -250,10 +247,7 @@ const part2 = (elves: ReadonlyArray<GridTile>): number => {
         continue;
       }
       const key = proposal.target.id;
-      if (!proposed.has(key)) {
-        proposed.set(key, []);
-      }
-      proposed.get(key)!.push(proposal);
+      proposed.getOrInsertComputed(key, () => []).push(proposal);
     }
     for (const proposals of proposed.values()) {
       if (proposals.length === 1) {

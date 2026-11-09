@@ -34,10 +34,7 @@ function distance(
     if (seen.get(id)?.has(direction)) {
       return true;
     }
-    if (!seen.has(id)) {
-      seen.set(id, new Set());
-    }
-    seen.get(id)?.add(direction);
+    seen.getOrInsertComputed(id, () => new Set()).add(direction);
     return false;
   };
   const queue = new Heap<DistanceRecord>((a, b) => a.cost - b.cost);

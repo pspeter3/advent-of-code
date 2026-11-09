@@ -47,9 +47,7 @@ const calculateChanges = (seed: number, count: number): ReadonlyMap<string, numb
     if (values.length > 4) {
       const deltas = Array.from({ length: 4 }, (_, i) => values.at(-4 + i)! - values.at(-5 + i)!);
       const key = JSON.stringify(deltas);
-      if (!changes.has(key)) {
-        changes.set(key, values.at(-1)!);
-      }
+      changes.getOrInsert(key, values.at(-1)!);
     }
   }
   return changes;

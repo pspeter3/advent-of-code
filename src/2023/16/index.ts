@@ -37,10 +37,7 @@ function energize(grid: MatrixGrid<Tile>, start: Beam): number {
     if (cache.get(id)?.has(direction)) {
       return true;
     }
-    if (!cache.has(id)) {
-      cache.set(id, new Set());
-    }
-    cache.get(id)!.add(direction);
+    cache.getOrInsertComputed(id, () => new Set()).add(direction);
     return false;
   };
   for (const [position, direction] of queue) {

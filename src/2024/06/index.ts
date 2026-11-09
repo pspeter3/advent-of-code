@@ -66,10 +66,7 @@ const walk = ({
   let dir: CardinalDirection = CardinalDirection.North;
   const visited = new GridVector2DMap<Set<CardinalDirection>>(bounds);
   const visit = (cell: GridVector2D, dir: CardinalDirection): void => {
-    if (!visited.has(cell)) {
-      visited.set(cell, new Set());
-    }
-    const directions = visited.get(cell)!;
+    const directions = visited.getOrInsertComputed(cell, () => new Set());
     if (directions.has(dir)) {
       throw new Error("Loop detected");
     }

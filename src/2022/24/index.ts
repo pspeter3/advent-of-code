@@ -177,9 +177,7 @@ const traverse = (board: Tile, forecast: Forecast, state: State, target: Tile): 
     const next = new Map<string, State>();
     for (const state of queue.values()) {
       for (const n of state.evolve(board, forecast)) {
-        if (!next.has(n.key)) {
-          next.set(n.key, n);
-        }
+        next.getOrInsert(n.key, n);
         if (n.elf.equals(target)) {
           return n;
         }
